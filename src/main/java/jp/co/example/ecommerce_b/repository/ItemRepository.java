@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.example.ecommerce_b.domain.Item;
 
 /**
- * アイテムを操作する.
+ * 商品を操作する.
  * 
  * @author iidashuhei
  *
@@ -59,7 +59,7 @@ public class ItemRepository {
 	 * 商品詳細検索する.
 	 * 
 	 * @param id ID
-	 * @return 1件の検索結果
+	 * @return 商品1件の検索結果
 	 */
 	public Item load(Integer id) {
 		String sql = "select id,name,description,price_m,price_l,image_path from items where id = :id";
