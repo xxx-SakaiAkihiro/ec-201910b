@@ -1,5 +1,6 @@
 package jp.co.example.ecommerce_b.domain;
 
-public class order_topping {
+public class OrderTopping {
 
+	
 }

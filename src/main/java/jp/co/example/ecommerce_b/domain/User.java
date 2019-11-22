@@ -1,6 +1,6 @@
 package jp.co.example.ecommerce_b.domain;
 
-public class user {
+public class User {
 
 	/* ID */
 	private Integer id;
