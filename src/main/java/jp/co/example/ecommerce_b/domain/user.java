@@ -6,7 +6,7 @@ public class user {
 	private Integer id;
 	/* 名前 */
 	private String name;
-	/* メールアドレス */
+	/* Eメール */
 	private String email;
 	/* パスワード */
 	private String password;
