@@ -1,6 +1,6 @@
 package jp.co.example.ecommerce_b.domain;
 
-public class topping {
+public class Topping {
 
 	/* ID */
 	private Integer id;
