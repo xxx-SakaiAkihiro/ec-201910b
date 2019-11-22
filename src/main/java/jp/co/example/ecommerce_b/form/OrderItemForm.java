@@ -7,12 +7,19 @@ import jp.co.example.ecommerce_b.domain.OrderTopping;
 
 public class OrderItemForm {
 
+	/* ID */
 	private String id;
+	/* ItemID */
 	private String itemId;
+	/* OrderID */
 	private String orderId;
+	/* 数量 */
 	private String quantity;
+	/* サイズ */
 	private Character size;
+	/* 商品 */
 	private Item item;
+	/* 注文商品リスト */
 	private List<OrderTopping> orderToppingList;
 
 	@Override
