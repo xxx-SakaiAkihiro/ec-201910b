@@ -11,6 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_b.domain.Item;
 
+/**
+ * アイテムを操作する.
+ * 
+ * @author iidashuhei
+ *
+ */
 @Repository
 public class ItemRepository {
 
@@ -28,9 +34,37 @@ public class ItemRepository {
 //		item.getToppingList(rs.getst)
 		return item;
 	};
+	/**
+	 * 商品一覧を表示する.
+	 * 
+	 * @return 商品一覧
+	 */
 	public List<Item> findAll(){
 		String sql = "select id,name,description,price_m,price_l,image_path from items";
 		SqlParameterSource param = new MapSqlParameterSource();
 		return template.query(sql, param, ITEM_ROW_MAPPER);
 	}
+	/**
+	 * 商品を曖昧検索する.
+	 * 
+	 * @param name 商品の名前
+	 * @return 曖昧検索の結果
+	 */
+	public List<Item> findByName(String name){
+		String sql = "select id,name,description,price_m,price_l,image_path from items where name like :name";
+		SqlParameterSource param = new MapSqlParameterSource().addValue(name, '%' + name + '%');
+		return template.query(sql, param, ITEM_ROW_MAPPER);
+	}
+	/**
+	 * 商品詳細検索する.
+	 * 
+	 * @param id ID
+	 * @return 1件の検索結果
+	 */
+	public Item load(Integer id) {
+		String sql = "select id,name,description,price_m,price_l,image_path from items where id = :id";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		return template.queryForObject(sql, param, ITEM_ROW_MAPPER);
+	}
+	
 }
