@@ -23,9 +23,8 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", name=" + name + ", description=" + description + ", price_m=" + priceM
-				+ ", price_l=" + priceL + ", image_path=" + image_path + ", deleted=" + deleted + ", toppingList="
-				+ toppingList + "]";
+		return "Item [id=" + id + ", name=" + name + ", description=" + description + ", priceM=" + priceM + ", priceL="
+				+ priceL + ", image_path=" + image_path + ", deleted=" + deleted + ", toppingList=" + toppingList + "]";
 	}
 
 	/**
@@ -71,31 +70,31 @@ public class Item {
 	}
 
 	/**
-	 * @return the price_m
+	 * @return the priceM
 	 */
-	public Integer getPrice_m() {
+	public Integer getPriceM() {
 		return priceM;
 	}
 
 	/**
-	 * @param price_m the price_m to set
+	 * @param priceM the priceM to set
 	 */
-	public void setPrice_m(Integer price_m) {
-		this.priceM = price_m;
+	public void setPriceM(Integer priceM) {
+		this.priceM = priceM;
 	}
 
 	/**
-	 * @return the price_l
+	 * @return the priceL
 	 */
-	public Integer getPrice_l() {
+	public Integer getPriceL() {
 		return priceL;
 	}
 
 	/**
-	 * @param price_l the price_l to set
+	 * @param priceL the priceL to set
 	 */
-	public void setPrice_l(Integer price_l) {
-		this.priceL = price_l;
+	public void setPriceL(Integer priceL) {
+		this.priceL = priceL;
 	}
 
 	/**

@@ -18,7 +18,7 @@ public class OrderItem {
 	}
 	
 	public int getSubTotalM() {
-		return ( item.getPrice_m() + orderToppingList. ) * quantity;
+		return ( item.
 	}
 	
 	public int getSubTotalL() {
