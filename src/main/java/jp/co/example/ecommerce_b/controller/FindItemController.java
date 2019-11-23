@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.example.ecommerce_b.domain.Item;
 import jp.co.example.ecommerce_b.service.ItemService;
 
+/**
+ * 商品検索するコントローラー.
+ * 
+ * @author iidashuhei
+ *
+ */
 @Controller
 @RequestMapping("/find")
 public class FindItemController {
