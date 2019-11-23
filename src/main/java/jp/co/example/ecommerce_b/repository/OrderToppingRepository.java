@@ -19,7 +19,7 @@ import jp.co.example.ecommerce_b.domain.OrderTopping;
 public class OrderToppingRepository {
 	
 	@Autowired
-	public NamedParameterJdbcTemplate template;
+	private NamedParameterJdbcTemplate template;
 	
 //	private static final RowMapper<OrderTopping>ORDERTOPPING_ROW_MAPPING = (rs,i) -> {
 //		OrderTopping orderTopping = new OrderTopping();

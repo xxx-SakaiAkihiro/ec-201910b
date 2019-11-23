@@ -6,28 +6,17 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import jp.co.example.ecommerce_b.domain.OrderItem;
-
-/**
- * 商品を注文するリポジトリ.
- * 
- * @author iidashuhei
- *
- */
 @Repository
-public class OrderItemRepository {
+public class OrderRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
-	/**
-	 * 商品を挿入する.
-	 * 
-	 * @param orderItem 注文された商品
-	 */
-	public void insert(OrderItem orderItem) {
-		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
-		String sql = "insert into order_items(id,item_id,order_id,quantity,size)values(:id,:itemId,:orderId,:quantity,:size)";
+	public void insertOrder(Order order) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
+		String sql = "insert into orders(id,user_id,status,total_price,order_date,"
+				+ "destination_name,destination_email,destination_zipcode,"
+				+ "destination_address,destination_tel,delivery_time,payment_method)";
 		template.update(sql, param);
 	}
 }
