@@ -31,7 +31,6 @@ public class ItemRepository {
 		item.setPriceM(rs.getInt("priceM"));
 		item.setPriceL(rs.getInt("priceL"));
 		item.setImage_path(rs.getString("imagePath"));
-//		item.getToppingList(rs.getst)
 		return item;
 	};
 	/**
