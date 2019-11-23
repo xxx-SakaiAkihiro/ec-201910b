@@ -9,6 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_b.domain.OrderTopping;
 
+/**
+ * トッピングを注文するリポジトリ.
+ * 
+ * @author iidashuhei
+ *
+ */
 @Repository
 public class OrderToppingRepository {
 	
@@ -23,6 +29,11 @@ public class OrderToppingRepository {
 //		return orderTopping;
 //	};
 
+	/**
+	 * トッピングを挿入する.
+	 * 
+	 * @param orderTopping 注文したトッピング
+	 */
 	public void insert(OrderTopping orderTopping) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderTopping);
 		String sql = "insert into order_toppings(id,topping_id,order_item_id)values(:id,:toppingId,:orderItemId)";
