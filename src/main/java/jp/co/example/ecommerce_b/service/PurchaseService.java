@@ -24,7 +24,7 @@ public class PurchaseService {
 	 * 
 	 * @param order 注文した商品
 	 */
-	public void inserOrder(Order order) {
+	public void insertOrder(Order order) {
 		repository.insert(order);
 	}
 }

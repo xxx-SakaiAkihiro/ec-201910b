@@ -44,6 +44,7 @@ public class AddItemsController {
 		orderItem.setOrderId((Integer.parseInt(orderItemForm.getOrderId())));
 		orderItem.setQuantity((Integer.parseInt(orderItemForm.getQuantity())));
 		session.setAttribute("orderItem", orderItem);
+		service.insertOrderItem(orderItem);
 		return "item_detail";
 	}
 	/**
@@ -59,6 +60,7 @@ public class AddItemsController {
 		orderTopping.setId((Integer.parseInt(orderToppingForm.getId())));
 		orderTopping.setToppingId((Integer.parseInt(orderToppingForm.getToppingId())));
 		orderTopping.setOrderItemId((Integer.parseInt(orderToppingForm.getOrderItemId())));
+		service.insertOrderTopping(orderTopping);
 		return "item_detail";
 	}
 }
