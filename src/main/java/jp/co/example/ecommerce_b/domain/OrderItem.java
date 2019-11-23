@@ -17,8 +17,13 @@ public class OrderItem {
 				+ ", size=" + size + ", item=" + item + ", orderToppingList=" + orderToppingList + "]";
 	}
 	
-	public int getSubTotal() {
-		return
+	public int getSubTotalM() {
+		return ( item.getPrice_m() + orderToppingList. ) * quantity;
+	}
+	
+	public int getSubTotalL() {
+		return ( item.getPrice_l() + orderToppingList.size() ) * quantity;
+		
 	}
 
 	/**
