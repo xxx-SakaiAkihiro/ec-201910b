@@ -3,12 +3,20 @@ package jp.co.example.ecommerce_b.domain;
 import java.util.List;
 
 public class OrderItem {
+	
+	/* ID */
 	private Integer id;
+	/* ItemID */
 	private Integer itemId;
+	/* OrderID */
 	private Integer orderId;
+	/* 数量 */
 	private Integer quantity;
+	/* サイズ */
 	private Character size;
+	/* 商品 */
 	private Item item;
+	/* 注文トッピングリスト */
 	private List<OrderTopping> orderToppingList;
 
 	@Override
@@ -17,13 +25,31 @@ public class OrderItem {
 				+ ", size=" + size + ", item=" + item + ", orderToppingList=" + orderToppingList + "]";
 	}
 	
+	/**
+	 * Mサイズを選んだ際の小計を表す.
+	 * 
+	 * @return Mサイズを選んだ際の小計
+	 */
 	public int getSubTotalM() {
-		return ( item.
+		int totalToppingPrice = 0;
+		for( OrderTopping toppings : orderToppingList ) {
+			Topping topping = toppings.getTopping();
+			totalToppingPrice = totalToppingPrice + topping.getPriceM();
+		}
+		return ( item.getPriceM() + totalToppingPrice ) * quantity;
 	}
-	
+	/**
+	 * Lサイズを選んだ際の小計を表す.
+	 * 
+	 * @return Lサイズを選んだ際の小計
+	 */
 	public int getSubTotalL() {
-		return ( item.getPrice_l() + orderToppingList.size() ) * quantity;
-		
+		int totalToppingPrice = 0;
+		for( OrderTopping toppings : orderToppingList ) {
+			Topping topping = toppings.getTopping();
+			totalToppingPrice = totalToppingPrice + topping.getPriceL();
+		}
+		return ( item.getPriceL() + totalToppingPrice ) * quantity;
 	}
 
 	/**
