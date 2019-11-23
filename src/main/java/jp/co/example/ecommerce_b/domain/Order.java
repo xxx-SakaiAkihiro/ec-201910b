@@ -44,11 +44,24 @@ public class Order {
 				+ ", paymentMethod=" + paymentMethod + ", user=" + user + ", orderItemList=" + orderItemList + "]";
 	}
 	
-	public int getTax() {
-		return tax;
+	public int getTaxM() {
+//		OrderItem orderItem = new OrderItem();
+//		int taxM = (int)( orderItem.getSubTotalM() * 0.1 );
+		
+		int totalTaxM = 0;
+		for( OrderItem orderItems : orderItemList ) {
+			orderItems.getSubTotalM()
+		}
+		
 	}
-	public int getCalcTotalPrice() {
-		return calcTotalPrice;
+	public int getTaxL() {
+		
+	}
+	public int getCalcTotalPriceM() {
+		
+	}
+	public int getCalcTotalPriceL() {
+		
 	}
 
 	/**

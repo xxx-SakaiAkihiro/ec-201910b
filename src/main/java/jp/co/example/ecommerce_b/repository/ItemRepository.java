@@ -28,8 +28,8 @@ public class ItemRepository {
 		item.setId(rs.getInt("id"));
 		item.setName(rs.getString("name"));
 		item.setDescription(rs.getString("description"));
-		item.setPrice_m(rs.getInt("priceM"));
-		item.setPrice_l(rs.getInt("priceL"));
+		item.setPriceM(rs.getInt("priceM"));
+		item.setPriceL(rs.getInt("priceL"));
 		item.setImage_path(rs.getString("imagePath"));
 //		item.getToppingList(rs.getst)
 		return item;
