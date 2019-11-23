@@ -2,6 +2,12 @@ package jp.co.example.ecommerce_b.form;
 
 import jp.co.example.ecommerce_b.domain.Topping;
 
+/**
+ * トッピングを追加する際に使用するフォーム.
+ * 
+ * @author iidashuhei
+ *
+ */
 public class OrderToppingForm {
 
 	/* ID */

@@ -8,9 +8,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_b.domain.OrderItem;
+import jp.co.example.ecommerce_b.domain.OrderTopping;
 import jp.co.example.ecommerce_b.form.OrderItemForm;
+import jp.co.example.ecommerce_b.form.OrderToppingForm;
 import jp.co.example.ecommerce_b.service.AddItemsService;
 
+/**
+ * 商品を追加するコントローラー.
+ * 
+ * @author iidashuhei
+ *
+ */
 @Controller
 @RequestMapping("/add")
 public class AddItemsController {
@@ -21,6 +29,12 @@ public class AddItemsController {
 	@Autowired
 	public AddItemsService service;
 	
+	/**
+	 * 商品を追加する.
+	 * 
+	 * @param orderItemForm 商品注文フォーム
+	 * @return 商品詳細画面
+	 */
 	@RequestMapping("/addItems")
 	public String addItems(OrderItemForm orderItemForm) {
 		OrderItem orderItem = new OrderItem();
@@ -32,9 +46,19 @@ public class AddItemsController {
 		session.setAttribute("orderItem", orderItem);
 		return "item_detail";
 	}
-	@RequestMapping("/")
+	/**
+	 * トッピングを追加する.
+	 * 
+	 * @param orderToppingForm トッピング注文フォーム
+	 * @return 商品詳細画面
+	 */
+	@RequestMapping("/addToppings")
 	public String addToppings(OrderToppingForm orderToppingForm) {
-		
+		OrderTopping orderTopping = new OrderTopping();
+		BeanUtils.copyProperties(orderToppingForm, orderTopping);
+		orderTopping.setId((Integer.parseInt(orderToppingForm.getId())));
+		orderTopping.setToppingId((Integer.parseInt(orderToppingForm.getToppingId())));
+		orderTopping.setOrderItemId((Integer.parseInt(orderToppingForm.getOrderItemId())));
 		return "item_detail";
 	}
 }

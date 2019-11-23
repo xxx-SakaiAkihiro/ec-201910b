@@ -5,6 +5,12 @@ import java.util.List;
 import jp.co.example.ecommerce_b.domain.Item;
 import jp.co.example.ecommerce_b.domain.OrderTopping;
 
+/**
+ * 商品を追加する際に使用するフォーム.
+ * 
+ * @author iidashuhei
+ *
+ */
 public class OrderItemForm {
 
 	/* ID */
