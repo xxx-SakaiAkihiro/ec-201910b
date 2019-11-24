@@ -46,7 +46,7 @@ public class OrderItem {
 		if(item.getPriceL() != null) {
 			return ( item.getPriceM() + totalToppingPriceL ) * quantity;		
 		}
-		return (Integer) null;
+		return 0;
 	}
 	
 	/**
