@@ -45,13 +45,14 @@ public class Order {
 	}
 	
 	public int getTaxM() {
-//		OrderItem orderItem = new OrderItem();
-//		int taxM = (int)( orderItem.getSubTotalM() * 0.1 );
+		OrderItem orderItem = new OrderItem();
+		int taxM = (int)( orderItem.getSubTotalM() * 0.1 );
+		return taxM;
 		
-		int totalTaxM = 0;
-		for( OrderItem orderItems : orderItemList ) {
-			orderItems.getSubTotalM()
-		}
+//		int totalTaxM = 0;
+//		for( OrderItem orderItems : orderItemList ) {
+//			orderItems.getSubTotalM()
+//		}
 		
 	}
 	public int getTaxL() {

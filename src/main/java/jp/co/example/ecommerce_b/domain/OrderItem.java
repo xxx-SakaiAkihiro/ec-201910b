@@ -28,6 +28,8 @@ public class OrderItem {
 	/**
 	 * Mサイズを選んだ際の小計を表す.
 	 * 
+	 * MサイズとLサイズの小計を一緒にしたい
+	 * 
 	 * @return Mサイズを選んだ際の小計
 	 */
 	public int getSubTotalM() {

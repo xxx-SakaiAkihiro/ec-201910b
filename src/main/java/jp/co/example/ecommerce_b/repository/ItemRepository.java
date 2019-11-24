@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.example.ecommerce_b.domain.Item;
 
 /**
- * 商品を操作する.
+ * 商品を操作するリポジトリ.
  * 
  * @author iidashuhei
  *
@@ -30,7 +30,7 @@ public class ItemRepository {
 		item.setDescription(rs.getString("description"));
 		item.setPriceM(rs.getInt("priceM"));
 		item.setPriceL(rs.getInt("priceL"));
-		item.setImage_path(rs.getString("imagePath"));
+		item.setImagePath(rs.getString("imagePath"));
 		return item;
 	};
 	/**
