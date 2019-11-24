@@ -32,27 +32,36 @@ public class OrderItem {
 	 * 
 	 * @return Mサイズを選んだ際の小計
 	 */
-	public int getSubTotalM() {
-		int totalToppingPrice = 0;
+	public int getSubTotal() {
+		int totalToppingPriceM = 0;
+		int totalToppingPriceL = 0;
 		for( OrderTopping toppings : orderToppingList ) {
 			Topping topping = toppings.getTopping();
-			totalToppingPrice = totalToppingPrice + topping.getPriceM();
+			totalToppingPriceM = totalToppingPriceM + topping.getPriceM();
+			totalToppingPriceL = totalToppingPriceL + topping.getPriceL();
 		}
-		return ( item.getPriceM() + totalToppingPrice ) * quantity;
+		if(item.getPriceM() != null) {
+			return ( item.getPriceM() + totalToppingPriceM ) * quantity;			
+		} 
+		if(item.getPriceL() != null) {
+			return ( item.getPriceM() + totalToppingPriceL ) * quantity;		
+		}
+		return (Integer) null;
 	}
+	
 	/**
 	 * Lサイズを選んだ際の小計を表す.
 	 * 
 	 * @return Lサイズを選んだ際の小計
 	 */
-	public int getSubTotalL() {
-		int totalToppingPrice = 0;
-		for( OrderTopping toppings : orderToppingList ) {
-			Topping topping = toppings.getTopping();
-			totalToppingPrice = totalToppingPrice + topping.getPriceL();
-		}
-		return ( item.getPriceL() + totalToppingPrice ) * quantity;
-	}
+//	public int getSubTotalL() {
+//		int totalToppingPrice = 0;
+//		for( OrderTopping toppings : orderToppingList ) {
+//			Topping topping = toppings.getTopping();
+//			totalToppingPrice = totalToppingPrice + topping.getPriceL();
+//		}
+//		return ( item.getPriceL() + totalToppingPrice ) * quantity;
+//	}
 
 	/**
 	 * @return the id
