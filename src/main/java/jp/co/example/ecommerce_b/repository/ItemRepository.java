@@ -42,7 +42,9 @@ public class ItemRepository {
 	public List<Item> findAll(){
 		String sql = "select id,name,description,price_m,price_l,image_path from items";
 		SqlParameterSource param = new MapSqlParameterSource();
-		return template.query(sql, param, ITEM_ROW_MAPPER);
+		List<Item> ItemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		System.out.println(ItemList);
+		return ItemList;
 	}
 	/**
 	 * 商品を曖昧検索する.
