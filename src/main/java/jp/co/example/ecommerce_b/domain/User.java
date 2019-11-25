@@ -1,5 +1,11 @@
 package jp.co.example.ecommerce_b.domain;
 
+/**
+ * ユーザ情報を表すドメイン.
+ * 
+ * @author sakai
+ *
+ */
 public class User {
 
 	/* ID */

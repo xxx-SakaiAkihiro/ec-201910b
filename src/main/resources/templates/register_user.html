@@ -48,51 +48,51 @@
 			<div
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 				<div class="well">
-					<form method="post" action="item_list.html">
+					<form method="post" action="item_list.html"  th:action="@{/toInsert/insert}" th:object="${registerUserForm}">
 						<fieldset>
 							<legend>ユーザ登録</legend>
 							<div class="form-group">
-								<label for="inputName">名前:</label><label class="control-label"
+								<label for="inputName">名前:</label><label class="control-label" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
 									style="color: red" for="inputError">名前を入力してください</label> <input
 									type="text" id="inputName" class="form-control"
-									placeholder="Name">
+									th:field="*{name}" placeholder="Name">
 							</div>
 							<div class="form-group">
 								<label for="inputEmail">メールアドレス:</label><label
-									class="control-label" style="color: red" for="inputError">メールアドレスを入力してください</label>
+									class="control-label" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red" for="inputError">メールアドレスを入力してください</label>
 								<input type="text" id="inputEmail" class="form-control"
-									placeholder="Email">
+									th:field="*{email}" placeholder="Email">
 							</div>
 							<div class="form-group">
 								<label for="inputZipcode">郵便番号:</label> <label
-									class="control-label" style="color: red" for="inputError">郵便番号を入力してください</label>
+									class="control-label" th:if="${#fields.hasErrors('zipcode')}" th:errors="*{zipcode}" style="color: red" for="inputError">郵便番号を入力してください</label>
 								<input type="button" value="住所検索"> <input type="text"
-									id="inputZipcode" class="form-control" placeholder="Zipcode">
+									id="inputZipcode" class="form-control" th:field="*{zipcode}" placeholder="Zipcode">
 
 							</div>
 							<div class="form-group">
 								<label for="inputAddress">住所:</label> <label
-									class="control-label" style="color: red" for="inputError">住所を入力してください</label>
+									class="control-label" th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color: red" for="inputError">住所を入力してください</label>
 								<input type="text" id="inputAddress" class="form-control"
-									placeholder="Address">
+									th:field="*{address}" placeholder="Address">
 							</div>
 							<div class="form-group">
-								<label for="inputTel">電話番号:</label> <label class="control-label"
+								<label for="inputTel">電話番号:</label> <label class="control-label" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" 
 									style="color: red" for="inputError">電話番号を入力してください</label> <input
 									type="text" id="inputTel" class="form-control"
-									placeholder="Tel">
+									th:field="*{telephone}" placeholder="Tel">
 							</div>
 							<div class="form-group">
 								<label for="inputPassword">パスワード:</label> <label
-									class="control-label" style="color: red" for="inputError">パスワードを入力してください</label>
+									class="control-label" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red" for="inputError">パスワードを入力してください</label>
 								<input type="text" id="inputPassword" class="form-control"
-									placeholder="Password">
+									th:field="*{password}" placeholder="Password">
 							</div>
 							<div class="form-group">
 								<label for="inputConfirmationPassword">確認用パスワード:</label> <label
-									class="control-label" style="color: red" for="inputError">確認用パスワードを入力してください</label>
+									class="control-label" th:if="${#fields.hasErrors('confirmationPassword')}" th:errors="*{confirmationPassword}" style="color: red" for="inputError">確認用パスワードを入力してください</label>
 								<input type="text" id="inputConfirmationPassword"
-									class="form-control" placeholder="Confirmation Password">
+									class="form-control" th:field="*{confirmationPassword}" placeholder="Confirmation Password">
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary">登録</button>
