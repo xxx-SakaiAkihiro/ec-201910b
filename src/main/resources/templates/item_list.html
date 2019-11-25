@@ -83,9 +83,9 @@
 					
 						<tr th:each="item : ${allItemList}">
 
-							<th><a href="item_detail.html">
+							<th><a th:href="@{/ShowItemDetai}" th:value="${item.id}">
 							<img th:src="${'/img_toy/' + item.imagePath}" class="img-responsive img-rounded" width="200" height="600"></a><br> 
-							<a href="item_detail.html"><span th:text="${item.name}"></span></a><br> 
+							<a th:href="@{/ShowItemDetai}" th:value="${item.id}"><span th:text="${item.name}"></span></a><br> 
 							<span class="price">&nbsp;М&nbsp;</span>
 							<span th:text=${item.priceM}></span>&nbsp;&nbsp;円(税抜)<br>
 							<span class="price">&nbsp;Ｌ</span>
