@@ -15,7 +15,7 @@ public class Item {
 	/* Lの価格 */
 	private Integer priceL;
 	/* 画像パス */
-	private String image_path;
+	private String imagePath;
 	/* 削除パス */
 	private Boolean deleted;
 	/* トッピングリスト */
@@ -24,7 +24,7 @@ public class Item {
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", description=" + description + ", priceM=" + priceM + ", priceL="
-				+ priceL + ", image_path=" + image_path + ", deleted=" + deleted + ", toppingList=" + toppingList + "]";
+				+ priceL + ", imagePath=" + imagePath + ", deleted=" + deleted + ", toppingList=" + toppingList + "]";
 	}
 
 	/**
@@ -100,15 +100,15 @@ public class Item {
 	/**
 	 * @return the image_path
 	 */
-	public String getImage_path() {
-		return image_path;
+	public String getImagePath() {
+		return imagePath;
 	}
 
 	/**
 	 * @param image_path the image_path to set
 	 */
-	public void setImage_path(String image_path) {
-		this.image_path = image_path;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	/**
