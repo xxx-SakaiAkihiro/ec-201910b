@@ -29,4 +29,15 @@ public class RegisterUserService {
 		userRepository.insert(user);
 	}
 	
+	/**
+	 * メールアドレスからユーザ情報を取得する.
+	 * 
+	 * @param email メールアドレス
+	 * @return ユーザ情報
+	 */
+	public User findByEmail(String email) {
+		User userEmail = userRepository.findByEmail(email);
+		return userEmail;
+	}
+	
 }
