@@ -18,7 +18,7 @@ import jp.co.example.ecommerce_b.repository.ToppingRepository;
  */
 @Service
 @Transactional
-public class ItemDetailService {
+public class ShowItemDetailService {
 
 	@Autowired
 	private ItemRepository itemRepository;
@@ -32,7 +32,7 @@ public class ItemDetailService {
 	 * @param id ID
 	 * @return 商品1件の検索結果
 	 */
-	public Item load(Integer id) {
+	public Item showItemDetail(Integer id) {
 		Item item = itemRepository.load(id);
 		List<Topping> toppingList = toppingRepository.findAll();
 		item.setToppingList(toppingList);

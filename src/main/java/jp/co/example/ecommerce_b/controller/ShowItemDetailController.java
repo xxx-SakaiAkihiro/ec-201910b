@@ -3,8 +3,10 @@ package jp.co.example.ecommerce_b.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import jp.co.example.ecommerce_b.service.ItemDetailService;
+import jp.co.example.ecommerce_b.domain.Item;
+import jp.co.example.ecommerce_b.service.ShowItemDetailService;
 
 /**
  * @author riho.ikeda
@@ -12,10 +14,11 @@ import jp.co.example.ecommerce_b.service.ItemDetailService;
  *商品詳細を表示するコントローラ.
  */
 @Controller
+@RequestMapping("/ShowItemDetai")
 public class ShowItemDetailController {
 
 	@Autowired
-	private ItemDetailService itemDetailService;
+	private ShowItemDetailService showitemDetailService;
 
 	/**
 	 * 商品詳細を表示する.
@@ -23,8 +26,10 @@ public class ShowItemDetailController {
 	 * @param id ID
 	 * @return 商品1件の検索結果
 	 */
+	@RequestMapping("")
 	public String showItemDetail(String id, Model model) {
-		itemDetailService.load(Integer.parseInt(id));
+		Item item = showitemDetailService.showItemDetail(Integer.parseInt(id));
+		model.addAttribute("item",item);
 		return "item_detail";
 
 	}
