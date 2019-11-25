@@ -12,16 +12,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import jp.co.example.ecommerce_b.domain.User;
+import jp.co.example.ecommerce_b.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Autowired
-	private UserRepository UserRepository;
+	private UserRepository userRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
-		User user = user.findByMailAddress(email);
+		User user = userRepository.findByMailAddress(email);
 		if(user == null) {
 			throw new UsernameNotFoundException("そのメールアドレスは登録されていません。");
 		}
