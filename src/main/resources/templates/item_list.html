@@ -28,7 +28,7 @@
 							class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="item_list.html"> <!-- 企業ロゴ --> <img
-						alt="main log" src="img/header_logo.png" height="35">
+						alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
 					</a>
 				</div>
 
@@ -56,12 +56,12 @@
 						<div class="panel-title">商品を検索する</div>
 					</div>
 					<div class="panel-body">
-						<form method="post" action="#" class="form-horizontal">
+						<form method="post" th:action="@{/showItem/showItemList}" class="form-horizontal">
 							<div class="form-group">
 								<label for="code" class="control-label col-sm-2">商品名</label>
 								<div class="col-sm-9">
-									<input type="text" name="code" id="code"
-										class="form-control input-sm" />
+									<input type="text" name="name" id="code"
+										class="form-control input-sm" /><span th:text="${message}"></span>
 								</div>
 							</div>
 							<div class="text-center">
@@ -81,7 +81,7 @@
 				<table class="table table-striped">
 					<tbody>
 					
-						<tr th:each="item : ${allItemList}">
+						<tr th:each="item : ${itemList}">
 
 							<th><a href="item_detail.html">
 							<img th:src="${'/img_toy/' + item.imagePath}" class="img-responsive img-rounded" width="200" height="600"></a><br> 
