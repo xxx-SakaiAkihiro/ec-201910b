@@ -39,14 +39,6 @@ public class ItemService {
 	public List<Item> findByName(String name){
 		return repository.findByName(name);
 	}
-	/**
-	 * 商品詳細検索する.
-	 * 
-	 * @param id ID
-	 * @return 商品1件の検索結果
-	 */
-	public Item load(Integer id) {
-		return repository.load(id);
-	}
+	
 	
 }

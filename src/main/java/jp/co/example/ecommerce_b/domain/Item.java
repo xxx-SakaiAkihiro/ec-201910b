@@ -21,10 +21,15 @@ public class Item {
 	/* トッピングリスト */
 	private List<Topping> toppingList;
 
+	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", description=" + description + ", priceM=" + priceM + ", priceL="
-				+ priceL + ", image_path=" + imagePath + ", deleted=" + deleted + ", toppingList=" + toppingList + "]";
+				+ priceL + ", imagePath=" + imagePath + ", deleted=" + deleted + ", toppingList=" + toppingList + "]";
 	}
 
 	/**

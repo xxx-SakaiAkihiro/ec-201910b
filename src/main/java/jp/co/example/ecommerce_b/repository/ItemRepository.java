@@ -28,9 +28,10 @@ public class ItemRepository {
 		item.setId(rs.getInt("id"));
 		item.setName(rs.getString("name"));
 		item.setDescription(rs.getString("description"));
-		item.setPriceM(rs.getInt("priceM"));
-		item.setPriceL(rs.getInt("priceL"));
-		item.setImagePath(rs.getString("imagePath"));
+		item.setPriceM(rs.getInt("price_m"));
+		item.setPriceL(rs.getInt("price_l"));
+		item.setImagePath(rs.getString("image_path"));
+//		item.getToppingList(rs.getst)
 		return item;
 	};
 	/**
@@ -61,7 +62,7 @@ public class ItemRepository {
 	 * @return 商品1件の検索結果
 	 */
 	public Item load(Integer id) {
-		String sql = "select id,name,description,price_m,price_l,image_path from items where id = :id";
+		String sql = "SELECT id,name,description,price_m,price_l,image_path from items where id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		return template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 	}
