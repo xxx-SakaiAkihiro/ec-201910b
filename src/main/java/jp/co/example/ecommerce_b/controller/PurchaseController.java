@@ -18,7 +18,7 @@ import jp.co.example.ecommerce_b.service.PurchaseService;
  *
  */
 @Controller
-@RequestMapping("/purchaseController")
+@RequestMapping("/purchase")
 public class PurchaseController {
 
 	@Autowired
@@ -33,7 +33,7 @@ public class PurchaseController {
 	 * @param orderForm 注文フォーム
 	 * @return 注文完了画面
 	 */
-	@RequestMapping("/purchase")
+	@RequestMapping("")
 	public String purchase(OrderForm orderForm) {
 		Order order = new Order();
 		BeanUtils.copyProperties(orderForm, order);

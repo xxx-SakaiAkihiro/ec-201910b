@@ -13,6 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+/**
+ * ログイン認証用の設定.
+ * @author taro
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigure extends WebSecurityConfigurerAdapter{
@@ -36,7 +41,10 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		//パスの書き方。コントローラのパスとメソッドのパス
-			.antMatchers("/showItem","/show"," ").permitAll()//全てのユーザでアクセス化
+			.antMatchers("/add/**"
+						,"/toInsert/**"
+						,"/showItem/**"
+						,"/ShowItemDetail/**").permitAll()//全てのユーザでアクセス化
 			.anyRequest().authenticated();//それ以外のパスは認証必須
 		
 		http.formLogin()//ログインに関する設定

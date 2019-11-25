@@ -11,12 +11,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import jp.co.example.ecommerce_b.domain.LoginUser;
 import jp.co.example.ecommerce_b.domain.User;
 import jp.co.example.ecommerce_b.repository.UserRepository;
 
+/**
+ * ログイン後のユーザーに権限情報を付与するためのサービスクラス.
+ * @author taro
+ *
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
+	/**
+	 * DBから情報を得るためのリポジトリ
+	 */
 	@Autowired
 	private UserRepository userRepository;
 	
