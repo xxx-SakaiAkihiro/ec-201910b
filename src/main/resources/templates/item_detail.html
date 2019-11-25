@@ -28,7 +28,7 @@
 							class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="item_list.html"> <!-- 企業ロゴ --> <img
-						alt="main log" src="img/header_logo.png" height="35">
+						alt="main log" th:src="@{img_toy/header_logo.png}"  height="35">
 					</a>
 				</div>
 
@@ -55,14 +55,14 @@
 				<h3 class="text-center">商品詳細</h3>
 				<div class="row">
 					<div class="col-xs-5">
-						<img th:src="${item.imagePath}" class="img-responsive img-rounded">
+						<img th:src="${'/img_toy/' +item.imagePath}" class="img-responsive img-rounded">
 					</div>
 
 					<div class="col-xs-5">
 						<div class="bs-component">
 							<h4 th:text="${item.name}">じゃがバターベーコン</h4>
 							<br> <br>
-							<p th:text="${item.description}">マイルドな味付けのカレーに大きくカットしたポテトをのせた、バターとチーズの風味が食欲をそそるお子様でも楽しめる商品です。</p>
+							<pre th:text="${item.description}">マイルドな味付けのカレーに大きくカットしたポテトをのせた、バターとチーズの風味が食欲をそそるお子様でも楽しめる商品です。</pre>
 						</div>
 					</div>
 				</div>
@@ -98,7 +98,7 @@
 								</div>
 								<div class="col-sm-12" th:each="topping:${item.toppingList}">
 									<label class="checkbox-inline"> <input type="checkbox"
-										th:value="${topping.id}" th:text="${topping.name}">オニオン
+										th:value="${topping.id}" th:text="${topping.name}">
 									</label>
 								</div>
 							</div>
@@ -138,7 +138,7 @@
 			<div class="row">
 				<div class="col-xs-offset-2 col-xs-10">
 					<div class="form-group">
-						<span id="total-price">この商品金額：38,000 円(税抜)</span>
+					<!-- 	<span id="total-price">この商品金額：38,000 円(税抜)</span> -->
 					</div>
 				</div>
 			</div>

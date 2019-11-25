@@ -29,8 +29,8 @@ public class ToppingRepository {
 		Topping topping = new Topping();
 		topping.setId(rs.getInt("id"));
 		topping.setName(rs.getString("name"));
-		topping.setPriceM(rs.getInt("pricegetint_m"));
-		topping.setPriceL(rs.getInt("pricegetint_l"));
+		topping.setPriceM(rs.getInt("price_m"));
+		topping.setPriceL(rs.getInt("price_l"));
 
 		return topping;
 	};
@@ -42,7 +42,7 @@ public class ToppingRepository {
 	 * @return トッピング情報
 	 */
 	public List<Topping> findAll() {
-		String sql = "SELECT id,name,pricegetint_m,pricegetint_l FROM toppings  ORDER BY id ;";
+		String sql = "SELECT id,name,price_m,price_l FROM toppings  ORDER BY id ;";
 		List<Topping> toppingtList = template.query(sql, TOPPING_ROW_MAPPER);
 		return toppingtList;
 
