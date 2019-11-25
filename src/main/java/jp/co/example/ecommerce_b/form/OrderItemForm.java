@@ -2,7 +2,6 @@ package jp.co.example.ecommerce_b.form;
 
 import java.util.List;
 
-import jp.co.example.ecommerce_b.domain.Item;
 import jp.co.example.ecommerce_b.domain.OrderTopping;
 
 /**
@@ -13,39 +12,19 @@ import jp.co.example.ecommerce_b.domain.OrderTopping;
  */
 public class OrderItemForm {
 
-	/* ID */
-	private String id;
 	/* ItemID */
 	private String itemId;
-	/* OrderID */
-	private String orderId;
 	/* 数量 */
 	private String quantity;
 	/* サイズ */
 	private Character size;
-	/* 商品 */
-	private Item item;
 	/* 注文商品リスト */
 	private List<OrderTopping> orderToppingList;
 
 	@Override
 	public String toString() {
-		return "OrderItemForm [id=" + id + ", itemId=" + itemId + ", orderId=" + orderId + ", quantity=" + quantity
-				+ ", size=" + size + ", item=" + item + ", orderToppingList=" + orderToppingList + "]";
-	}
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
+		return "OrderItemForm [itemId=" + itemId + ", quantity=" + quantity + ", size=" + size + ", orderToppingList="
+				+ orderToppingList + "]";
 	}
 
 	/**
@@ -60,20 +39,6 @@ public class OrderItemForm {
 	 */
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
-	}
-
-	/**
-	 * @return the orderId
-	 */
-	public String getOrderId() {
-		return orderId;
-	}
-
-	/**
-	 * @param orderId the orderId to set
-	 */
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
 	}
 
 	/**
@@ -102,20 +67,6 @@ public class OrderItemForm {
 	 */
 	public void setSize(Character size) {
 		this.size = size;
-	}
-
-	/**
-	 * @return the item
-	 */
-	public Item getItem() {
-		return item;
-	}
-
-	/**
-	 * @param item the item to set
-	 */
-	public void setItem(Item item) {
-		this.item = item;
 	}
 
 	/**

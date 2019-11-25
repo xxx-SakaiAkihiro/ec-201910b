@@ -33,16 +33,14 @@ public class AddItemsController {
 	 * @param orderItemForm 商品注文フォーム
 	 * @return 商品詳細画面
 	 */
-	@RequestMapping("/addItems")
-	public String addItems(OrderItemForm orderItemForm) {
+	@RequestMapping("/addItem")
+	public String addItem(OrderItemForm orderItemForm) {
 		OrderItem orderItem = new OrderItem();
 		BeanUtils.copyProperties(orderItemForm, orderItem);
-		orderItem.setId((Integer.parseInt(orderItemForm.getId())));
 		orderItem.setItemId((Integer.parseInt(orderItemForm.getItemId())));
-		orderItem.setOrderId((Integer.parseInt(orderItemForm.getOrderId())));
 		orderItem.setQuantity((Integer.parseInt(orderItemForm.getQuantity())));
 		session.setAttribute("orderItem", orderItem);
 		service.addItem(orderItem);
-		return "item_detail";
+		return "cart_list";
 	}
 }
