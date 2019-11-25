@@ -16,7 +16,7 @@ import jp.co.example.ecommerce_b.domain.User;
  *
  */
 @Repository
-public class RegisterUserRepository {
+public class UserRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
