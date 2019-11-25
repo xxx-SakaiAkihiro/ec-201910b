@@ -40,10 +40,10 @@ public class OrderItem {
 			totalToppingPriceM = totalToppingPriceM + topping.getPriceM();
 			totalToppingPriceL = totalToppingPriceL + topping.getPriceL();
 		}
-		if(item.getPriceM() != null) {
+		if(item.getPriceM() != 0) {
 			return ( item.getPriceM() + totalToppingPriceM ) * quantity;			
 		} 
-		if(item.getPriceL() != null) {
+		if(item.getPriceL() != 0) {
 			return ( item.getPriceM() + totalToppingPriceL ) * quantity;		
 		}
 		return 0;
