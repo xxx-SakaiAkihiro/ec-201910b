@@ -23,22 +23,18 @@ public class ShowItemController {
 	@Autowired
 	private ItemService service;
 	
-	@RequestMapping("")
-	public String index() {
-		return "item_list";
-	}
-	
 	/**
 	 * 商品一覧を表示する.
 	 * 
 	 * @param model モデル
 	 * @return　商品一覧画面
 	 */
-	@RequestMapping("/show")
+	@RequestMapping("")
 	public String showAllItems(Model model) {
 		List<Item> allItemList = service.showAllItems();
+		System.out.println(allItemList);
 		model.addAttribute("allItemList", allItemList);
-		return index();
+		return "item_list";
 	}
 	
 	/**
