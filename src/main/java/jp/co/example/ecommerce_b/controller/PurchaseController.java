@@ -41,8 +41,6 @@ public class PurchaseController {
 		order.setUserId((Integer.parseInt(orderForm.getUserId())));
 		order.setStatus((Integer.parseInt(orderForm.getStatus())));
 		order.setTotalPrice((Integer.parseInt(orderForm.getTotalPrice())));
-//		order.setOrderDate((Integer.parseInt(orderForm.getOrderDate())));
-//		order.setDeliveryTime((Integer.parseInt(orderForm.getDeliveryTime())));
 		order.setPaymentMethod((Integer.parseInt(orderForm.getPaymentMethod())));
 		session.setAttribute("order", order);
 		service.insertOrder(order);
