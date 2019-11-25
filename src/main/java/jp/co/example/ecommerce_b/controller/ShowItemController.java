@@ -31,9 +31,9 @@ public class ShowItemController {
 	 */
 	@RequestMapping("")
 	public String showAllItems(Model model) {
-		List<Item> allItemList = service.showAllItems();
-		System.out.println(allItemList);
-		model.addAttribute("allItemList", allItemList);
+		List<Item> itemList = service.showAllItems();
+		System.out.println(itemList);
+		model.addAttribute("itemList", itemList);
 		return "item_list";
 	}
 	
@@ -46,6 +46,7 @@ public class ShowItemController {
 	 */
 	@RequestMapping("/showItemList")
 	public String showItemListFindByName(String name, Model model) {
+		System.out.println(name);
 		List<Item> itemList = service.showItemListFindByName(name);
 		if(itemList.isEmpty()) {
 			model.addAttribute("message", "該当する商品はありません");
