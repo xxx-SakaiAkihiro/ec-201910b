@@ -32,4 +32,14 @@ public class OrderRepository {
 				+ "destination_address,destination_tel,delivery_time,payment_method)";
 		template.update(sql, param);
 	}
+	/**
+	 * 選択した商品をショッピングカートに入れる
+	 * 
+	 * @param userId UserId
+	 * @param status Status
+	 * @return 
+	 */
+//	public Order findByUserIdAndStatus(Integer userId,Integer status) {
+//		String sql = "select "
+//	}
 }

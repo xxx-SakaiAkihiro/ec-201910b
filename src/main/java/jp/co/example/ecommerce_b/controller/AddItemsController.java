@@ -11,7 +11,7 @@ import jp.co.example.ecommerce_b.domain.OrderItem;
 import jp.co.example.ecommerce_b.domain.OrderTopping;
 import jp.co.example.ecommerce_b.form.OrderItemForm;
 import jp.co.example.ecommerce_b.form.OrderToppingForm;
-import jp.co.example.ecommerce_b.service.AddItemsService;
+import jp.co.example.ecommerce_b.service.AddItemService;
 
 /**
  * 商品を追加するコントローラー.
@@ -27,7 +27,7 @@ public class AddItemsController {
 	private HttpSession session;
 
 	@Autowired
-	public AddItemsService service;
+	public AddItemService service;
 	
 	/**
 	 * 商品を追加する.
