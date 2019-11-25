@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.example.ecommerce_b.domain.OrderItem;
-import jp.co.example.ecommerce_b.domain.OrderTopping;
 import jp.co.example.ecommerce_b.repository.OrderItemRepository;
 import jp.co.example.ecommerce_b.repository.OrderToppingRepository;
 
@@ -31,6 +30,6 @@ public class AddItemService {
 	 * @param orderItem　注文した商品
 	 */
 	public void addItem(OrderItem orderItem) {
-		orderItemRepository.addItem(orderItem);;
+		orderItemRepository.insert(orderItem);;
 	}
 }
