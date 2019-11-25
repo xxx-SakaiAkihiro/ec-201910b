@@ -11,18 +11,36 @@ import jp.co.example.ecommerce_b.domain.Item;
 import jp.co.example.ecommerce_b.service.ItemService;
 
 /**
- * 商品検索するコントローラー.
+ * 商品一覧を表示、検索するコントローラー.
  * 
  * @author iidashuhei
  *
  */
 @Controller
-@RequestMapping("/find")
-public class FindItemController {
+@RequestMapping("/showItem")
+public class ShowItemController {
 	
 	@Autowired
 	private ItemService service;
-
+	
+	@RequestMapping("")
+	public String index() {
+		return "item_list";
+	}
+	
+	/**
+	 * 商品一覧を表示する.
+	 * 
+	 * @param model モデル
+	 * @return　商品一覧画面
+	 */
+	@RequestMapping("/show")
+	public String showAllItems(Model model) {
+		List<Item> allItemList = service.showAllItems();
+		model.addAttribute("allItemList", allItemList);
+		return index();
+	}
+	
 	/**
 	 * 曖昧検索をする.
 	 * 
@@ -30,12 +48,12 @@ public class FindItemController {
 	 * @param model　モデル
 	 * @return　商品画面を表示
 	 */
-	@RequestMapping("/findItem")
-	public String findItem(String name, Model model) {
-		List<Item> itemList = service.findByName(name);
+	@RequestMapping("/showItemList")
+	public String showItemListFindByName(String name, Model model) {
+		List<Item> itemList = service.showItemListFindByName(name);
 		if(itemList.isEmpty()) {
 			model.addAttribute("message", "該当する商品はありません");
-			itemList = service.findAll();
+			itemList = service.showAllItems();
 		}
 		model.addAttribute("itemList", itemList);
 		return "item_list";

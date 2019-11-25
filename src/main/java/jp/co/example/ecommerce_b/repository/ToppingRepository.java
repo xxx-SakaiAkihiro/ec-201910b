@@ -18,6 +18,10 @@ import jp.co.example.ecommerce_b.domain.Topping;
  */
 @Repository
 public class ToppingRepository {
+	
+	@Autowired
+	private NamedParameterJdbcTemplate template;
+	
 	/**
 	 * Toppingオブジェクトを生成するローマッパー.
 	 */
@@ -31,8 +35,6 @@ public class ToppingRepository {
 		return topping;
 	};
 
-	@Autowired
-	private NamedParameterJdbcTemplate template;
 
 	/**
 	 *トッピング情報を取得.

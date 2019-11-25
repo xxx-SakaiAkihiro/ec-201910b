@@ -27,7 +27,7 @@ public class ItemService {
 	 * 
 	 * @return 商品一覧
 	 */
-	public List<Item> findAll(){
+	public List<Item> showAllItems(){
 		return repository.findAll();
 	}
 	/**
@@ -36,7 +36,7 @@ public class ItemService {
 	 * @param name 名前
  	 * @return 曖昧検索結果
 	 */
-	public List<Item> findByName(String name){
+	public List<Item> showItemListFindByName(String name){
 		return repository.findByName(name);
 	}
 	
