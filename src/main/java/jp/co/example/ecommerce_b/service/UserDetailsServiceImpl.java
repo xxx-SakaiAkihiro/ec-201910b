@@ -30,14 +30,17 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	private UserRepository userRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
-		User user = userRepository.findByEmail(email);
+	public UserDetails loadUserByUsername(String mailAddress) throws UsernameNotFoundException{
+		System.out.println(mailAddress);
+		User user = userRepository.findByEmail(mailAddress);
+		System.out.println(user);
 		if(user == null) {
 			throw new UsernameNotFoundException("そのメールアドレスは登録されていません。");
 		}
-		
+		System.out.println(1);
 		Collection<GrantedAuthority> authorityList = new ArrayList<>();
 		authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
+		System.out.println(2);
 		return new LoginUser(user,authorityList);
 	}
 }

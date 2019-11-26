@@ -42,7 +42,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		//パスの書き方。コントローラのパスとメソッドのパス
 			.antMatchers("/login/toLogin"
-					    ,"/login"
+					    ,"/doLogin"
 					    ,"/add/**"
 						,"/toInsert/**"
 						,"/showItem/**"
@@ -52,9 +52,9 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 		http.formLogin()//ログインに関する設定
 			
 			.loginPage("/login/toLogin")//ログイン画面に遷移させるパス
-			.loginProcessingUrl("/login")//ログインhtmlのアクション属性のパスと一致させる.このアクションのボタンが押されたらSecurityがログイン認証を行う
-			.failureUrl("/?error=true")
-			.defaultSuccessUrl("/showOrderItem",true)//認証後第一引数のパスに遷移
+			.loginProcessingUrl("/doLogin")//ログインhtmlのアクション属性のパスと一致させる.このアクションのボタンが押されたらSecurityがログイン認証を行う
+			.failureUrl("/login/toLogin?error=true")
+			.defaultSuccessUrl("/showItem",true)//認証後第一引数のパスに遷移
 			.usernameParameter("mailAddress")
 			.passwordParameter("password");
 		
