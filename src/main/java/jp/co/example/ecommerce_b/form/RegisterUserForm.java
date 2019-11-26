@@ -1,5 +1,6 @@
 package jp.co.example.ecommerce_b.form;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -15,6 +16,7 @@ public class RegisterUserForm {
 	private String name;
 	/* Eメール */
 	@NotBlank(message = "メールアドレスを入力してください")
+	@Email(message = "アドレスが不正です")
 	private String email;
 	/* パスワード */
 	@NotBlank(message = "パスワードを入力してください")

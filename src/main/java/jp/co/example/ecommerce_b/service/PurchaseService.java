@@ -26,6 +26,14 @@ public class PurchaseService {
 	 * @param order 注文した商品
 	 */
 	public void insertOrder(Order order) {
-		repository.insertOrder(order);
+		repository.insert(order);
+	}
+	/**
+	 * 注文を更新する.
+	 * 
+	 * @param order Order
+	 */
+	public void purchase(Order order) {
+		repository.update(order);
 	}
 }

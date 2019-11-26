@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.example.ecommerce_b.domain.OrderItem;
-import jp.co.example.ecommerce_b.domain.OrderTopping;
 import jp.co.example.ecommerce_b.repository.OrderItemRepository;
 import jp.co.example.ecommerce_b.repository.OrderToppingRepository;
 
@@ -17,7 +16,7 @@ import jp.co.example.ecommerce_b.repository.OrderToppingRepository;
  */
 @Service
 @Transactional
-public class AddItemsService {
+public class AddItemService {
 
 	@Autowired
 	public OrderItemRepository orderItemRepository;
@@ -30,16 +29,7 @@ public class AddItemsService {
 	 * 
 	 * @param orderItem　注文した商品
 	 */
-	public void insertOrderItem(OrderItem orderItem) {
+	public void addItem(OrderItem orderItem) {
 		orderItemRepository.insert(orderItem);;
 	}
-	/**
-	 * 注文されたトッピングを挿入する.
-	 * 
-	 * @param orderTopping 注文したトッピング
-	 */
-	public void insertOrderTopping(OrderTopping orderTopping) {
-		orderToppingRepository.insert(orderTopping);
-	}
-	
 }

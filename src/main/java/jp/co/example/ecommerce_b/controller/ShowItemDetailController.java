@@ -14,7 +14,7 @@ import jp.co.example.ecommerce_b.service.ShowItemDetailService;
  *商品詳細を表示するコントローラ.
  */
 @Controller
-@RequestMapping("/ShowItemDetai")
+@RequestMapping("/ShowItemDetail")
 public class ShowItemDetailController {
 
 	@Autowired
@@ -27,8 +27,8 @@ public class ShowItemDetailController {
 	 * @return 商品1件の検索結果
 	 */
 	@RequestMapping("")
-	public String showItemDetail(String id, Model model) {
-		Item item = showitemDetailService.showItemDetail(Integer.parseInt(id));
+	public String showItemDetail(Integer id, Model model) {
+		Item item = showitemDetailService.showItemDetail(id);
 		model.addAttribute("item",item);
 		return "item_detail";
 

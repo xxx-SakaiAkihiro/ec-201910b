@@ -31,7 +31,6 @@ public class ItemRepository {
 		item.setPriceM(rs.getInt("price_m"));
 		item.setPriceL(rs.getInt("price_l"));
 		item.setImagePath(rs.getString("image_path"));
-//		item.getToppingList(rs.getst)
 		return item;
 	};
 	/**
@@ -54,7 +53,7 @@ public class ItemRepository {
 	 */
 	public List<Item> findByName(String name){
 		String sql = "select id,name,description,price_m,price_l,image_path from items where name like :name";
-		SqlParameterSource param = new MapSqlParameterSource().addValue(name, '%' + name + '%');
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", '%' + name + '%');
 		return template.query(sql, param, ITEM_ROW_MAPPER);
 	}
 	/**

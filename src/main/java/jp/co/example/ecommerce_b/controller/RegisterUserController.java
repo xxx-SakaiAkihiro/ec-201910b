@@ -38,11 +38,22 @@ public class RegisterUserController {
 	 */
 	@RequestMapping("/insert")
 	public String insert(@Validated RegisterUserForm registerUserForm, BindingResult result, Model model) {
+		User user = new User();
+
+		// メールアドレスの重複チェック
+		User userEmail = registerUserService.findByEmail(registerUserForm.getEmail());
+		if (userEmail != null) {
+			result.rejectValue("email", "null", "そのメールアドレスはすでに使われています");
+		}
+
+		// パスワードと確認用パスワードのチェック
+		if (!(registerUserForm.getPassword().equals(registerUserForm.getConfirmationPassword()))) {
+			result.rejectValue("confirmationPassword", "null", "パスワードと確認用パスワードが異なります");
+		}
 		// エラーが一つでもあれば入力画面に戻る
 		if (result.hasErrors()) {
 			return index(model);
 		}
-		User user = new User();
 		BeanUtils.copyProperties(registerUserForm, user);
 		registerUserService.insert(user);
 		return "login";

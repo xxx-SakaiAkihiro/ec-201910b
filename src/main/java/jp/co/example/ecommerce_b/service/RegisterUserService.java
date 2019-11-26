@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.example.ecommerce_b.domain.User;
-import jp.co.example.ecommerce_b.repository.RegisterUserRepository;
+import jp.co.example.ecommerce_b.repository.UserRepository;
 
 /**
  * ユーザ情報を登録するリポジトリ.
@@ -18,7 +18,7 @@ import jp.co.example.ecommerce_b.repository.RegisterUserRepository;
 public class RegisterUserService {
 
 	@Autowired
-	private RegisterUserRepository registerUserRepository;
+	private UserRepository userRepository;
 	
 	/**
 	 * ユーザ情報を登録する.
@@ -26,7 +26,18 @@ public class RegisterUserService {
 	 * @param user
 	 */
 	public void insert(User user) {
-		registerUserRepository.insert(user);
+		userRepository.insert(user);
+	}
+	
+	/**
+	 * メールアドレスからユーザ情報を取得する.
+	 * 
+	 * @param email メールアドレス
+	 * @return ユーザ情報
+	 */
+	public User findByEmail(String email) {
+		User userEmail = userRepository.findByEmail(email);
+		return userEmail;
 	}
 	
 }
