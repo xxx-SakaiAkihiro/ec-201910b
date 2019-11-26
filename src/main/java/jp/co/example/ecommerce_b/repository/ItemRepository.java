@@ -43,7 +43,7 @@ public class ItemRepository {
 		String sql = "select id,name,description,price_m,price_l,image_path from items";
 		SqlParameterSource param = new MapSqlParameterSource();
 		List<Item> ItemList = template.query(sql, param, ITEM_ROW_MAPPER);
-		System.out.println(ItemList);
+//		System.out.println(ItemList);
 		return ItemList;
 	}
 	/**

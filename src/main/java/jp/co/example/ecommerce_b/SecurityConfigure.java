@@ -31,9 +31,9 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring()
-			.antMatchers("/css**"
-						,"/img**"
-						,"/js**"
+			.antMatchers("/css/**"
+						,"/img_toy/**"
+						,"/js/**"
 						,"/fonts**");
 	}
 	
@@ -41,7 +41,9 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		//パスの書き方。コントローラのパスとメソッドのパス
-			.antMatchers("/add/**"
+			.antMatchers("/login/toLogin"
+					    ,"/login"
+					    ,"/add/**"
 						,"/toInsert/**"
 						,"/showItem/**"
 						,"/ShowItemDetail/**").permitAll()//全てのユーザでアクセス化

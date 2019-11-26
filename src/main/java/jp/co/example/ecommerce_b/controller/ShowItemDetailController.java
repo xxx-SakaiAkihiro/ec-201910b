@@ -14,7 +14,7 @@ import jp.co.example.ecommerce_b.service.ShowItemDetailService;
  *商品詳細を表示するコントローラ.
  */
 @Controller
-@RequestMapping("/ShowItemDetai")
+@RequestMapping("/ShowItemDetail")
 public class ShowItemDetailController {
 
 	@Autowired
