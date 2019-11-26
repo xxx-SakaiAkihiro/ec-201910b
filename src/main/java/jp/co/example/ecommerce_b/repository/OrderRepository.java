@@ -1,6 +1,10 @@
 package jp.co.example.ecommerce_b.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -21,6 +25,11 @@ public class OrderRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+	
+//	private static final ResultSetExtractor<List<Order>> ORDER_RESULT_SET_EXTRACTOR = (rs) -> {
+//		List<Order> orderList = new ArrayList<>();
+//
+//	};
 
 	private static final RowMapper<Order> ORDER_ROW_MAPPER = (rs, i) -> {
 		Order order = new Order();
@@ -80,4 +89,16 @@ public class OrderRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("order_id", orderId);
 		return template.queryForObject(sql, param, ORDER_ROW_MAPPER);
 	}
+	/**
+	 * 
+	 * 
+	 * @param userId UserId
+	 * @param status 状態
+	 * @return
+	 */
+//	public Order findByUserIdAndStatus(Integer userId,Integer status) {
+//		String sql = "";
+//		SqlParameterSource param = new MapSqlParameterSource().addValue(, );
+//		return template.queryForObject(sql, param, );
+//	}
 }
