@@ -12,7 +12,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import jp.co.example.ecommerce_b.domain.Item;
 import jp.co.example.ecommerce_b.domain.Order;
+import jp.co.example.ecommerce_b.domain.OrderItem;
+import jp.co.example.ecommerce_b.domain.OrderTopping;
+import jp.co.example.ecommerce_b.domain.Topping;
 
 /**
  * 注文するリポジトリ.
@@ -25,11 +29,77 @@ public class OrderRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
-//	private static final ResultSetExtractor<List<Order>> ORDER_RESULT_SET_EXTRACTOR = (rs) -> {
-//		List<Order> orderList = new ArrayList<>();
-//
-//	};
+
+	private static final ResultSetExtractor<List<Order>> ORDER_RESULT_SET_EXTRACTOR = (rs) -> {
+		List<Order> orderList = new ArrayList<>();
+		List<OrderItem> orderItemList = null;
+		List<OrderTopping> orderToppingList = null;
+
+		int preOrderId = 0;
+		int preOrderItemId = 0;
+		while (rs.next()) {
+			int nowOrderId = rs.getInt("orders.id");
+			if (preOrderId != nowOrderId) {
+				Order order = new Order();
+				order.setId(nowOrderId);
+				order.setUserId(rs.getInt("orders.user_id"));
+				order.setStatus(rs.getInt("orders.status"));
+				order.setTotalPrice(rs.getInt("orders.total_price"));
+				order.setOrderDate(rs.getDate("orders.order_date"));
+				order.setDestinationName(rs.getString("orders.destination_name"));
+				order.setDestinationEmail(rs.getString("orders.destination_email"));
+				order.setDestinationZipcode(rs.getString("orders.destination_zipcode"));
+				order.setDestinationAddress(rs.getString("orders.destination_address"));
+				order.setDestinationTel(rs.getString("orders.destination_tel"));
+				order.setDeliveryTime(rs.getTimestamp("orders.delivery_time"));
+				order.setPaymentMethod(rs.getInt("orders.payment_method"));
+				orderItemList = new ArrayList<>();
+				order.setOrderItemList(orderItemList);
+				orderList.add(order);
+			}
+
+			int nowOrderItemId = rs.getInt("order_Items.id");
+			if (preOrderItemId != nowOrderItemId) {
+				OrderItem orderItem = new OrderItem();
+				orderItem.setId(nowOrderItemId);
+				orderItem.setItemId(rs.getInt("order_Items.item_id"));
+				orderItem.setOrderId(rs.getInt("order_Items.order_id"));
+				orderItem.setQuantity(rs.getInt("order_Items.quantity"));
+				orderItem.setSize((rs.getString("order_Items.size")).charAt(0));
+				orderToppingList = new ArrayList<>();
+				orderItem.setOrderToppingList(orderToppingList);
+				orderItemList.add(orderItem);
+
+				Item item = new Item();
+				item.setId(rs.getInt("items.id"));
+				item.setName(rs.getString("items.name"));
+				item.setDescription(rs.getString("items.description"));
+				item.setPriceM(rs.getInt("items.price_m"));
+				item.setPriceL(rs.getInt("items.price_l"));
+				item.setImagePath(rs.getString("items.image_path"));
+				item.setDeleted(rs.getBoolean("items.deleted"));
+				orderItem.setItem(item);
+			}
+
+			if (rs.getInt("order_toppings.id") != 0) {
+				OrderTopping orderTopping = new OrderTopping();
+				orderTopping.setId(rs.getInt("order_toppings.id"));
+				orderTopping.setToppingId(rs.getInt("order_toppings.topping_id"));
+				orderTopping.setOrderItemId(rs.getInt("order_toppings.order_item_id"));
+				orderToppingList.add(orderTopping);
+
+				Topping topping = new Topping();
+				topping.setId(rs.getInt("toppings.id"));
+				topping.setName(rs.getString("toppings.name"));
+				topping.setPriceM(rs.getInt("toppings.price_m"));
+				topping.setPriceL(rs.getInt("toppings.price_l"));
+				orderTopping.setTopping(topping);
+			}
+			preOrderId = nowOrderId;
+			preOrderItemId = nowOrderItemId;
+		}
+		return orderList;
+	};
 
 	private static final RowMapper<Order> ORDER_ROW_MAPPER = (rs, i) -> {
 		Order order = new Order();
