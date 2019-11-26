@@ -21,10 +21,8 @@ import jp.co.example.ecommerce_b.service.PurchaseService;
 public class PurchaseController {
 
 	@Autowired
-	private PurchaseService service;
+	private PurchaseService purchaseService;
 	
-	@Autowired
-	private HttpSession session;
 	
 	/**
 	 * 商品を購入する.
@@ -42,8 +40,13 @@ public class PurchaseController {
 		order.setDestinationTel(orderForm.getDestinationTel());
 		order.setDeliveryTime(orderForm.getDeliveryTime());
 		order.setPaymentMethod((Integer.parseInt(orderForm.getPaymentMethod())));
-		session.setAttribute("order", order);
-		service.insertOrder(order);
+		if("1".equals(orderForm.getPaymentMethod())) {
+			order.setStatus(1);
+		}
+		if("2".equals(orderForm.getPaymentMethod())) {
+			order.setStatus(2);
+		}
+		purchaseService.purchase(order);
 		return "order_finished";
 	}
 }

@@ -18,7 +18,7 @@ import jp.co.example.ecommerce_b.repository.OrderRepository;
 public class PurchaseService {
 
 	@Autowired
-	private OrderRepository repository;
+	private OrderRepository orderRepository;
 	
 	/**
 	 * 注文を挿入する.
@@ -26,14 +26,14 @@ public class PurchaseService {
 	 * @param order 注文した商品
 	 */
 	public void insertOrder(Order order) {
-		repository.insert(order);
+		orderRepository.insert(order);
 	}
 	/**
-	 * 注文を更新する.
+	 * 注文情報をを購入後の情報へ更新する.
 	 * 
-	 * @param order Order
+	 * @param order 注文情報
 	 */
 	public void purchase(Order order) {
-		repository.update(order);
+		orderRepository.update(order);
 	}
 }

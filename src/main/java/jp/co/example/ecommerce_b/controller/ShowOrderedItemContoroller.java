@@ -24,12 +24,12 @@ public class ShowOrderedItemContoroller {
 	@Autowired
 	private ShowOrderedItemService showOrderedItemService;
 
-	//@RequestMapping("")
-	//public String showOrderedItem(Model model, @AuthenticationPrincipal LoginUser loginuser) {
-	//	List<Order> orderItemList = (List<Order>) showOrderedItemService.showOrderedItem(loginuser.getUser().getId());
-	//	model.addAttribute("orderItemList", orderItemList);
-	//	return "order_confirm";
-
-	//}
+//	@RequestMapping("")
+//	public String showOrderedItem(Model model, @AuthenticationPrincipal LoginUser loginuser) {
+//		List<Order> orderItemList = (List<Order>) showOrderedItemService.showOrderedItem(loginuser.getUser().getId());
+//		model.addAttribute("orderItemList", orderItemList);
+//		return "order_confirm";
+//
+//	}
 
 }
