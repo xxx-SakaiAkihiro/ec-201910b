@@ -1,6 +1,8 @@
 package jp.co.example.ecommerce_b.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,9 @@ public class PurchaseService {
 	@Autowired
 	private OrderRepository orderRepository;
 	
+	@Autowired
+	private MailSender mailSender;
+	
 	/**
 	 * 注文を挿入する.
 	 * 
@@ -35,5 +40,17 @@ public class PurchaseService {
 	 */
 	public void purchase(Order order) {
 		orderRepository.update(order);
-	}
+	} 
+	
+	public void sendMail() {
+		SimpleMailMessage msg = new SimpleMailMessage();
+
+        msg.setFrom("toy_ec_201910b@gmail.com");
+        msg.setTo("<メールアドレス>");
+        msg.setSubject("ご注文内容の確認");//タイトルの設定
+        msg.setText("ラクラクトイテストメール"); //本文の設定
+
+        this.mailSender.send(msg);
+    }
+	
 }
