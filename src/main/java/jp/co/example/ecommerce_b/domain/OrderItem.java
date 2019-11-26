@@ -17,7 +17,7 @@ public class OrderItem {
 	/* 商品 */
 	private Item item;
 	/* 注文トッピングリスト */
-	private List<OrderTopping> orderToppingList;
+	private List<Integer> orderToppingList;
 
 	@Override
 	public String toString() {
@@ -32,22 +32,22 @@ public class OrderItem {
 	 * 
 	 * @return Mサイズを選んだ際の小計
 	 */
-	public int getSubTotal() {
-		int totalToppingPriceM = 0;
-		int totalToppingPriceL = 0;
-		for( OrderTopping toppings : orderToppingList ) {
-			Topping topping = toppings.getTopping();
-			totalToppingPriceM = totalToppingPriceM + topping.getPriceM();
-			totalToppingPriceL = totalToppingPriceL + topping.getPriceL();
-		}
-		if(item.getPriceM() != 0) {
-			return ( item.getPriceM() + totalToppingPriceM ) * quantity;			
-		} 
-		if(item.getPriceL() != 0) {
-			return ( item.getPriceM() + totalToppingPriceL ) * quantity;		
-		}
-		return 0;
-	}
+//	public int getSubTotal() {
+//		int totalToppingPriceM = 0;
+//		int totalToppingPriceL = 0;
+//		for( Integer toppings : orderToppingList ) {
+//			Topping topping = toppings.();
+//			totalToppingPriceM = totalToppingPriceM + topping.getPriceM();
+//			totalToppingPriceL = totalToppingPriceL + topping.getPriceL();
+//		}
+//		if(item.getPriceM() != 0) {
+//			return ( item.getPriceM() + totalToppingPriceM ) * quantity;			
+//		} 
+//		if(item.getPriceL() != 0) {
+//			return ( item.getPriceM() + totalToppingPriceL ) * quantity;		
+//		}
+//		return 0;
+//	}
 	
 	/**
 	 * Lサイズを選んだ際の小計を表す.
@@ -150,14 +150,14 @@ public class OrderItem {
 	/**
 	 * @return the orderToppingList
 	 */
-	public List<OrderTopping> getOrderToppingList() {
+	public List<Integer> getOrderToppingList() {
 		return orderToppingList;
 	}
 
 	/**
 	 * @param orderToppingList the orderToppingList to set
 	 */
-	public void setOrderToppingList(List<OrderTopping> orderToppingList) {
+	public void setOrderToppingList(List<Integer> orderToppingList) {
 		this.orderToppingList = orderToppingList;
 	}
 

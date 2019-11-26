@@ -37,7 +37,6 @@ public class ItemService {
 			itemList = repository.findByName(name);
 		}
 		List<List<Item>> itemListList = new ArrayList<>();
-//		List<Item> itemList = repository.findByName(name);
 		ArrayList<Item> itemListBy3 = null;
 		for (int i = 0; i < itemList.size(); i++) {
 			if(i == 0 || i % 3 == 0) {

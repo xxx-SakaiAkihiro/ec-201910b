@@ -2,7 +2,6 @@ package jp.co.example.ecommerce_b.form;
 
 import java.util.List;
 
-import jp.co.example.ecommerce_b.domain.OrderTopping;
 
 /**
  * 商品を追加する際に使用するフォーム.
@@ -19,7 +18,7 @@ public class OrderItemForm {
 	/* サイズ */
 	private Character size;
 	/* 注文商品リスト */
-	private List<OrderTopping> orderToppingList;
+	private List<Integer> orderToppingList;
 
 	@Override
 	public String toString() {
@@ -72,14 +71,14 @@ public class OrderItemForm {
 	/**
 	 * @return the orderToppingList
 	 */
-	public List<OrderTopping> getOrderToppingList() {
+	public List<Integer> getOrderToppingList() {
 		return orderToppingList;
 	}
 
 	/**
 	 * @param orderToppingList the orderToppingList to set
 	 */
-	public void setOrderToppingList(List<OrderTopping> orderToppingList) {
+	public void setOrderToppingList(List<Integer> orderToppingList) {
 		this.orderToppingList = orderToppingList;
 	}
 

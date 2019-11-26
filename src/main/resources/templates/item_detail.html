@@ -76,11 +76,14 @@
 									<label for="inputResponsibleCompany">サイズ</label>
 								</div>
 								<div class="col-sm-12">
-									<label class="radio-inline"> <input type="radio"
-										name="responsibleCompany" checked="checked"> <span
-										class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;<span th:text="${#numbers.formatInteger(item.priceM,1,'COMMA')}"></span>円(税抜)
-									</label> <label class="radio-inline"> <input type="radio"
-										name="responsibleCompany"> <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;<span th:text="${#numbers.formatInteger(item.priceL,1,'COMMA')}"></span>円(税抜)
+									<label class="radio-inline"> 
+									<input type="radio" name="size" checked="checked" th:value="m"> 
+									<span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;
+									<span th:text="${#numbers.formatInteger(item.priceM,1,'COMMA')}"></span>円(税抜)
+									</label> <label class="radio-inline"> 
+									<input type="radio" name="size" th:value="l"> 
+									<span class="price">&nbsp;Ｌ
+									</span>&nbsp;&nbsp;<span th:text="${#numbers.formatInteger(item.priceL,1,'COMMA')}"></span>円(税抜)
 									</label>
 								</div>
 							</div>
@@ -98,7 +101,7 @@
 									</label>
 								</div>
 								<div class="col-sm-12" th:each="topping:${item.toppingList}">
-									<label class="checkbox-inline"> <input type="checkbox"
+									<label class="checkbox-inline"> <input type="checkbox" name="orderToppingList"
 										th:value="${topping.id}" th:text="${topping.name}">
 									</label>
 								</div>
@@ -115,8 +118,8 @@
 						<div class="row">
 							<div class="col-xs-5 col-sm-5">
 								<label for="">数量:</label> <label class="control-label"
-									style="color: red" for="inputError">数量を選択してください</label> <select
-									name="area" class="form-control">
+									style="color: red" for="inputError">数量を選択してください</label> 
+									<select name="quantity" class="form-control">
 									<option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -147,6 +150,7 @@
 				<div class="col-xs-offset-2 col-xs-3">
 					<div class="form-group">
 						<p>
+							<input type =hidden th:value="${item.id}" name ="itemId" >
 							<input class="form-control btn btn-warning btn-block"
 								type="submit" value="カートに入れる">
 						</p>

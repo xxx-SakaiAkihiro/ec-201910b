@@ -44,21 +44,21 @@ public class Order {
 				+ ", paymentMethod=" + paymentMethod + ", user=" + user + ", orderItemList=" + orderItemList + "]";
 	}
 	
-	public int getTax() {
-		OrderItem orderItem = new OrderItem();
-		int tax = (int)( orderItem.getSubTotal() * 0.1 );
-		return tax;
-		
-//		int totalTaxM = 0;
-//		for( OrderItem orderItems : orderItemList ) {
-//			orderItems.getSubTotalM()
-//		}	
-	}
-	public int getCalcTotalPrice() {
-		OrderItem orderItem = new OrderItem();
-		int CalcTotalPrice = getTax() + orderItem.getSubTotal();
-		return CalcTotalPrice;
-	}
+//	public int getTax() {
+//		OrderItem orderItem = new OrderItem();
+//		int tax = (int)( orderItem.getSubTotal() * 0.1 );
+//		return tax;
+//		
+////		int totalTaxM = 0;
+////		for( OrderItem orderItems : orderItemList ) {
+////			orderItems.getSubTotalM()
+////		}	
+//	}
+//	public int getCalcTotalPrice() {
+//		OrderItem orderItem = new OrderItem();
+//		int CalcTotalPrice = getTax() + orderItem.getSubTotal();
+//		return CalcTotalPrice;
+//	}
 
 	/**
 	 * @return the id
