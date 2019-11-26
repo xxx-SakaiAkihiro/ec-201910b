@@ -32,7 +32,6 @@ public class ShowItemController {
 	@RequestMapping("")
 	public String showAllItems(Model model) {
 		List<Item> itemList = service.showAllItems();
-		System.out.println(itemList);
 		model.addAttribute("itemList", itemList);
 		return "item_list";
 	}

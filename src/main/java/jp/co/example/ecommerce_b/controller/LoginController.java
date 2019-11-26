@@ -16,12 +16,13 @@ public class LoginController {
 	
 	@RequestMapping("/toLogin")
 	public String toLogin(Model model,@RequestParam(required = false) String error) {
-		System.out.println("login error:" + error);
+		System.out.println("toLogin!!!!");
 		if(error != null) {
+			System.out.println("login error:" + error);
 			System.err.println("login failed");
 			model.addAttribute("errorMessage","メールアドレスまたはパスワードが不正です");
 		}
-		return "user/Login";
+		return "login";
 	}
 	
 
