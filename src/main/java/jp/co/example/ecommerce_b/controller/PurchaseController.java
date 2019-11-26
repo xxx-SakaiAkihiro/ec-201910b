@@ -1,7 +1,5 @@
 package jp.co.example.ecommerce_b.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,5 +46,10 @@ public class PurchaseController {
 		}
 		purchaseService.purchase(order);
 		return "order_finished";
+	}
+	
+	@RequestMapping("/mail")
+	public void sendMail() {
+		purchaseService.sendMail();
 	}
 }
