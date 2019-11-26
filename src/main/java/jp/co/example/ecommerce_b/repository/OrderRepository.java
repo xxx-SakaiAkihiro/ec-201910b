@@ -1,10 +1,8 @@
 package jp.co.example.ecommerce_b.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -90,15 +88,21 @@ public class OrderRepository {
 		return template.queryForObject(sql, param, ORDER_ROW_MAPPER);
 	}
 	/**
+	 * ユーザーIDとステータスから注文情報を取得
 	 * 
-	 * 
-	 * @param userId UserId
+	 * @param userId ユーザーId
 	 * @param status 状態
 	 * @return
 	 */
-//	public Order findByUserIdAndStatus(Integer userId,Integer status) {
-//		String sql = "";
-//		SqlParameterSource param = new MapSqlParameterSource().addValue(, );
-//		return template.queryForObject(sql, param, );
-//	}
+	public Order findByUserIdAndStatus(Integer userId,Integer status) {
+		String sql = "select id,user_id,status,total_price,order_date,destination_name,"
+				+ "destination_email,destination_zipcode,destination_address,destination_tel,"
+				+ "delivery_time,payment_method where user_id =:userId AND status = :status";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId).addValue("status", status);
+		List<Order> orderList = template.query(sql, param,ORDER_ROW_MAPPER);
+		if (orderList.size() == 0) {
+			return null;
+		}
+		return orderList.get(0);
+	}
 }
