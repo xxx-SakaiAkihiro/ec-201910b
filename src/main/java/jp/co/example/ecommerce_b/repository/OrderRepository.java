@@ -60,7 +60,7 @@ public class OrderRepository {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 		String sql = "select id,userId,status,totalPrice,orderDate,destinationName,"
 				+ "destinationEmail,destinationZipcode,destinationAddress,destinationTel,"
-				+ "deliveryTime,paymentMethod,user,orderItemList where order =:order";
+				+ "deliveryTime,paymentMethod,user,orderItemList where user_id =:userId";
 		template.update(sql, param);
 	}
 	/**
