@@ -2,12 +2,16 @@ package jp.co.example.ecommerce_b.repository;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_b.domain.Order;
@@ -24,10 +28,14 @@ public class OrderRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
-//	private static final ResultSetExtractor<List<Order>> ORDER_RESULT_SET_EXTRACTOR = (rs) -> {
-//		List<Order> orderList = new ArrayList<>();
-//
-//	};
+	private SimpleJdbcInsert insert;
+	@PostConstruct
+	public void init() {
+		SimpleJdbcInsert simpleJdbcInsert =
+		new SimpleJdbcInsert((JdbcTemplate)template.getJdbcOperations());
+		SimpleJdbcInsert withTableName = simpleJdbcInsert.withTableName("orders");
+		insert = withTableName.usingGeneratedKeyColumns("id");
+	}
 
 	private static final RowMapper<Order> ORDER_ROW_MAPPER = (rs, i) -> {
 		Order order = new Order();
@@ -51,12 +59,15 @@ public class OrderRepository {
 	 * 
 	 * @param order 注文した商品
 	 */
-	public void insert(Order order) {
+	public Order insert(Order order) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
 		String sql = "insert into orders(id,user_id,status,total_price,order_date,"
 				+ "destination_name,destination_email,destination_zipcode,"
 				+ "destination_address,destination_tel,delivery_time,payment_method)";
 		template.update(sql, param);
+		Number key = insert.executeAndReturnKey(param);
+		order.setId(key.intValue());
+		return order;
 	}
 
 	/**
