@@ -1,9 +1,13 @@
 package jp.co.example.ecommerce_b.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,5 +51,20 @@ public class ItemService {
 		}
 		return itemListList;
 	}
+	
+//	public Page<Item> showListPaging(int page,int size,List<Item> itemList){
+//		page--;
+//		int startItemCount = page * size;
+//		List<Item> list;
+//		if(itemList.size() > startItemCount) {
+//			list = Collections.emptyList();
+//		} else {
+//			int toIndex = Math.min(startItemCount + size,itemList.size());
+//			list = itemList.subList(startItemCount, toIndex);
+//		}
+//		
+//		Page<Item> itemPage = new PageImpl<Item>(list,PageRequest.of(page, size),itemList.size());
+//		return itemPage;
+//	}
 
 }
