@@ -1,10 +1,14 @@
 package jp.co.example.ecommerce_b.repository;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_b.domain.OrderItem;
@@ -21,15 +25,27 @@ public class OrderItemRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
+	private SimpleJdbcInsert insert;
+	@PostConstruct
+	public void init() {
+		SimpleJdbcInsert simpleJdbcInsert =
+		new SimpleJdbcInsert((JdbcTemplate)template.getJdbcOperations());
+		SimpleJdbcInsert withTableName = simpleJdbcInsert.withTableName("order_items");
+		insert = withTableName.usingGeneratedKeyColumns("id");
+	}
+	
 	/**
 	 * 商品を挿入する.
 	 * 
 	 * @param orderItem 注文された商品
 	 */
-	public void insert(OrderItem orderItem) {
+	public OrderItem insert(OrderItem orderItem) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderItem);
 		String sql = "insert into order_items(id,item_id,order_id,quantity,size)values(:id,:itemId,:orderId,:quantity,:size)";
+		Number key = insert.executeAndReturnKey(param);
+		orderItem.setId(key.intValue());
 		template.update(sql, param);
+		return orderItem;
 	}
 	
 	/**
