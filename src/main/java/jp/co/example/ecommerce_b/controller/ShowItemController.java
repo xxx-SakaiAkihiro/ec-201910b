@@ -24,35 +24,21 @@ public class ShowItemController {
 	private ItemService service;
 	
 	/**
-	 * 商品一覧を表示する.
-	 * 
-	 * @param model モデル
-	 * @return　商品一覧画面
-	 */
-	@RequestMapping("")
-	public String showAllItems(Model model) {
-		List<Item> itemList = service.showAllItems();
-		System.out.println(itemList);
-		model.addAttribute("itemList", itemList);
-		return "item_list";
-	}
-	
-	/**
 	 * 曖昧検索をする.
 	 * 
 	 * @param name 名前
 	 * @param model　モデル
 	 * @return　商品画面を表示
 	 */
-	@RequestMapping("/showItemList")
+	@RequestMapping("")
 	public String showItemListFindByName(String name, Model model) {
-		System.out.println(name);
-		List<Item> itemList = service.showItemListFindByName(name);
-		if(itemList.isEmpty()) {
+		List<List<Item>> itemListList = service.showItemListFindByName(name);
+		if(itemListList.isEmpty()) {
 			model.addAttribute("message", "該当する商品はありません");
-			itemList = service.showAllItems();
+			// 商品が１つもなければ全件検索を行う
+			itemListList = service.showItemListFindByName("");
 		}
-		model.addAttribute("itemList", itemList);
+		model.addAttribute("itemListList", itemListList);
 		return "item_list";
 	}
 }

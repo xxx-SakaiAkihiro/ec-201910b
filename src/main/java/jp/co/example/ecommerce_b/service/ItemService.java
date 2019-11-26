@@ -1,5 +1,6 @@
 package jp.co.example.ecommerce_b.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +22,31 @@ public class ItemService {
 
 	@Autowired
 	private ItemRepository repository;
-	
-	/**
-	 * 商品一覧検索する.
-	 * 
-	 * @return 商品一覧
-	 */
-	public List<Item> showAllItems(){
-		return repository.findAll();
-	}
+
 	/**
 	 * 曖昧検索をする.
 	 * 
 	 * @param name 名前
- 	 * @return 曖昧検索結果
+	 * @return 曖昧検索結果
 	 */
-	public List<Item> showItemListFindByName(String name){
-		return repository.findByName(name);
+	public List<List<Item>> showItemListFindByName(String name) {
+		List<Item> itemList = null;
+		if (name == null || name.equals("")) {
+			itemList = repository.findAll();
+		} else {
+			itemList = repository.findByName(name);
+		}
+		List<List<Item>> itemListList = new ArrayList<>();
+//		List<Item> itemList = repository.findByName(name);
+		ArrayList<Item> itemListBy3 = null;
+		for (int i = 0; i < itemList.size(); i++) {
+			if(i == 0 || i % 3 == 0) {
+				itemListBy3 = new ArrayList<Item>();
+				itemListList.add(itemListBy3);			
+			}
+			itemListBy3.add(itemList.get(i));
+		}
+		return itemListList;
 	}
-	
-	
+
 }

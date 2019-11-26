@@ -21,8 +21,8 @@ public class OrderRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
-	private static final RowMapper<Order> ORDER_ROW_MAPPER = (rs,i) -> {
+
+	private static final RowMapper<Order> ORDER_ROW_MAPPER = (rs, i) -> {
 		Order order = new Order();
 		order.setId(rs.getInt("id"));
 		order.setUserId(rs.getInt("user_id"));
@@ -38,7 +38,7 @@ public class OrderRepository {
 		order.setPaymentMethod(rs.getInt("payment_method"));
 		return order;
 	};
-	
+
 	/**
 	 * 注文を挿入する.
 	 * 
@@ -51,18 +51,22 @@ public class OrderRepository {
 				+ "destination_address,destination_tel,delivery_time,payment_method)";
 		template.update(sql, param);
 	}
+
 	/**
 	 * 注文された商品を更新する.
 	 * 
-	 * @param order 
+	 * @param order
 	 */
 	public void update(Order order) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
-		String sql = "select id,userId,status,totalPrice,orderDate,destinationName,"
-				+ "destinationEmail,destinationZipcode,destinationAddress,destinationTel,"
-				+ "deliveryTime,paymentMethod,user,orderItemList where order =:order";
+		String sql = "update orders set id=:id,user_id=:userId,status=:status,"
+				+ "total_price=:totalPrice,order_date=:orderDate,destination_name=:destinationName,"
+				+ "destination_email=:destinationEmail,destination_zipcode=:destinationZipcode,"
+				+ "destination_address=:destinationAddress,destination_tel=:destinationTel,"
+				+ "delivery_time=:deliveryTime,payment_method=:paymentMethod";
 		template.update(sql, param);
 	}
+
 	/**
 	 * 商品を1件検索してくる.
 	 * 
@@ -73,7 +77,7 @@ public class OrderRepository {
 		String sql = "select id,userId,status,totalPrice,orderDate,destinationName,"
 				+ "destinationEmail,destinationZipcode,destinationAddress,destinationTel,"
 				+ "deliveryTime,paymentMethod,user,orderItemList where order_id =:orderId";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("order_id",orderId);
-		return template.queryForObject(sql, param,ORDER_ROW_MAPPER);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("order_id", orderId);
+		return template.queryForObject(sql, param, ORDER_ROW_MAPPER);
 	}
 }
