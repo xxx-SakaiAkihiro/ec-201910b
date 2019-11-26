@@ -17,7 +17,7 @@ public class OrderItem {
 	/* 商品 */
 	private Item item;
 	/* 注文トッピングリスト */
-	private List<Integer> orderToppingList;
+	private List<OrderTopping> orderToppingList;
 
 	@Override
 	public String toString() {
@@ -150,14 +150,14 @@ public class OrderItem {
 	/**
 	 * @return the orderToppingList
 	 */
-	public List<Integer> getOrderToppingList() {
+	public List<OrderTopping> getOrderToppingList() {
 		return orderToppingList;
 	}
 
 	/**
 	 * @param orderToppingList the orderToppingList to set
 	 */
-	public void setOrderToppingList(List<Integer> orderToppingList) {
+	public void setOrderToppingList(List<OrderTopping> orderToppingList) {
 		this.orderToppingList = orderToppingList;
 	}
 
