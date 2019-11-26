@@ -18,7 +18,6 @@ public class OrderItemForm {
 	private Character size;
 	/* 注文商品リスト */
 	private List<Integer> orderToppingList;
-	
 
 	@Override
 	public String toString() {

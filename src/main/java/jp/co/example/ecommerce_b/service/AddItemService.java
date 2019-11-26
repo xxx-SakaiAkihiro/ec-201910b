@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jp.co.example.ecommerce_b.domain.Order;
 import jp.co.example.ecommerce_b.domain.OrderItem;
 import jp.co.example.ecommerce_b.repository.OrderItemRepository;
+import jp.co.example.ecommerce_b.repository.OrderRepository;
 import jp.co.example.ecommerce_b.repository.OrderToppingRepository;
 
 /**
@@ -17,6 +19,9 @@ import jp.co.example.ecommerce_b.repository.OrderToppingRepository;
 @Service
 @Transactional
 public class AddItemService {
+	
+	@Autowired
+	public OrderRepository orderrepository;
 
 	@Autowired
 	public OrderItemRepository orderItemRepository;
@@ -29,7 +34,21 @@ public class AddItemService {
 	 * 
 	 * @param orderItem　注文した商品
 	 */
-	public void addItem(OrderItem orderItem) {
-		orderItemRepository.insert(orderItem);;
+	public void addItem(Order order,OrderItem orderItem,Integer orderTopping) {
+//		order.setStatus(0);
+//		
+//		//userIdを生成
+//		order.setUserId(userId);
+//		
+//		if(orderrepository.findByUserIdAndStatus() == null) {
+//			orderrepository.insert(order);
+//			orderToppingRepository.insert(orderTopping);
+//			orderItemRepository.insert(orderItem);;			
+//		} else {
+//			orderToppingRepository.insert(orderTopping);
+//			orderItemRepository.insert(orderItem);;			
+//			
+//		}
+		
 	}
 }

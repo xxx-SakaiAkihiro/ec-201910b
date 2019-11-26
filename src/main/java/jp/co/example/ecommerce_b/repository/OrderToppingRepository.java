@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import jp.co.example.ecommerce_b.domain.OrderTopping;
 
 /**
  * トッピングを注文するリポジトリ.
@@ -34,7 +33,7 @@ public class OrderToppingRepository {
 	 * 
 	 * @param orderTopping 注文したトッピング
 	 */
-	public void insert(OrderTopping orderTopping) {
+	public void insert(Integer orderTopping) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(orderTopping);
 		String sql = "insert into order_toppings(id,topping_id,order_item_id)values(:id,:toppingId,:orderItemId)";
 		template.update(sql, param);

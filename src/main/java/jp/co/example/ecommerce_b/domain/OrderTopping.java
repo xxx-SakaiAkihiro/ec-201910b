@@ -2,13 +2,9 @@ package jp.co.example.ecommerce_b.domain;
 
 public class OrderTopping {
 
-	/* ID */
 	private Integer id;
-	/* ToppingID */
 	private Integer toppingId;
-	/* OrderItemID */
 	private Integer orderItemId;
-	/* トッピング */
 	private Topping topping;
 
 	@Override
