@@ -107,7 +107,7 @@
 		</div>
 
 		<!-- table -->
-		<form action="order_finished.html">
+		<form th:action="@{/purchase}">
 			<div class="row">
 				<div
 					class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
@@ -229,6 +229,69 @@
 									</div>
 								</td>
 							</tr>
+							<tr>
+								<td>
+									<div class="text-center">クレジットカード番号</div>
+								</td>
+								<td><input type="text" name="card_number"></td>
+							</tr>
+							<tr>
+								<td>
+									<div class="text-center">有効期限</div>
+								</td>
+								<td>
+								<select name="card_exp_month">
+								<option value="01">01</option>
+								<option value="02">02</option>
+								<option value="03">03</option>
+								<option value="04">04</option>
+								<option value="05">05</option>
+								<option value="06">06</option>
+								<option value="07">07</option>
+								<option value="08">08</option>
+								<option value="09">09</option>
+								<option value="10">10</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								</select>
+								<select name="card_exp_year">
+								<option value="2019">2019</option>
+								<option value="2020">2020</option>
+								<option value="2021">2021</option>
+								<option value="2022">2022</option>
+								<option value="2023">2023</option>
+								<option value="2024">2024</option>
+								<option value="2025">2025</option>
+								<option value="2026">2026</option>
+								<option value="2027">2027</option>
+								<option value="2028">2028</option>
+								<option value="2029">2029</option>
+								<option value="2030">2030</option>
+								<option value="2031">2031</option>
+								<option value="2032">2032</option>
+								<option value="2033">2033</option>
+								<option value="2034">2034</option>
+								<option value="2035">2035</option>
+								<option value="2036">2036</option>
+								<option value="2037">2037</option>
+								<option value="2038">2038</option>
+								<option value="2039">2039</option>
+								</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="text-center">カード名義人</div>
+								</td>
+								<td><input type="text" name="card_name"></td>
+							</tr>
+							<tr>
+								<td>
+									<div class="text-center">セキュリティコード</div>
+								</td>
+								<td><input type="text" name="card_cvv"></td>
+							</tr>
+							
 						</tbody>
 					</table>
 				</div>
@@ -236,7 +299,7 @@
 			<div class="row">
 				<div class="col-xs-offset-4 col-xs-4">
 					<div class="form-group">
-						<input class="form-control btn btn-warning btn-block" th:action="@{/purchase}" type="submit" value="この内容で注文する">
+						<input class="form-control btn btn-warning btn-block"  type="submit" value="この内容で注文する">
 					</div>
 				</div>
 			</div>

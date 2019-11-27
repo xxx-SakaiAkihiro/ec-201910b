@@ -18,18 +18,18 @@ import jp.co.example.ecommerce_b.service.ShowOrderedItemService;
  *
  */
 @Controller
-@RequestMapping("/ShowOrderItem")
+@RequestMapping("/ShowOrderedItem")
 public class ShowOrderedItemContoroller {
 
 	@Autowired
 	private ShowOrderedItemService showOrderedItemService;
 
-//	@RequestMapping("")
-//	public String showOrderedItem(Model model, @AuthenticationPrincipal LoginUser loginuser) {
+    @RequestMapping("")
+    public String showOrderedItem(/*Model model, @AuthenticationPrincipalLoginUser loginuser*/) {
 //		List<Order> orderItemList = (List<Order>) showOrderedItemService.showOrderedItem(loginuser.getUser().getId());
 //		model.addAttribute("orderItemList", orderItemList);
-//		return "order_confirm";
+       return "order_confirm";
 //
-//	}
+	}
 
 }

@@ -5,7 +5,10 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
+import jp.co.example.ecommerce_b.domain.CreditCard;
+import jp.co.example.ecommerce_b.domain.CreditCardData;
 import jp.co.example.ecommerce_b.domain.Order;
 import jp.co.example.ecommerce_b.repository.OrderRepository;
 
@@ -25,6 +28,9 @@ public class PurchaseService {
 	@Autowired
 	private MailSender mailSender;
 	
+	@Autowired
+	RestTemplate restTemplate;
+	
 	/**
 	 * 注文を挿入する.
 	 * 
@@ -34,7 +40,7 @@ public class PurchaseService {
 		orderRepository.insert(order);
 	}
 	/**
-	 * 注文情報をを購入後の情報へ更新する.
+	 * 注文情報を購入後の情報へ更新する.
 	 * 
 	 * @param order 注文情報
 	 */
@@ -52,5 +58,17 @@ public class PurchaseService {
 
         this.mailSender.send(msg);
     }
+	
+
+    /** クレジットカードAPI リクエストURL 
+    private static final String URL = "http://172.16.0.13:8080/sample-credit-card-web-api/credit-card/payment";
+
+    public CreditCardData creditCardCall(CreditCard creditCard  ) {
+        return restTemplate.getForObject(URL, CreditCardData.class, creditCard);
+    }
+   */
+	
+	
+	
 	
 }
