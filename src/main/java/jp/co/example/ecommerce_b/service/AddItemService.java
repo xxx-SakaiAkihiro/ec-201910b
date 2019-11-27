@@ -47,11 +47,11 @@ public class AddItemService {
 		
 		String source = session.getId();
 		Integer userId = source.hashCode();
-		System.out.println(userId);
 		
 		int status = 0;
 		Order order = null;
-		if (orderrepository.findByUserIdAndStatus(userId, status).getId().equals(null)) {
+		Order serachOrder = orderrepository.findByUserIdAndStatus(userId, status);
+		if (serachOrder == null) {
 			order = new Order();
 			order.setUserId(userId);
 			order.setStatus(0);
