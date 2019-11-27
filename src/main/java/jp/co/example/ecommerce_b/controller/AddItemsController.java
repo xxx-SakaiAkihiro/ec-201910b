@@ -25,7 +25,7 @@ public class AddItemsController {
 	 * 商品を追加する.
 	 * 
 	 * @param orderItemForm 商品注文フォーム
-	 * @return 商品詳細画面
+	 * @return 商品確認画面
 	 */
 	@RequestMapping("/addItem")
 	public String addItem(OrderItemForm orderItemForm) {

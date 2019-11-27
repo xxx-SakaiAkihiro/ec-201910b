@@ -29,10 +29,10 @@ public class ItemService {
 	 * @param name 名前
 	 * @return 曖昧検索結果
 	 */
-	public List<List<Item>> showItemListFindByName(String name) {
+	public List<List<Item>> showItemListFindByName(String name,Integer pageNumber) {
 		List<Item> itemList = null;
 		if (name == null || name.equals("")) {
-			itemList = repository.findAll();
+			itemList = repository.findAll(0);
 		} else {
 			itemList = repository.findByName(name);
 		}
@@ -48,33 +48,12 @@ public class ItemService {
 		return itemListList;
 	}
 	/**
-	 * ページング用メソッド.
-	 * @param page 表示させたいページ数
-	 * @param size １ページに表示させる従業員数
-	 * @param employeeList 絞り込み対象リスト
-	 * @return １ページに表示されるサイズ分の従業員一覧情報
+	 * 商品一覧の総件数を検索.
+	 * 
+	 * @return 商品一覧の総件数
 	 */
-//	public Page List<List<Item>> showListPaging(int page, int size, List<List<Item>> itemListList) {
-//	    // 表示させたいページ数を-1しなければうまく動かない
-//	    page--;
-//	    // どの従業員から表示させるかと言うカウント値
-//	    int startItemCount = page * size;
-//	    // 絞り込んだ後の従業員リストが入る変数
-//	    List<List<Item>> list;
-//
-//	    if (itemListList.size() < startItemCount) {
-//	    	// (ありえないが)もし表示させたい従業員カウントがサイズよりも大きい場合は空のリストを返す
-//	        list = Collections.emptyList();
-//	    } else {
-//	    	// 該当ページに表示させる従業員一覧を作成
-//	        int toIndex = Math.min(startItemCount + size, itemListList.size());
-//	        list = itemListList.subList(startItemCount, toIndex);
-//	    }
-//
-//	    // 上記で作成した該当ページに表示させる従業員一覧をページングできる形に変換して返す
-//	    Page<Item> itemPage
-//	      = new PageImpl<Item>(list, PageRequest.of(page, size), itemListList.size());
-//	    return itemPage;
-//	}
+	public Integer count() {
+		return repository.count();
+	}
 
 }

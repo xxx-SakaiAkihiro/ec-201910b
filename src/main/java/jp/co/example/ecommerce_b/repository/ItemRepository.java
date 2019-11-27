@@ -38,9 +38,13 @@ public class ItemRepository {
 	 * 
 	 * @return 商品一覧
 	 */
-	public List<Item> findAll(){
-		String sql = "select id,name,description,price_m,price_l,image_path from items order by id";
-		SqlParameterSource param = new MapSqlParameterSource();
+	public List<Item> findAll(Integer pageNumber){
+		if(pageNumber == 0) {
+			
+		}
+		Integer start = pageNumber + 5;
+		String sql = "select id,name,description,price_m,price_l,image_path from items limit 6 offset :start";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("start", start);
 		List<Item> ItemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return ItemList;
 	}
@@ -65,6 +69,16 @@ public class ItemRepository {
 		String sql = "SELECT id,name,description,price_m,price_l,image_path from items where id = :id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		return template.queryForObject(sql, param, ITEM_ROW_MAPPER);
+	}
+	/**
+	 * 商品一覧の総件数を検索.
+	 * 
+	 * @return 商品一覧の総件数
+	 */
+	public Integer count() {
+		String sql = "select count(*) from items";
+		SqlParameterSource param = new MapSqlParameterSource();
+		return template.queryForObject(sql, param,Integer.class);
 	}
 	
 }
