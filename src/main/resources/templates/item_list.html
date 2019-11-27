@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>おもちゃ屋のネット注文</title>
+<title>ラクラクトイ</title>
 <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
 <link th:href="@{/css/piza.css}" rel="stylesheet">
 <!--[if lt IE 9]>
@@ -57,8 +57,8 @@ $("#code").autocomplete({
 					<p class="navbar-text navbar-right">
 						
 						<span sec:authorize="hasRole('ROLE_USER')"><span sec:authentication="principal.user.name"></span>さんこんにちは！</span>
-						<a href="cart_list.html" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
-						<a href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
+						<a href="cart_list.html" class="navbar-link">ショッピングカート<span class="badge badge-notify">5</span></a>&nbsp;&nbsp;
+						<a th:href="@{/history}" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
 						<span sec:authorize="isAnonymous()">
 							<a th:href="@{/login/toLogin}" class="navbar-link">ログイン</a>&nbsp;&nbsp; 
 						</span>

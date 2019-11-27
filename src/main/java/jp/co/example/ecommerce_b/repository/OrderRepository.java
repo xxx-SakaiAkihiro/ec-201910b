@@ -193,4 +193,22 @@ public class OrderRepository {
 		}
 		return orderList.get(0);
 	}
+	
+	/**
+	 * ユーザーのショッピングカート内の件数を取得する
+	 * @param userId ユーザーID
+	 * @return 件数
+	 */
+	public Integer countInCart(Integer userId) {
+		String sql = "SELCT count(*) FROM orders WHERE user_id = :userId　AND status = 0";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
+		Integer count;
+		try {
+			count = template.queryForObject(sql, param, Integer.class);
+		} catch(Exception e) {
+			count = 0;
+		}
+		return count;
+	}
+	
 }
