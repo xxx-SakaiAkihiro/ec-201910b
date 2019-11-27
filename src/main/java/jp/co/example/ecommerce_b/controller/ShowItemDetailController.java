@@ -1,11 +1,14 @@
 package jp.co.example.ecommerce_b.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_b.domain.Item;
+import jp.co.example.ecommerce_b.domain.LoginUser;
+import jp.co.example.ecommerce_b.service.CountInCartService;
 import jp.co.example.ecommerce_b.service.ShowItemDetailService;
 
 /**
@@ -19,6 +22,9 @@ public class ShowItemDetailController {
 
 	@Autowired
 	private ShowItemDetailService showitemDetailService;
+	
+	@Autowired
+	private CountInCartService countInCartService;
 
 	/**
 	 * 商品詳細を表示する.
@@ -27,9 +33,12 @@ public class ShowItemDetailController {
 	 * @return 商品1件の検索結果
 	 */
 	@RequestMapping("")
-	public String showItemDetail(Integer id, Model model) {
+	public String showItemDetail(Integer id, Model model,@AuthenticationPrincipal LoginUser loginUser) {
 		Item item = showitemDetailService.showItemDetail(id);
 		model.addAttribute("item",item);
+		
+		Integer countInCart = countInCartService.countInCart(loginUser);
+		model.addAttribute("countInCart",countInCart);
 		return "item_detail";
 
 	}

@@ -2,9 +2,11 @@ package jp.co.example.ecommerce_b.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.ecommerce_b.domain.LoginUser;
 import jp.co.example.ecommerce_b.form.OrderItemForm;
 import jp.co.example.ecommerce_b.service.AddItemService;
 
@@ -28,11 +30,8 @@ public class AddItemsController {
 	 * @return 商品確認画面
 	 */
 	@RequestMapping("/addItem")
-	public String addItem(OrderItemForm orderItemForm) {
-		System.out.println(1);
-		System.out.println(orderItemForm);
-		service.addItem(orderItemForm);
-		System.out.println(1);
+	public String addItem(OrderItemForm orderItemForm,@AuthenticationPrincipal LoginUser loginUser) {
+		service.addItem(orderItemForm, loginUser);
 		return "forward:/ShowOrderItem";
 
 	}

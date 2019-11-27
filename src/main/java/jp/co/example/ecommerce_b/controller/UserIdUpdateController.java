@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,15 +26,16 @@ public class UserIdUpdateController {
 	 * セッションIDを使用し、注文テーブルのステータスが0の注文情報を取得する。その後ユーザIDを更新する
 	 * @param user ユーザー
 	 */
-	
-	public String updateUserId(LoginUser loginUser) {
-		int status = 0;
-		String source = session.getId();
-		Integer sesssionId = source.hashCode();
-		List<Order> orderList = orderRepository.findByUserIdAndStatus(sesssionId,status);
-		Order order = orderList.get(0);
-		order.setUserId(loginUser.getUser().getId());
-		orderRepository.update(order);
-		return "/ShowOrderItem";
+	@RequestMapping("")
+	public String updateUserId(@AuthenticationPrincipal LoginUser loginUser) {
+		if (session.getAttribute("userId") != null) {
+			int status = 0;
+			Integer sessionUserId = (Integer) session.getAttribute("userId");
+			List<Order> orderList = orderRepository.findByUserIdAndStatus(sessionUserId,status);
+			Order order = orderList.get(0);
+			order.setUserId(loginUser.getUser().getId());
+			orderRepository.updateUserId(order,sessionUserId);
+		} 
+			return "forward:/showItem";
 	}
 }

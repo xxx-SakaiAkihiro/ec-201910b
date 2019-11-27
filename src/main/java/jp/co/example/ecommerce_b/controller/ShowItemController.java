@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_b.domain.Item;
+import jp.co.example.ecommerce_b.domain.LoginUser;
+import jp.co.example.ecommerce_b.service.CountInCartService;
 import jp.co.example.ecommerce_b.service.ItemService;
 
 /**
@@ -23,7 +26,9 @@ public class ShowItemController {
 
 	@Autowired
 	private ItemService service;
-
+	
+	@Autowired
+	private CountInCartService countInCartService;
 	/**
 	 * 曖昧検索をする.
 	 * 
@@ -32,7 +37,7 @@ public class ShowItemController {
 	 * @return 商品画面を表示
 	 */
 	@RequestMapping("")
-	public String showItemListFindByName(String name, Integer pageNumber, Model model) {
+	public String showItemListFindByName(String name, Integer pageNumber, Model model,@AuthenticationPrincipal LoginUser loginUser) {
 		
 		Integer count = service.count();
 		System.out.println("count : " + count);
@@ -59,7 +64,10 @@ public class ShowItemController {
 		// オートコンプリート用にJavaScriptの配列の中身を文字列で作ってスコープへ格納
 		StringBuilder ItemListForAutocomplete = service.getItemListForAutocomplete(service.itemList());
 		model.addAttribute("ItemListForAutocomplete", ItemListForAutocomplete);
-
+		//「ショッピングカート」リンクのアイコンバッジの件数を取得
+		Integer countInCart = countInCartService.countInCart(loginUser);
+		model.addAttribute("countInCart",countInCart);
+		System.out.println("アイコン" + countInCart);
 		return "item_list";
 	}
 	

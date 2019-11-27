@@ -144,7 +144,6 @@ public class OrderRepository {
 //		template.update(sql, param);
 		Number key = insert.executeAndReturnKey(param);
 		order.setId(key.intValue());
-		System.out.println(order);
 		return order;
 	}
 
@@ -162,6 +161,20 @@ public class OrderRepository {
 				+ "delivery_time=:deliveryTime,payment_method=:paymentMethod where id = :id";
 		template.update(sql, param);
 	}
+	/**
+	 * 注文情報のユーザーIDを更新する
+	 * 
+	 * @param order 注文情報
+	 */
+	public void updateUserId(Order order,Integer sessionUserId) {
+		Integer userId = order.getUserId();
+		
+		String sql = "UPDATE orders set user_id = :userId where user_id = :sessionUserId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("sessionUserId", sessionUserId).addValue("userId", userId);
+		template.update(sql, param);
+	}
+	
+	
 
 	/**
 	 * 商品を1件検索してくる.
@@ -200,11 +213,9 @@ public class OrderRepository {
 				"LEFT JOIN toppings t\r\n" + 
 				"ON ot.topping_id=t.id\r\n" + 
 				"WHERE o.user_id =:userId AND o.status = :status";
+		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId).addValue("status", status);
 		List<Order> orderList = template.query(sql, param,ORDER_RESULT_SET_EXTRACTOR);
-//		if (orderList.size() == 0) {
-//			return null;
-//		}
 		return orderList;
 	}
 	
@@ -214,14 +225,9 @@ public class OrderRepository {
 	 * @return 件数
 	 */
 	public Integer countInCart(Integer userId) {
-		String sql = "SELCT count(*) FROM orders WHERE user_id = :userId　AND status = 0";
+		String sql = "SELECT count(*) FROM order_items AS i JOIN orders AS o ON i.order_id = o.id WHERE o.user_id = :userId AND o.status = 0";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
-		Integer count;
-		try {
-			count = template.queryForObject(sql, param, Integer.class);
-		} catch(Exception e) {
-			count = 0;
-		}
+		Integer count = template.queryForObject(sql, param, Integer.class);
 		return count;
 	}
 	
