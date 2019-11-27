@@ -28,7 +28,7 @@ public class DeleteItemController {
 	@RequestMapping("")
 	public String deleteItem(Integer orderItemId) {
 		deleteItemService.deleteItem(orderItemId);
-		return "redirect:/";
+		return "redirect:/ShowOrderItem";
 	}
 
 }
