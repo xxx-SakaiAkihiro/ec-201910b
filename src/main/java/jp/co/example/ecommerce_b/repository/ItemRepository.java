@@ -39,9 +39,9 @@ public class ItemRepository {
 	 * @return 商品一覧
 	 */
 	public List<Item> findAll(Integer pageNumber){
-//		if(pageNumber == 0) {
-//			
-//		}
+		if(pageNumber == 0) {
+			
+		}
 		Integer start = pageNumber + 5;
 		String sql = "select id,name,description,price_m,price_l,image_path from items limit 6 offset :start";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("start", start);

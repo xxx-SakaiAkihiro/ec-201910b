@@ -83,7 +83,7 @@
 								<ul th:each="orderTopping : ${orderItem.orderToppingList}">
 									<li th:if="${orderItem.size=='M'}" th:text="${orderTopping.topping.name} + ${orderTopping.topping.priceM} + 円">男の子用シール300円</li>
 									<li th:unless="${orderItem.size=='M'}" th:text="${orderTopping.topping.name} + ${orderTopping.topping.priceL} + 円">男の子用シール300円</li>
-								</ul>
+                               </ul>
 							</td>
 							<td>
 								<!--  小計は保留(後で実施)　-->

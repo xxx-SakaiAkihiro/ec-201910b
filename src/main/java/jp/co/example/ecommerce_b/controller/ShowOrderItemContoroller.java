@@ -39,9 +39,12 @@ public class ShowOrderItemContoroller {
 	 */
 	@RequestMapping("")
 	public String showOrderItem(Model model, @AuthenticationPrincipal LoginUser loginUser) {
+		System.out.println(loginUser);
 		Integer userId;
-		if (loginUser.getUser().getId().equals(null)) {
-			userId = Integer.parseInt(session.getId());
+		if (loginUser == null) {
+			String soruce = session.getId();
+			Integer sessionId = soruce.hashCode();
+			userId = sessionId;
 		} else {
 			userId = loginUser.getUser().getId();
 		}
