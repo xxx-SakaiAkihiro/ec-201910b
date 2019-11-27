@@ -19,26 +19,27 @@ import jp.co.example.ecommerce_b.service.ItemService;
 @Controller
 @RequestMapping("/showItem")
 public class ShowItemController {
-	
+
 	@Autowired
 	private ItemService service;
-	
+
 	/**
 	 * 曖昧検索をする.
 	 * 
-	 * @param name 名前
-	 * @param model　モデル
-	 * @return　商品画面を表示
+	 * @param name  名前
+	 * @param model モデル
+	 * @return 商品画面を表示
 	 */
 	@RequestMapping("")
 	public String showItemListFindByName(String name, Model model) {
+		
 		List<List<Item>> itemListList = service.showItemListFindByName(name);
-		if(itemListList.isEmpty()) {
+		if (itemListList.isEmpty()) {
 			model.addAttribute("message", "該当する商品はありません");
 			// 商品が１つもなければ全件検索を行う
 			itemListList = service.showItemListFindByName("");
 		}
-		model.addAttribute("itemListList", itemListList);
+		model.addAttribute("itemListList",itemListList);
 		return "item_list";
 	}
 }

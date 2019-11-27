@@ -61,10 +61,6 @@ public class OrderRepository {
 	 */
 	public Order insert(Order order) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
-		String sql = "insert into orders(id,user_id,status,total_price,order_date,"
-				+ "destination_name,destination_email,destination_zipcode,"
-				+ "destination_address,destination_tel,delivery_time,payment_method)";
-		template.update(sql, param);
 		Number key = insert.executeAndReturnKey(param);
 		order.setId(key.intValue());
 		return order;
