@@ -144,6 +144,7 @@ public class OrderRepository {
 //		template.update(sql, param);
 		Number key = insert.executeAndReturnKey(param);
 		order.setId(key.intValue());
+		System.out.println(order);
 		return order;
 	}
 

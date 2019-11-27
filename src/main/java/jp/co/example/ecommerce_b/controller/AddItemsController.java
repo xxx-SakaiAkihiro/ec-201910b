@@ -30,6 +30,7 @@ public class AddItemsController {
 	@RequestMapping("/addItem")
 	public String addItem(OrderItemForm orderItemForm) {
 		service.addItem(orderItemForm);
+		System.out.println(1);
 		return "forward:/ShowOrderItem";
 	}
 }

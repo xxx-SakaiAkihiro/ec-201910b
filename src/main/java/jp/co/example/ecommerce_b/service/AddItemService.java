@@ -49,13 +49,10 @@ public class AddItemService {
 		
 		String source = session.getId();
 		Integer userId = source.hashCode();
-		System.out.println(userId);
 		
 		int status = 0;
 		Order order = null;
 		List<Order> searchOrderList = orderrepository.findByUserIdAndStatus(userId, status);
-		System.out.println("userId:" + userId);
-		System.out.println("userId:" + status);
 		if (searchOrderList.isEmpty()) {
 			order = new Order();
 			order.setUserId(userId);
@@ -82,6 +79,9 @@ public class AddItemService {
 		} else {
 			OrderItem orderItem = new OrderItem();
 			orderItem.setItemId(Integer.parseInt(orderItemForm.getItemId()));
+			Order existOrder = searchOrderList.get(0);
+			Integer existOrderId = existOrder.getId();
+			orderItem.setOrderId(existOrderId);
 			orderItem.setQuantity(Integer.parseInt(orderItemForm.getQuantity()));
 			orderItem.setSize(orderItemForm.getSize());
 			// orderIteｍをインサート
@@ -89,11 +89,13 @@ public class AddItemService {
 
 			OrderTopping orderTopping = new OrderTopping();
 			for (Integer toppingId : orderItemForm.getOrderToppingList()) {
+				orderTopping.setOrderItemId(toppingId);
 				orderTopping.setToppingId(toppingId);
 				// orderToppingをインサート
 				orderToppingRepository.insert(orderTopping);
+				System.out.println(11);
 			}
-
 		}
+		System.out.println(10);
 	}
 }
