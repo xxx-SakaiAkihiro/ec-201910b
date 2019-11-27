@@ -1,9 +1,11 @@
 package jp.co.example.ecommerce_b.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.ecommerce_b.domain.LoginUser;
 import jp.co.example.ecommerce_b.domain.Order;
 import jp.co.example.ecommerce_b.form.OrderForm;
 import jp.co.example.ecommerce_b.service.PurchaseService;
@@ -20,6 +22,7 @@ public class PurchaseController {
 
 	@Autowired
 	private PurchaseService purchaseService;
+	
 	
 	
 	/**
@@ -49,7 +52,8 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping("/mail")
-	public void sendMail() {
-		purchaseService.sendMail();
+	public void sendMail(@AuthenticationPrincipal LoginUser loginUser) {
+		System.out.println(loginUser);
+		purchaseService.sendMail(loginUser);
 	}
 }
