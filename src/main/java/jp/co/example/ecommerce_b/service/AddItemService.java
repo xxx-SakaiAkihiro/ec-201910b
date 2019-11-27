@@ -52,6 +52,7 @@ public class AddItemService {
 		
 		int status = 0;
 		Order order = null;
+
 		List<Order> searchOrderList = orderrepository.findByUserIdAndStatus(userId, status);
 		if (searchOrderList.isEmpty()) {
 			order = new Order();
@@ -93,9 +94,9 @@ public class AddItemService {
 				orderTopping.setToppingId(toppingId);
 				// orderToppingをインサート
 				orderToppingRepository.insert(orderTopping);
-				System.out.println(11);
+				
 			}
 		}
-		System.out.println(10);
+		
 	}
 }

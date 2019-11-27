@@ -58,7 +58,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 			.loginPage("/login/toLogin")//ログイン画面に遷移させるパス
 			.loginProcessingUrl("/doLogin")//ログインhtmlのアクション属性のパスと一致させる.このアクションのボタンが押されたらSecurityがログイン認証を行う
 			.failureUrl("/login/toLogin?error=true")
-			.defaultSuccessUrl("/showItem",true)//認証後第一引数のパスに遷移
+			.defaultSuccessUrl("/updateId",true)//認証後第一引数のパスに遷移
 			.usernameParameter("mailAddress")
 			.passwordParameter("password");
 		

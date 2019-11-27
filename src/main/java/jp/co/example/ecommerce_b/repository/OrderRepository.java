@@ -176,6 +176,7 @@ public class OrderRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("order_id", orderId);
 		return template.queryForObject(sql, param, ORDER_ROW_MAPPER);
 	}
+
 	/**
 	 * ユーザーIDとステータスから注文情報を取得.
 	 * 
