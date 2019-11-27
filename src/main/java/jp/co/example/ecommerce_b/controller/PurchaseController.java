@@ -1,11 +1,11 @@
 package jp.co.example.ecommerce_b.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.ecommerce_b.domain.LoginUser;
 import jp.co.example.ecommerce_b.domain.Order;
 import jp.co.example.ecommerce_b.form.OrderForm;
 import jp.co.example.ecommerce_b.service.PurchaseService;
@@ -21,10 +21,9 @@ import jp.co.example.ecommerce_b.service.PurchaseService;
 public class PurchaseController {
 
 	@Autowired
-	private PurchaseService service;
+	private PurchaseService purchaseService;
 	
-	@Autowired
-	private HttpSession session;
+	
 	
 	/**
 	 * 商品を購入する.
@@ -42,8 +41,19 @@ public class PurchaseController {
 		order.setDestinationTel(orderForm.getDestinationTel());
 		order.setDeliveryTime(orderForm.getDeliveryTime());
 		order.setPaymentMethod((Integer.parseInt(orderForm.getPaymentMethod())));
-		session.setAttribute("order", order);
-		service.insertOrder(order);
+		if("1".equals(orderForm.getPaymentMethod())) {
+			order.setStatus(1);
+		}
+		if("2".equals(orderForm.getPaymentMethod())) {
+			order.setStatus(2);
+		}
+		purchaseService.purchase(order);
 		return "order_finished";
+	}
+	
+	@RequestMapping("/mail")
+	public void sendMail(@AuthenticationPrincipal LoginUser loginUser) {
+		System.out.println(loginUser);
+		purchaseService.sendMail(loginUser);
 	}
 }

@@ -39,9 +39,9 @@ public class ItemService {
 		List<List<Item>> itemListList = new ArrayList<>();
 		ArrayList<Item> itemListBy3 = null;
 		for (int i = 0; i < itemList.size(); i++) {
-			if(i == 0 || i % 3 == 0) {
+			if (i == 0 || i % 3 == 0) {
 				itemListBy3 = new ArrayList<Item>();
-				itemListList.add(itemListBy3);			
+				itemListList.add(itemListBy3);
 			}
 			itemListBy3.add(itemList.get(i));
 		}
@@ -54,6 +54,30 @@ public class ItemService {
 	 */
 	public Integer count() {
 		return repository.count();
+	}
+	/**
+	 * オートコンプリート用にJavaScriptの配列の中身を文字列で作ります.
+	 * 
+	 * @param itemList 商品一覧
+	 * @return　オートコンプリート用JavaScriptの配列の文字列
+	 */
+	public StringBuilder getItemListForAutocomplete(List<Item> itemList) {
+		StringBuilder itemListForAutocomplete = new StringBuilder();
+		for (int i = 0; i < itemList.size(); i++) {
+			if (i != 0) {
+				itemListForAutocomplete.append(",");
+			}
+			Item item = itemList.get(i);
+			itemListForAutocomplete.append("\"");
+			itemListForAutocomplete.append(item.getName());
+			itemListForAutocomplete.append("\"");
+		}
+		return itemListForAutocomplete;
+	}
+	
+	public List<Item> itemList () {
+		return repository.findAll(0);	
+		
 	}
 
 }

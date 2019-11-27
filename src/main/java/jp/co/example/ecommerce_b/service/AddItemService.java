@@ -50,7 +50,7 @@ public class AddItemService {
 		
 		int status = 0;
 		Order order = null;
-		Order serachOrder = orderrepository.findByUserIdAndStatus(userId, status);
+		Order serachOrder = orderrepository.findByUserIdAndStatus(userId, status).get(0);
 		if (serachOrder == null) {
 			order = new Order();
 			order.setUserId(userId);
