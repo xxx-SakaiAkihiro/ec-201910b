@@ -61,7 +61,9 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	 */
 	public void updateUserId(User user) {
 		int status = 0;
-		Order Order = orderRepository.findByUserIdAndStatus(Integer.valueOf(session.getId()),status);
+		String source = session.getId();
+		Integer sesssionId = source.hashCode();
+		Order Order = orderRepository.findByUserIdAndStatus(sesssionId,status);
 		Order.setUserId(user.getId());
 		orderRepository.update(Order);
 	}
