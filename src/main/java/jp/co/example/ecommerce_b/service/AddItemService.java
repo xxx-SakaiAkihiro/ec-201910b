@@ -1,6 +1,8 @@
 package jp.co.example.ecommerce_b.service;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +49,14 @@ public class AddItemService {
 		
 		String source = session.getId();
 		Integer userId = source.hashCode();
+		System.out.println(userId);
 		
 		int status = 0;
 		Order order = null;
-		Order serachOrder = orderrepository.findByUserIdAndStatus(userId, status).get(0);
-		if (serachOrder == null) {
+		List<Order> searchOrderList = orderrepository.findByUserIdAndStatus(userId, status);
+		System.out.println("userId:" + userId);
+		System.out.println("userId:" + status);
+		if (searchOrderList.isEmpty()) {
 			order = new Order();
 			order.setUserId(userId);
 			order.setStatus(0);
