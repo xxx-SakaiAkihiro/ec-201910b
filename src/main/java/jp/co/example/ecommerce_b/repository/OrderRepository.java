@@ -187,7 +187,7 @@ public class OrderRepository {
 				+ "destination_email,destination_zipcode,destination_address,destination_tel,"
 				+ "delivery_time,payment_method where user_id =:userId AND status = :status";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId).addValue("status", status);
-		List<Order> orderList = template.query(sql, param,ORDER_ROW_MAPPER);
+		List<Order> orderList = template.query(sql, param,ORDER_RESULT_SET_EXTRACTOR);
 		if (orderList.size() == 0) {
 			return null;
 		}

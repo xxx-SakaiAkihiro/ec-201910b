@@ -4,3 +4,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/ec_201910b
     username: postgres
     password: postgres
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: <pepperoni.4.eg@gmail.com>
+    password: dohwapabsmdvcqxp
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.starttls.enable: true
