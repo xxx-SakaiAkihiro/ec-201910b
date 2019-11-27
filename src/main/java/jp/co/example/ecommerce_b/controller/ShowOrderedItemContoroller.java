@@ -1,8 +1,9 @@
 package jp.co.example.ecommerce_b.controller;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +19,12 @@ import jp.co.example.ecommerce_b.service.ShowOrderedItemService;
  *
  */
 @Controller
-@RequestMapping("/ShowOrderItem")
+@RequestMapping("/ShowOrderedItem")
 public class ShowOrderedItemContoroller {
 
 	@Autowired
 	private ShowOrderedItemService showOrderedItemService;
+
 
 //	@RequestMapping("")
 //	public String showOrderedItem(Model model, @AuthenticationPrincipal LoginUser loginuser) {
