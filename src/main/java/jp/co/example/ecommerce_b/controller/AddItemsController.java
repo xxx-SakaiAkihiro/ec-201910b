@@ -29,7 +29,10 @@ public class AddItemsController {
 	 */
 	@RequestMapping("/addItem")
 	public String addItem(OrderItemForm orderItemForm) {
+		System.out.println(1);
+		System.out.println(orderItemForm);
 		service.addItem(orderItemForm);
+		
 		return "cart_list";
 	}
 }
