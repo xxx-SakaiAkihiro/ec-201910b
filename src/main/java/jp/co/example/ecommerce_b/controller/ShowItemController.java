@@ -40,6 +40,12 @@ public class ShowItemController {
 			itemListList = service.showItemListFindByName("");
 		}
 		model.addAttribute("itemListList", itemListList);
+		
+		// オートコンプリート用にJavaScriptの配列の中身を文字列で作ってスコープへ格納
+		StringBuilder ItemListForAutocomplete = service.getItemListForAutocomplete(service.itemList());
+		model.addAttribute("ItemListForAutocomplete", ItemListForAutocomplete);
+				
+				
 		return "item_list";
 	}
 	
@@ -54,4 +60,5 @@ public class ShowItemController {
 //		}
 //		return pageNumbers;
 //	}
+	
 }
