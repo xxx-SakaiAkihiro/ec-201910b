@@ -30,6 +30,6 @@ public class AddItemsController {
 	@RequestMapping("/addItem")
 	public String addItem(OrderItemForm orderItemForm) {
 		service.addItem(orderItemForm);
-		return "redirect:/ShowOrderItem";
+		return "forward:/ShowOrderItem";
 	}
 }

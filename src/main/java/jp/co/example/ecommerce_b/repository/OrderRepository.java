@@ -138,10 +138,10 @@ public class OrderRepository {
 	 */
 	public Order insert(Order order) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(order);
-		String sql = "insert into orders(id,user_id,status,total_price,order_date,"
-				+ "destination_name,destination_email,destination_zipcode,"
-				+ "destination_address,destination_tel,delivery_time,payment_method)";
-		template.update(sql, param);
+//		String sql = "insert into orders(id,user_id,status,total_price,order_date,"
+//				+ "destination_name,destination_email,destination_zipcode,"
+//				+ "destination_address,destination_tel,delivery_time,payment_method)";
+//		template.update(sql, param);
 		Number key = insert.executeAndReturnKey(param);
 		order.setId(key.intValue());
 		return order;
@@ -200,9 +200,9 @@ public class OrderRepository {
 				"WHERE o.user_id =:userId AND o.status = :status";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId).addValue("status", status);
 		List<Order> orderList = template.query(sql, param,ORDER_RESULT_SET_EXTRACTOR);
-		if (orderList.size() == 0) {
-			return null;
-		}
+//		if (orderList.size() == 0) {
+//			return null;
+//		}
 		return orderList;
 	}
 	
