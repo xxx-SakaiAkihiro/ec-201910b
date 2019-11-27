@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import jp.co.example.ecommerce_b.domain.CreditCard;
+import jp.co.example.ecommerce_b.domain.CreditCardData;
 import jp.co.example.ecommerce_b.domain.LoginUser;
 //import jp.co.example.ecommerce_b.domain.CreditCard;
 //import jp.co.example.ecommerce_b.domain.CreditCardData;
@@ -82,13 +84,13 @@ public class PurchaseService {
     }
 	
 
-    /** クレジットカードAPI リクエストURL 
+    /** クレジットカードAPI リクエストURL */
     private static final String URL = "http://172.16.0.13:8080/sample-credit-card-web-api/credit-card/payment";
 
     public CreditCardData creditCardCall(CreditCard creditCard  ) {
         return restTemplate.getForObject(URL, CreditCardData.class, creditCard);
     }
-   */
+   
 	
 	
 	

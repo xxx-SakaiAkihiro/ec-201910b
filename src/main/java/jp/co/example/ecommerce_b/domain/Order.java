@@ -43,22 +43,25 @@ public class Order {
 				+ destinationAddress + ", destinationTel=" + destinationTel + ", deliveryTime=" + deliveryTime
 				+ ", paymentMethod=" + paymentMethod + ", user=" + user + ", orderItemList=" + orderItemList + "]";
 	}
-	
-//	public int getTax() {
-//		OrderItem orderItem = new OrderItem();
-//		int tax = (int)( orderItem.getSubTotal() * 0.1 );
-//		return tax;
-//		
-////		int totalTaxM = 0;
-////		for( OrderItem orderItems : orderItemList ) {
-////			orderItems.getSubTotalM()
-////		}	
-//	}
-//	public int getCalcTotalPrice() {
-//		OrderItem orderItem = new OrderItem();
-//		int CalcTotalPrice = getTax() + orderItem.getSubTotal();
-//		return CalcTotalPrice;
-//	}
+
+	public int getTax() {
+		int tax = 0;
+		for (OrderItem orderItem : orderItemList) {
+
+			tax += (orderItem.getSubTotal() * 0.1);
+		}
+		return tax;
+	}
+
+	public int getCalcTotalPrice() {
+		int CalcTotalPrice = 0;
+		for (OrderItem orderItem : orderItemList) {
+
+			CalcTotalPrice += (orderItem.getSubTotal() + getTax());
+		}
+
+		return CalcTotalPrice;
+	}
 
 	/**
 	 * @return the id

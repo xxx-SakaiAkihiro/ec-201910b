@@ -7,6 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.ecommerce_b.domain.CreditCard;
+import jp.co.example.ecommerce_b.domain.CreditCardData;
 import jp.co.example.ecommerce_b.domain.LoginUser;
 //import jp.co.example.ecommerce_b.domain.CreditCard;
 //import jp.co.example.ecommerce_b.domain.CreditCardData;
@@ -54,7 +56,7 @@ public class PurchaseController {
 		///purchaseService.purchase(order);
 		
 		
-		/** orderForm で受け取ったリクエストパラメータをcreditCardにセットする 
+		/** orderForm で受け取ったリクエストパラメータをcreditCardにセットする */
 		CreditCard creditCard = new CreditCard(); 
 		creditCard.setCard_number(orderForm.getCard_number());
 		creditCard.setCard_exp_month(orderForm.getCard_exp_month());
@@ -71,7 +73,7 @@ public class PurchaseController {
 			
 		}
 		
-		↑競合しても消さないで　*/
+		/*↑競合しても消さないで　*/
 		
 		
 		

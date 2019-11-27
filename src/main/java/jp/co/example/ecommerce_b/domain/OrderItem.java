@@ -3,7 +3,7 @@ package jp.co.example.ecommerce_b.domain;
 import java.util.List;
 
 public class OrderItem {
-	
+
 	/* ID */
 	private Integer id;
 	/* ItemID */
@@ -24,7 +24,7 @@ public class OrderItem {
 		return "OrderItem [id=" + id + ", itemId=" + itemId + ", orderId=" + orderId + ", quantity=" + quantity
 				+ ", size=" + size + ", item=" + item + ", orderToppingList=" + orderToppingList + "]";
 	}
-	
+
 	/**
 	 * Mサイズを選んだ際の小計を表す.
 	 * 
@@ -32,36 +32,25 @@ public class OrderItem {
 	 * 
 	 * @return Mサイズを選んだ際の小計
 	 */
-//	public int getSubTotal() {
-//		int totalToppingPriceM = 0;
-//		int totalToppingPriceL = 0;
-//		for( Integer toppings : orderToppingList ) {
-//			Topping topping = toppings.();
-//			totalToppingPriceM = totalToppingPriceM + topping.getPriceM();
-//			totalToppingPriceL = totalToppingPriceL + topping.getPriceL();
-//		}
-//		if(item.getPriceM() != 0) {
-//			return ( item.getPriceM() + totalToppingPriceM ) * quantity;			
-//		} 
-//		if(item.getPriceL() != 0) {
-//			return ( item.getPriceM() + totalToppingPriceL ) * quantity;		
-//		}
-//		return 0;
-//	}
-	
-	/**
-	 * Lサイズを選んだ際の小計を表す.
-	 * 
-	 * @return Lサイズを選んだ際の小計
-	 */
-//	public int getSubTotalL() {
-//		int totalToppingPrice = 0;
-//		for( OrderTopping toppings : orderToppingList ) {
-//			Topping topping = toppings.getTopping();
-//			totalToppingPrice = totalToppingPrice + topping.getPriceL();
-//		}
-//		return ( item.getPriceL() + totalToppingPrice ) * quantity;
-//	}
+	public int getSubTotal() {
+
+		int subtotal = 0;
+		int totalTopping = 0;
+
+		if (size.equals("m")) {
+			for (OrderTopping topping : orderToppingList) {
+				totalTopping += topping.getTopping().getPriceM();
+			}
+			subtotal = (totalTopping+item.getPriceM())*quantity;
+		}else {
+			for (OrderTopping topping : orderToppingList) {
+				totalTopping += topping.getTopping().getPriceL();
+			}
+			subtotal += (totalTopping+item.getPriceL())*quantity;
+		}
+		return subtotal;
+
+	}
 
 	/**
 	 * @return the id
