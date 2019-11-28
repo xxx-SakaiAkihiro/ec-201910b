@@ -6,9 +6,11 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jp.co.example.ecommerce_b.domain.LoginUser;
 import jp.co.example.ecommerce_b.domain.Order;
 import jp.co.example.ecommerce_b.domain.OrderItem;
 import jp.co.example.ecommerce_b.domain.OrderTopping;
@@ -45,10 +47,17 @@ public class AddItemService {
 	 * 
 	 * @param orderItem 注文した商品
 	 */
-	public void addItem(OrderItemForm orderItemForm) {
-		
-		String source = session.getId();
-		Integer userId = source.hashCode();
+	public void addItem(OrderItemForm orderItemForm,@AuthenticationPrincipal LoginUser loginUser) {
+		Integer userId;
+		if ( loginUser != null ) {
+			userId = loginUser.getUser().getId();
+		} else if (session.getAttribute("userId") != null ) {
+			userId = (Integer) session.getAttribute("userId");
+		} else {
+			String source = session.getId();
+			userId = source.hashCode();
+			session.setAttribute("userId", userId);
+		}
 		
 		int status = 0;
 		Order order = null;
@@ -60,8 +69,9 @@ public class AddItemService {
 			order.setStatus(0);
 			order.setTotalPrice(0);
 			// orderをインサート
+			System.out.println(userId);
 			orderrepository.insert(order);
-
+			
 			OrderItem orderItem = new OrderItem();
 			orderItem.setItemId(Integer.parseInt(orderItemForm.getItemId()));
 			orderItem.setOrderId(order.getId());

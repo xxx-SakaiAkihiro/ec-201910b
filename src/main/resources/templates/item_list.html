@@ -56,9 +56,10 @@ $("#code").autocomplete({
 					<p class="navbar-text navbar-right">
 						<span sec:authorize="hasRole('ROLE_USER')"><span sec:authentication="principal.user.name"></span>さんこんにちは！</span>
 
-						<a href="cart_list.html" th:href="@{/ShowOrderItem}" class="navbar-link">ショッピングカート<span class="badge badge-notify">5</span></a>&nbsp;&nbsp;
+						<a href="cart_list.html" th:href="@{/ShowOrderItem}" class="navbar-link">ショッピングカート<span class="badge badge-notify"><span th:text="${countInCart}"></span></span></a>&nbsp;&nbsp;
+						<span sec:authorize="hasRole('ROLE_USER')">
 						<a th:href="@{/history}" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
-
+						</span>
 						<span sec:authorize="isAnonymous()">
 							<a th:href="@{/login/toLogin}" class="navbar-link">ログイン</a>&nbsp;&nbsp; 
 						</span>

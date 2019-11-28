@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_b.domain.LoginUser;
 import jp.co.example.ecommerce_b.domain.Order;
+import jp.co.example.ecommerce_b.service.CountInCartService;
 import jp.co.example.ecommerce_b.service.ShowOrderItemService;
 
 /**
@@ -30,6 +31,9 @@ public class ShowOrderItemContoroller {
 	@Autowired
 	private HttpSession session;
 	
+	@Autowired
+	private CountInCartService countInCartService;
+	
 	/**
 	 * ショッピングカートの中身を表示する.
 	 * 
@@ -39,17 +43,17 @@ public class ShowOrderItemContoroller {
 	 */
 	@RequestMapping("")
 	public String showOrderItem(Model model, @AuthenticationPrincipal LoginUser loginUser) {
-		System.out.println(loginUser);
 		Integer userId;
 		if (loginUser == null) {
-			String soruce = session.getId();
-			Integer sessionId = soruce.hashCode();
-			userId = sessionId;
+			userId = (Integer) session.getAttribute("userId");
 		} else {
 			userId = loginUser.getUser().getId();
 		}
 		List<Order> orderList = showOrderItemService.findByUserIdAndStatus(userId);
 		model.addAttribute("orderList", orderList);
+		
+		Integer countInCart = countInCartService.countInCart(loginUser);
+		model.addAttribute("countInCart",countInCart);
 		return "cart_list";
 	}
 	
