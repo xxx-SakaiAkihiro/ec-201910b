@@ -16,6 +16,8 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" th:src="@{/js/order_confirm.js}"></script>
 </head>
 <body>
 	<div class="container">
@@ -241,13 +243,13 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
+							<tr id="card_number">
 								<td>
 									<div class="text-center">クレジットカード番号</div>
 								</td>
 								<td><input type="text" name="card_number"></td>
 							</tr>
-							<tr>
+							<tr id="card_exp">
 								<td>
 									<div class="text-center">有効期限</div>
 								</td>
@@ -291,13 +293,13 @@
 								</select>
 								</td>
 							</tr>
-							<tr>
+							<tr id="card_name">
 								<td>
 									<div class="text-center">カード名義人</div>
 								</td>
 								<td><input type="text" name="card_name"></td>
 							</tr>
-							<tr>
+							<tr id="card_cvv">
 								<td>
 									<div class="text-center">セキュリティコード</div>
 								</td>
