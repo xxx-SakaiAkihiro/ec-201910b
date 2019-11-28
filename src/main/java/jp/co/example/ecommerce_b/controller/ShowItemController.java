@@ -29,7 +29,7 @@ public class ShowItemController {
 
 	@Autowired
 	private CountInCartService countInCartService;
-
+	
 	/**
 	 * 曖昧検索をする.
 	 * 
@@ -41,7 +41,6 @@ public class ShowItemController {
 
 	public String showItemListFindByName(String name, Integer pageNumber, Model model,
 			@AuthenticationPrincipal LoginUser loginUser) {
-
 		Integer count = service.count();
 		int maxPageNumber = 0;
 		List<Integer> pageNumbers = new ArrayList<Integer>();
@@ -80,8 +79,21 @@ public class ShowItemController {
 	 * @return 値段が高い順、低い順の商品一覧
 	 */
 	@RequestMapping("/sortItems")
-	public String sortByMoneyItem(String sort, Model model) {
-		List<List<Item>> itemListList = service.sortByMoneyItem(sort);
+	public String sortByMoneyItem(String sort, Model model,Integer pageNumber) {
+		Integer count = service.count();
+		int maxPageNumber = 0;
+		List<Integer> pageNumbers = new ArrayList<Integer>();
+		if (count % 6 != 0) {
+			maxPageNumber = count / 6 + 1;
+		} else {
+			maxPageNumber = count / 6;
+		}
+		for (int i = 1; i <= maxPageNumber; i++) {
+			pageNumbers.add(i);
+		}
+		model.addAttribute("pageNumbers", pageNumbers);
+		
+		List<List<Item>> itemListList = service.sortByMoneyItem(sort,pageNumber);
 		model.addAttribute("itemListList", itemListList);
 		return "item_list";
 	}

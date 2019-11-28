@@ -30,8 +30,9 @@ public class ItemService {
 	 * @return 曖昧検索結果
 	 */
 	public List<List<Item>> showItemListFindByName(String name, Integer pageNumber) {
+		
 		Integer pageCount = 0;
-		if (pageNumber == null || pageNumber == 1) {
+		if (pageNumber == null || pageNumber == 1 ) {
 			pageCount = 0;
 		} else {
 			pageCount = (pageNumber - 1) * 6;
@@ -40,7 +41,11 @@ public class ItemService {
 		if (name == null || name.equals("")) {
 			itemList = repository.findAll(pageCount);
 		} else {
-			itemList = repository.findByName(name);
+			itemList = repository.findByName(name, pageNumber);
+			
+			System.out.println("name2 : " + name);
+			System.out.println("pageNumber2 : " + pageNumber);
+			
 		}
 		List<List<Item>> itemListList = devideItemsBy3(itemList);
 		return itemListList;
@@ -70,20 +75,23 @@ public class ItemService {
 	 * 
 	 * @return 値段が高い順、低い順の商品一覧
 	 */
-	public List<List<Item>> sortByMoneyItem(String sort) {
-		System.out.println("sort :" + sort);
+	public List<List<Item>> sortByMoneyItem(String sort,Integer pageNumber) {
+		Integer pageCount = 0;
+		if (pageNumber == null || pageNumber == 1) {
+			pageCount = 0;
+		} else {
+			pageCount = (pageNumber - 1) * 6;
+		}
+		
 		List<List<Item>> itemListList = null;
 		List<Item> itemList = null;
+		
 		if (sort.equals("expensive")) {
-			System.out.println(11111);
-			itemList = repository.orderByExpensiveItem();
+			itemList = repository.orderByExpensiveItem(sort,pageCount);
 		} else {
-			System.out.println(2222);
-			itemList = repository.orderByCheapItem();
+			itemList = repository.orderByCheapItem(sort,pageCount);
 		}
-
 		itemListList = devideItemsBy3(itemList);
-
 		return itemListList;
 	}
 

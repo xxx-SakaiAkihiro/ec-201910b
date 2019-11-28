@@ -32,10 +32,10 @@ $("#code").autocomplete({
 });</script>
 
 <style>
-/* ../img.serchButton { */
-/* width: 96px; */
-/* height: 65px; */
-/* } */
+img.serchButton {
+width: 96px;
+height: 45px;
+}
 </style>
 
 </head>
@@ -121,7 +121,7 @@ $("#code").autocomplete({
 								<option value="cheap">価格が安い順</option>
 								<option value="expensive">価格が高い順</option>
 							</select>
-							<button><img class="serchButton" src="/img/button.png"></button>
+							<button class="btn btn-success">検索</button>
 						</form>
 					</div>
 				</div>
@@ -145,22 +145,19 @@ $("#code").autocomplete({
 								class="price">&nbsp;Ｌ</span> <span th:text="${item.priceL}"></span>&nbsp;&nbsp;円(税抜)<br>
 							</th>
 						</tr>
-
 					</tbody>
 				</table>
 			</div>
-
 		</div>
+		
+
+		
+		<div class="pagination">
 		<ul class="pagination">
-			<!-- 			<li><a href="#" aria-label="前のページへ">  -->
-			<!-- 			<span aria-hidden="true">前のページへ</span></a></li> -->
-
-			<li><span th:each="page : ${pageNumbers}"> <a
-					th:href="@{'/showItem?pageNumber='+${page}}" th:text="${page}"></a>
+			<li id="pageNation-btn">
+			<span th:each="page : ${pageNumbers}"> 
+			<a th:href="@{'/showItem?pageNumber='+${page}}" th:text="${page}"></a>
 			</span></li>
-
-			<!-- 			<li><a href="#" aria-label="次のページへ">  -->
-			<!-- 			<span aria-hidden="true">次のページへ</span></a></li> -->
 		</ul>
 	</div>
 	<!-- end container -->
