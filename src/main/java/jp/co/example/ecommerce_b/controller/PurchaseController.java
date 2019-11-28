@@ -46,39 +46,28 @@ public class PurchaseController {
 		order.setDestinationAddress(orderForm.getDestinationAddress());
 		order.setDestinationTel(orderForm.getDestinationTel());
 		order.setDeliveryTime(orderForm.getDeliveryTime());
-//		/order.setPaymentMethod((Integer.parseInt(orderForm.getPaymentMethod())));
-//		if("1".equals(orderForm.getPaymentMethod())) {
-//			order.setStatus(1);
-//		}
-//		if("2".equals(orderForm.getPaymentMethod())) {
-//			order.setStatus(2);
-//		}
-		///purchaseService.purchase(order);
-		
-		
-		/** orderForm で受け取ったリクエストパラメータをcreditCardにセットする */
-		CreditCard creditCard = new CreditCard(); 
-		creditCard.setCard_number(orderForm.getCard_number());
-		creditCard.setCard_exp_month(orderForm.getCard_exp_month());
-		creditCard.setCard_exp_year(orderForm.getCard_exp_year());
-		creditCard.setCard_name(orderForm.getCard_name());
-		creditCard.setCard_cvv(orderForm.getCard_cvv());
-		
-		CreditCardData creditCardData=purchaseService.creditCardCall(creditCard);
-		
-		if (creditCardData.getMessage().equals("error")) {
-			result.rejectValue("card_number", null, "クレジットカード情報が不正です");
-			
-			return "foward:/purchase";
-			
+		order.setPaymentMethod((Integer.parseInt(orderForm.getPaymentMethod())));
+		if("1".equals(orderForm.getPaymentMethod())) {
+			order.setStatus(1);
 		}
-		
-		/*↑競合しても消さないで　*/
-		
-		
-		
-		
-		
+		if("2".equals(orderForm.getPaymentMethod())) {
+			order.setStatus(2);
+			/** orderForm で受け取ったリクエストパラメータをcreditCardにセットする */
+			CreditCard creditCard = new CreditCard(); 
+			creditCard.setCard_number(orderForm.getCard_number());
+			creditCard.setCard_exp_month(orderForm.getCard_exp_month());
+			creditCard.setCard_exp_year(orderForm.getCard_exp_year());
+			creditCard.setCard_name(orderForm.getCard_name());
+			creditCard.setCard_cvv(orderForm.getCard_cvv());
+			
+			CreditCardData creditCardData=purchaseService.creditCardCall(creditCard);
+			
+			if (creditCardData.getMessage().equals("error")) {
+				result.rejectValue("card_number", null, "クレジットカード情報が不正です");
+				return "foward:/purchase";
+			}
+		}
+		purchaseService.purchase(order);
 		return "order_finished";
 	}
 	

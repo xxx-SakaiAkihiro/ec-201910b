@@ -69,6 +69,7 @@ public class OrderRepository {
 				orderItem.setItemId(rs.getInt("oi_item_id"));
 				orderItem.setOrderId(rs.getInt("oi_order_id"));
 				orderItem.setQuantity(rs.getInt("oi_quantity"));
+				System.out.println("Extractor:" + rs.getString("i_name") + ":" + rs.getString("oi_size"));
 				orderItem.setSize((rs.getString("oi_size")).charAt(0));
 				orderToppingList = new ArrayList<>();
 				orderItem.setOrderToppingList(orderToppingList);
