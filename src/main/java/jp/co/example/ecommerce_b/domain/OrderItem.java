@@ -37,7 +37,7 @@ public class OrderItem {
 		int subtotal = 0;
 		int totalTopping = 0;
 
-		if (size.equals("M")) {
+		if (size.equals('M')) {
 			for (OrderTopping topping : orderToppingList) {
 				totalTopping += topping.getTopping().getPriceM();
 			}
