@@ -39,12 +39,8 @@ public class ItemRepository {
 	 * @return 商品一覧
 	 */
 	public List<Item> findAll(Integer pageNumber){
-		if(pageNumber == 0) {
-			
-		}
-		Integer start = pageNumber + 5;
-		String sql = "select id,name,description,price_m,price_l,image_path from items limit 6 offset :start";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("start", start);
+		String sql = "select id,name,description,price_m,price_l,image_path from items limit 6 offset :pageNumber";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("pageNumber", pageNumber);
 		List<Item> ItemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return ItemList;
 	}
@@ -80,5 +76,27 @@ public class ItemRepository {
 		SqlParameterSource param = new MapSqlParameterSource();
 		return template.queryForObject(sql, param,Integer.class);
 	}
+//	/**
+//	 * 値段が高い順で商品を検索する.
+//	 * 
+//	 * @param priceM Mサイズの値段
+//	 * @return 値段が高い順の商品一覧
+//	 */
+//	public List<Item> orderByExpensiveItem(){
+//		String sql = "select price_m from items order by price_m desc";
+//		SqlParameterSource param = new MapSqlParameterSource();
+//		return template.query(sql, param, ITEM_ROW_MAPPER);
+//	}
+//	/**
+//	 * 値段が低い順で商品を検索する.
+//	 * 
+//	 * @param priceM Mサイズの値段
+//	 * @return 値段が低い順の商品一覧
+//	 */
+//	public List<Item> orderByCheapItem(){
+//		String sql = "select price_m from items order by price_m";
+//		SqlParameterSource param = new MapSqlParameterSource();
+//		return template.query(sql, param, ITEM_ROW_MAPPER);
+//	}
 	
 }
