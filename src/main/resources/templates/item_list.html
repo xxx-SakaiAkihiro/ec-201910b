@@ -19,11 +19,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" th:src="@{/js/item_list.js}"></script>
 
-
 <script type="text/javascript">
 $( function() {
   var data = [ [(${ItemListForAutocomplete})] ];
-
 
 $("#code").autocomplete({
     source: data,
@@ -32,6 +30,14 @@ $("#code").autocomplete({
     minLength: 1
   });
 });</script>
+
+<style>
+img.serchButton {
+width: 96px;
+height: 45px;
+}
+</style>
+
 </head>
 <body>
 	<div class="container">
@@ -108,23 +114,19 @@ $("#code").autocomplete({
 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-<!-- 						<div class="panel-title">商品を並び替える</div> -->
+						<div class="panel-title">商品を並び替える</div>
 						<form th:action="@{/showItem/sortItems}" method="post">
-							<select name="sort" class="btn-info">
-								<option value="">商品を並び替える</option>
-								<option value="cheap" th:value="${cheap}">価格が安い順</option>
-								<option value="expensive" th:value="${expensive}">価格が高い順</option>
+							<select id="button" name="sort" class="btn-default">
+								<option value="">-----</option>
+								<option value="cheap">価格が安い順</option>
+								<option value="expensive">価格が高い順</option>
 							</select>
-							<button>並び替え</button>
+							<button class="btn btn-success">検索</button>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<!-- 	th:each="cheap : ${orderByCheapItem}" -->
-		<!-- 	th:each="expensive : ${orderByExpensiveItem}" -->
-
 
 		<!-- table -->
 		<div class="row">
@@ -143,18 +145,16 @@ $("#code").autocomplete({
 								class="price">&nbsp;Ｌ</span> <span th:text="${item.priceL}"></span>&nbsp;&nbsp;円(税抜)<br>
 							</th>
 						</tr>
-
 					</tbody>
 				</table>
 			</div>
-
 		</div>
+		<div class="pagination">
 		<ul class="pagination">
-			<!-- 			<li><a href="#" aria-label="前のページへ">  -->
-			<!-- 			<span aria-hidden="true">前のページへ</span></a></li> -->
-			<li><span th:each="page : ${pageNumbers}"><a th:href="@{'/showItem?pageNumber='+${page}}" th:text="${page}"></a></span></li>
-			<!-- 			<li><a href="#" aria-label="次のページへ">  -->
-			<!-- 			<span aria-hidden="true">次のページへ</span></a></li> -->
+			<li id="pageNation-btn">
+			<span th:each="page : ${pageNumbers}"> 
+			<a th:href="@{'/showItem?pageNumber='+${page}}" th:text="${page}"></a>
+			</span></li>
 		</ul>
 	</div>
 	<!-- end container -->

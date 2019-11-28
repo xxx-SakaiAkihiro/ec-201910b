@@ -50,9 +50,9 @@ public class ItemRepository {
 	 * @param name 商品の名前
 	 * @return 曖昧検索の結果
 	 */
-	public List<Item> findByName(String name){
-		String sql = "select id,name,description,price_m,price_l,image_path from items where name like :name";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("name", '%' + name + '%');
+	public List<Item> findByName(String name,Integer pageNumber){
+		String sql = "select id,name,description,price_m,price_l,image_path from items where name like :name limit 6 offset :pageNumber";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", '%' + name + '%').addValue("pageNumber", pageNumber);
 		return template.query(sql, param, ITEM_ROW_MAPPER);
 	}
 	/**
@@ -82,9 +82,9 @@ public class ItemRepository {
 	 * @param priceM Mサイズの値段
 	 * @return 値段が高い順の商品一覧
 	 */
-	public List<Item> orderByExpensiveItem(){
-		String sql = "select * from items order by price_m desc";
-		SqlParameterSource param = new MapSqlParameterSource();
+	public List<Item> orderByExpensiveItem(String sort,Integer pageNumber){
+		String sql = "select * from items order by price_m desc limit 6 offset :pageNumber";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("pageNumber", pageNumber);
 		return template.query(sql, param, ITEM_ROW_MAPPER);
 	}
 	/**
@@ -93,9 +93,9 @@ public class ItemRepository {
 	 * @param priceM Mサイズの値段
 	 * @return 値段が低い順の商品一覧
 	 */
-	public List<Item> orderByCheapItem(){
-		String sql = "select * from items order by price_m";
-		SqlParameterSource param = new MapSqlParameterSource();
+	public List<Item> orderByCheapItem(String sort,Integer pageNumber){
+		String sql = "select * from items order by price_m limit 6 offset :pageNumber";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("pageNumber", pageNumber);
 		return template.query(sql, param, ITEM_ROW_MAPPER);
 	}
 	
