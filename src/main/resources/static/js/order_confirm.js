@@ -1,7 +1,7 @@
 /**
  * 
  */
-
+$( function() {
 
 	$("#card_number").hide();
 	$("#card_exp").hide();
@@ -9,16 +9,19 @@
 	$("#card_cvv").hide();
 	
 	
-	$("#bonus").on("change",function(){
-		if ($("#bonus").val()=="1") {
-			$("#java").hide();
-			$("#javascript").hide();
-		}else if ($("#bonus").val()=="2") {
-			$("#java").show();
-			$("#javascript").hide();
-		}else if ($("#bonus").val()=="3") {
-			$("#java").hide();
-			$("#javascript").show();
+	$(".paymentMethod").on("change",function(){
+		console.log($("input[name='paymentMethod']:checked").val());
+		if ($("input[name='paymentMethod']:checked").val()=="1") {
+			$("#card_number").hide();
+			$("#card_exp").hide();
+			$("#card_name").hide();
+			$("#card_cvv").hide();
+		}else if ($("input[name='paymentMethod']:checked").val()=="2") {
+			$("#card_number").show();
+			$("#card_exp").show();
+			$("#card_name").show();
+			$("#card_cvv").show();
 		}
-		
 	});
+});
+	
