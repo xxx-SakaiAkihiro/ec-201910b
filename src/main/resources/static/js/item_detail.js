@@ -18,18 +18,19 @@ $(function() {
 	
 	function calc_price() {
 		var size = $(".size:checked").val();
-		console.log(size);
+		console.log("サイズMorL"+size);
 		var topping_count = $("#topping input:checkbox:checked").length;
-		console.log(topping_count);
+		console.log("トッピングの個数"+topping_count);
 		var num = $("#num option:selected").val();
-		console.log(num);
+		console.log("数量"+num);
 		
-		if (size == "m") {
+		if (size == "M") {
 			var size_price =parseInt($('#m_price').val()) ;
-			console.log(size_price);
+			console.log("Mの料金"+size_price);
 			var topping_price = 200 * topping_count;
 		} else {
 			var size_price = parseInt($('#l_price').val()) ;
+			console.log("Lの料金"+size_price);
 			var topping_price = 300 * topping_count;
 		}
 		var price = (size_price + topping_price) * num;
