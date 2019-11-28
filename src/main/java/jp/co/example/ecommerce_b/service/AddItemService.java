@@ -68,8 +68,7 @@ public class AddItemService {
 			order.setStatus(0);
 			order.setTotalPrice(0);
 			// orderをインサート
-			System.out.println(userId);
-			orderrepository.insert(order);
+			order = orderrepository.insert(order);
 
 			OrderItem orderItem = new OrderItem();
 			orderItem.setItemId(Integer.parseInt(orderItemForm.getItemId()));
@@ -77,7 +76,7 @@ public class AddItemService {
 			orderItem.setQuantity(Integer.parseInt(orderItemForm.getQuantity()));
 			orderItem.setSize(orderItemForm.getSize());
 			// orderIteｍをインサート
-			orderItemRepository.insert(orderItem);
+			orderItem = orderItemRepository.insert(orderItem);
 
 			OrderTopping orderTopping = new OrderTopping();
 			orderTopping.setOrderItemId(orderItem.getId());
@@ -97,11 +96,12 @@ public class AddItemService {
 			orderItem.setQuantity(Integer.parseInt(orderItemForm.getQuantity()));
 			orderItem.setSize(orderItemForm.getSize());
 			// orderIteｍをインサート
-			orderItemRepository.insert(orderItem);
+			orderItem = orderItemRepository.insert(orderItem);
 
 			OrderTopping orderTopping = new OrderTopping();
 			if (orderToppingList != null) {
 				for (Integer toppingId : orderToppingList) {
+					orderTopping.setOrderItemId(orderItem.getId());
 					orderTopping.setToppingId(toppingId);
 					// orderToppingをインサート
 					orderToppingRepository.insert(orderTopping);
