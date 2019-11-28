@@ -30,7 +30,6 @@ public class ItemService {
 	 * @return 曖昧検索結果
 	 */
 	public List<List<Item>> showItemListFindByName(String name, Integer pageNumber) {
-		System.out.println(pageNumber);
 		Integer pageCount = 0;
 		if (pageNumber == null || pageNumber == 1) {
 			pageCount = 0;
@@ -43,6 +42,17 @@ public class ItemService {
 		} else {
 			itemList = repository.findByName(name);
 		}
+		List<List<Item>> itemListList = devideItemsBy3(itemList);
+		return itemListList;
+	}
+
+	/**
+	 * 3つ区切りで商品を表示.
+	 * 
+	 * @param itemList アイテム商品一覧
+	 * @return 3つ区切りで商品表示
+	 */
+	private List<List<Item>> devideItemsBy3(List<Item> itemList) {
 		List<List<Item>> itemListList = new ArrayList<>();
 		ArrayList<Item> itemListBy3 = null;
 		for (int i = 0; i < itemList.size(); i++) {
@@ -55,15 +65,28 @@ public class ItemService {
 		return itemListList;
 	}
 
-//	/**
-//	 * 値段が高い順、低い順で商品を検索する.
-//	 * 
-//	 * @return 値段が高い順、低い順の商品一覧
-//	 */
-//	public List<Item> orderByMoneyItem() {
-		
-//	}
+	/**
+	 * 値段が高い順、低い順で商品を検索する.
+	 * 
+	 * @return 値段が高い順、低い順の商品一覧
+	 */
+	public List<List<Item>> sortByMoneyItem(String sort) {
+		System.out.println("sort :" + sort);
+		List<List<Item>> itemListList = null;
+		List<Item> itemList = null;
+		if (sort.equals("expensive")) {
+			System.out.println(11111);
+			itemList = repository.orderByExpensiveItem();
+		} else {
+			System.out.println(2222);
+			itemList = repository.orderByCheapItem();
+		}
 
+		itemListList = devideItemsBy3(itemList);
+
+//		System.out.println("itemListList : " + itemListList);
+		return itemListList;
+	}
 
 	/**
 	 * 商品一覧の総件数を検索.
