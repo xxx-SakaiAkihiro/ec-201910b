@@ -1,9 +1,14 @@
 package jp.co.example.ecommerce_b.controller;
 
+
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+
+import java.util.Date;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -50,6 +55,11 @@ public class PurchaseController {
 		Order order = orderList.get(0);
 		System.out.println(orderForm.getOrderDate());
 		order.setTotalPrice(Integer.parseInt(orderForm.getTotalPrice()));
+		
+		//注文するのボタンを押したときコントローラに飛んできた時刻を注文日にセットした.
+		Date date = new Date();
+		order.setOrderDate(date);
+
 		order.setDestinationName(orderForm.getDestinationName());
 		order.setDestinationEmail(orderForm.getDestinationEmail());
 		order.setDestinationZipcode(orderForm.getDestinationZipcode());
