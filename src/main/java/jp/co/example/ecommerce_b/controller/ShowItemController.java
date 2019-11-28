@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_b.domain.Item;
 import jp.co.example.ecommerce_b.domain.LoginUser;
+import jp.co.example.ecommerce_b.form.SortForm;
 import jp.co.example.ecommerce_b.service.CountInCartService;
 import jp.co.example.ecommerce_b.service.ItemService;
 
@@ -39,7 +40,7 @@ public class ShowItemController {
 	 */
 	@RequestMapping("")
 
-	public String showItemListFindByName(String name, Integer pageNumber, Model model,
+	public String showItemListFindByName(SortForm sortForm, Model model,
 			@AuthenticationPrincipal LoginUser loginUser) {
 		Integer count = service.count();
 		int maxPageNumber = 0;
@@ -53,13 +54,13 @@ public class ShowItemController {
 			pageNumbers.add(i);
 		}
 		model.addAttribute("pageNumbers", pageNumbers);
-		model.addAttribute("name", name);
+		model.addAttribute("name", sortForm.getName());
 
-		List<List<Item>> itemListList = service.showItemListFindByName(name, pageNumber);
+		List<List<Item>> itemListList = service.showItemListFindByName(sortForm);
 		if (itemListList.isEmpty()) {
 			model.addAttribute("message", "該当する商品はありません");
 			// 商品が１つもなければ全件検索を行う
-			itemListList = service.showItemListFindByName("", 1);
+			itemListList = service.showItemListFindByName(sortForm);
 		}
 		model.addAttribute("itemListList", itemListList);
 
@@ -79,7 +80,7 @@ public class ShowItemController {
 	 * @return 値段が高い順、低い順の商品一覧
 	 */
 	@RequestMapping("/sortItems")
-	public String sortByMoneyItem(String sort, Model model,Integer pageNumber) {
+	public String sortByMoneyItem(SortForm sortForm, Model model) {
 		Integer count = service.count();
 		int maxPageNumber = 0;
 		List<Integer> pageNumbers = new ArrayList<Integer>();
@@ -93,7 +94,7 @@ public class ShowItemController {
 		}
 		model.addAttribute("pageNumbers", pageNumbers);
 		
-		List<List<Item>> itemListList = service.sortByMoneyItem(sort,pageNumber);
+		List<List<Item>> itemListList = service.sortByMoneyItem(sortForm);
 		model.addAttribute("itemListList", itemListList);
 		return "item_list";
 	}

@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import jp.co.example.ecommerce_b.domain.Item;
+import jp.co.example.ecommerce_b.form.SortForm;
 
 /**
  * 商品を操作するリポジトリ.
@@ -50,7 +51,9 @@ public class ItemRepository {
 	 * @param name 商品の名前
 	 * @return 曖昧検索の結果
 	 */
-	public List<Item> findByName(String name,Integer pageNumber){
+	public List<Item> findByName(SortForm sortForm){
+		String name = sortForm.getName();
+		Integer pageNumber = sortForm.getPageNumber();
 		String sql = "select id,name,description,price_m,price_l,image_path from items where name like :name limit 6 offset :pageNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", '%' + name + '%').addValue("pageNumber", pageNumber);
 		return template.query(sql, param, ITEM_ROW_MAPPER);
@@ -82,7 +85,8 @@ public class ItemRepository {
 	 * @param priceM Mサイズの値段
 	 * @return 値段が高い順の商品一覧
 	 */
-	public List<Item> orderByExpensiveItem(String sort,Integer pageNumber){
+	public List<Item> orderByExpensiveItem(SortForm sortForm){
+		Integer pageNumber = sortForm.getPageNumber();
 		String sql = "select * from items order by price_m desc limit 6 offset :pageNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("pageNumber", pageNumber);
 		return template.query(sql, param, ITEM_ROW_MAPPER);
@@ -93,7 +97,8 @@ public class ItemRepository {
 	 * @param priceM Mサイズの値段
 	 * @return 値段が低い順の商品一覧
 	 */
-	public List<Item> orderByCheapItem(String sort,Integer pageNumber){
+	public List<Item> orderByCheapItem(SortForm sortForm){
+		Integer pageNumber = sortForm.getPageNumber();
 		String sql = "select * from items order by price_m limit 6 offset :pageNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("pageNumber", pageNumber);
 		return template.query(sql, param, ITEM_ROW_MAPPER);

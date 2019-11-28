@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.example.ecommerce_b.domain.Item;
+import jp.co.example.ecommerce_b.form.SortForm;
 import jp.co.example.ecommerce_b.repository.ItemRepository;
 
 /**
@@ -29,8 +30,9 @@ public class ItemService {
 	 * @param name 名前
 	 * @return 曖昧検索結果
 	 */
-	public List<List<Item>> showItemListFindByName(String name, Integer pageNumber) {
-		
+	public List<List<Item>> showItemListFindByName(SortForm sortForm) {
+		Integer pageNumber = sortForm.getPageNumber();
+		String name = sortForm.getName();
 		Integer pageCount = 0;
 		if (pageNumber == null || pageNumber == 1 ) {
 			pageCount = 0;
@@ -41,7 +43,7 @@ public class ItemService {
 		if (name == null || name.equals("")) {
 			itemList = repository.findAll(pageCount);
 		} else {
-			itemList = repository.findByName(name, pageNumber);
+			itemList = repository.findByName(sortForm);
 			
 			System.out.println("name2 : " + name);
 			System.out.println("pageNumber2 : " + pageNumber);
@@ -75,7 +77,9 @@ public class ItemService {
 	 * 
 	 * @return 値段が高い順、低い順の商品一覧
 	 */
-	public List<List<Item>> sortByMoneyItem(String sort,Integer pageNumber) {
+	public List<List<Item>> sortByMoneyItem(SortForm sortForm) {
+		Integer pageNumber = sortForm.getPageNumber();
+		String sort = sortForm.getSort();
 		Integer pageCount = 0;
 		if (pageNumber == null || pageNumber == 1) {
 			pageCount = 0;
@@ -87,9 +91,9 @@ public class ItemService {
 		List<Item> itemList = null;
 		
 		if (sort.equals("expensive")) {
-			itemList = repository.orderByExpensiveItem(sort,pageCount);
+			itemList = repository.orderByExpensiveItem(sortForm);
 		} else {
-			itemList = repository.orderByCheapItem(sort,pageCount);
+			itemList = repository.orderByCheapItem(sortForm);
 		}
 		itemListList = devideItemsBy3(itemList);
 		return itemListList;

@@ -115,8 +115,8 @@ height: 45px;
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="panel-title">商品を並び替える</div>
-						<form th:action="@{/showItem/sortItems}" method="post">
-							<select id="button" name="sort" class="btn-default">
+						<form th:action="@{/showItem/sortItems}" method="post" th:object="${sortForm}">
+							<select id="button" name="sort" class="btn-default" th:field="*{sort}">
 								<option value="">-----</option>
 								<option value="cheap">価格が安い順</option>
 								<option value="expensive">価格が高い順</option>
@@ -153,7 +153,7 @@ height: 45px;
 		<ul class="pagination">
 			<li id="pageNation-btn">
 			<span th:each="page : ${pageNumbers}"> 
-			<a th:href="@{'/showItem?pageNumber='+${page}}" th:text="${page}"></a>
+			<input type="button" th:href="@{'/showItem?pageNumber='+${page}}" th:text="${page}"></input>
 			</span></li>
 		</ul>
 	</div>
