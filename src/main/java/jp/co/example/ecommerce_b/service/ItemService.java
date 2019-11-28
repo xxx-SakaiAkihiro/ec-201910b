@@ -84,7 +84,6 @@ public class ItemService {
 
 		itemListList = devideItemsBy3(itemList);
 
-//		System.out.println("itemListList : " + itemListList);
 		return itemListList;
 	}
 

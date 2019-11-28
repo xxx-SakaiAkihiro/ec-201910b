@@ -32,7 +32,7 @@ public class AddItemsController {
 	@RequestMapping("/addItem")
 	public String addItem(OrderItemForm orderItemForm,@AuthenticationPrincipal LoginUser loginUser) {
 		service.addItem(orderItemForm, loginUser);
-		return "forward:/ShowOrderItem";
+		return "redirect:/ShowOrderItem";
 
 	}
 }
