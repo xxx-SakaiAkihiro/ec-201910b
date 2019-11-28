@@ -86,7 +86,7 @@
 								</div>
 							</td>
 							<td>
-									&nbsp;<span class="price" th:text="${orderItem.size}">サイズ</span>
+									&nbsp;<span class="badge badge-info"><span class="price" th:text="${orderItem.size}">サイズ</span></span>
 									&nbsp;&nbsp;<span th:if="${orderItem.size}=='M'">
 										<span th:text="${#numbers.formatInteger(orderItem.item.priceM,0,'COMMA')} + '円'">Mサイズの値段</span></span>
 									&nbsp;&nbsp;<span th:if="${orderItem.size}=='L'">
