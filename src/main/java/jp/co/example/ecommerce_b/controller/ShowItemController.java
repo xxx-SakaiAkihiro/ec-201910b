@@ -1,12 +1,12 @@
 package jp.co.example.ecommerce_b.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.ecommerce_b.domain.Item;
@@ -31,6 +31,24 @@ public class ShowItemController {
 	@Autowired
 	private CountInCartService countInCartService;
 	
+	@ModelAttribute
+	public SortForm setUpForm() {
+		return new SortForm();
+	}
+	
+	/**
+	 * 曖昧検索と並び替え順で使うメソッド.
+	 * 
+	 * 商品の件数に対して何ページ必要か
+	 * 
+	 * @param model モデル
+	 */
+	public String NeedPage(Model model) {
+		List<Integer> pageNumbers = service.NeedPage();
+		model.addAttribute("pageNumbers", pageNumbers);
+		return "item_list";
+	}
+	
 	/**
 	 * 曖昧検索をする.
 	 * 
@@ -39,25 +57,10 @@ public class ShowItemController {
 	 * @return 商品画面を表示
 	 */
 	@RequestMapping("")
-
-	public String showItemListFindByName(SortForm sortForm, Model model,
-			@AuthenticationPrincipal LoginUser loginUser) {
-		Integer count = service.count();
-		int maxPageNumber = 0;
-		List<Integer> pageNumbers = new ArrayList<Integer>();
-		if (count % 6 != 0) {
-			maxPageNumber = count / 6 + 1;
-		} else {
-			maxPageNumber = count / 6;
-		}
-		for (int i = 1; i <= maxPageNumber; i++) {
-			pageNumbers.add(i);
-		}
-		model.addAttribute("pageNumbers", pageNumbers);
+	public String showItemListFindByName(SortForm sortForm, Model model,@AuthenticationPrincipal LoginUser loginUser) {
+		NeedPage(model);
 		model.addAttribute("name", sortForm.getSearchName());
-System.out.println(sortForm);
 		List<List<Item>> itemListList = service.showItemListFindByName(sortForm);
-		
 		if (itemListList.isEmpty()) {
 			model.addAttribute("message", "該当する商品はありません");
 			// 商品が１つもなければ全件検索を行う
@@ -82,21 +85,9 @@ System.out.println(sortForm);
 	 */
 	@RequestMapping("/sortItems")
 	public String sortByMoneyItem(SortForm sortForm, Model model) {
-		Integer count = service.count();
-		int maxPageNumber = 0;
-		List<Integer> pageNumbers = new ArrayList<Integer>();
-		if (count % 6 != 0) {
-			maxPageNumber = count / 6 + 1;
-		} else {
-			maxPageNumber = count / 6;
-		}
-		for (int i = 1; i <= maxPageNumber; i++) {
-			pageNumbers.add(i);
-		}
-		model.addAttribute("pageNumbers", pageNumbers);
-		
-		List<List<Item>> itemListList = service.sortByMoneyItem(sortForm);
-		System.out.println(itemListList);
+		NeedPage(model);
+		Integer startNumber = service.SearchStartNumber(sortForm);
+		List<List<Item>> itemListList = service.sortItemByMoney(sortForm, startNumber);
 		model.addAttribute("itemListList", itemListList);
 		return "item_list";
 	}

@@ -25,22 +25,60 @@ public class ItemService {
 	private ItemRepository repository;
 	
 	/**
-	 * 曖昧検索、並び替えで使うメソッド.
+	 * 商品数に対し必要なページ数のリストを検索.
 	 * 
 	 * @param sortForm ソートフォーム
-	 * @return
+	 * @return　商品数に対し必要なページ数のリスト
 	 */
-	public String totalMethod(SortForm sortForm) {
-		Integer pageNumber = sortForm.getPageNumber();
-		String sort = sortForm.getSort();
-		if (pageNumber == null || pageNumber == 1) {
-			pageNumber = 0;
+	public List<Integer> NeedPage() {
+		Integer count = repository.count();
+		int maxPageNumber = 0;
+		List<Integer> pageNumbers = new ArrayList<Integer>();
+		if (count % 6 != 0) {
+			maxPageNumber = count / 6 + 1;
 		} else {
-			pageNumber = (pageNumber - 1) * 6;
+			maxPageNumber = count / 6;
 		}
-		return sort;
+		for (int i = 1; i <= maxPageNumber; i++) {
+			pageNumbers.add(i);
+		}
+		return pageNumbers;
+	}
+	
+		/**
+		 * 商品の表示開始番号を固定する.
+		 * 
+		 * @param sortForm ソートフォーム
+		 * @return 商品の表示開始番号
+		 */
+		public Integer SearchStartNumber(SortForm sortForm) {
+		Integer startNumber = sortForm.getPageNumber();
+		if (startNumber == null || startNumber == 1) {
+			startNumber = 0;
+		} else {
+			startNumber = (startNumber - 1) * 6;
+		}
+		return startNumber;
 	}
 
+		/**
+		 * 3つ区切りで商品を表示.
+		 * 
+		 * @param itemList アイテム商品一覧
+		 * @return 3つ区切りで商品表示
+		 */
+		private List<List<Item>> devideItemsBy3(List<Item> itemList) {
+			List<List<Item>> itemListList = new ArrayList<>();
+			List<Item> itemListBy3 = null;
+			for (int i = 0; i < itemList.size(); i++) {
+				if (i == 0 || i % 3 == 0) {
+					itemListBy3 = new ArrayList<Item>();
+					itemListList.add(itemListBy3);
+				}
+				itemListBy3.add(itemList.get(i));
+			}
+			return itemListList;
+		}
 	/**
 	 * 曖昧検索をする.
 	 * 
@@ -48,59 +86,35 @@ public class ItemService {
 	 * @return 曖昧検索結果
 	 */
 	public List<List<Item>> showItemListFindByName(SortForm sortForm) {
-		String name = sortForm.getSearchName();
+		String searchName = sortForm.getSearchName();
+		Integer startNumber = SearchStartNumber(sortForm);
 		List<Item> itemList = null;
-		if (name == null || name.equals("")) {
-			itemList = repository.findAll(sortForm);
+		if (searchName == null || searchName.equals("")) {
+			itemList = repository.findAll(startNumber);
 		} else {
-			itemList = repository.findByName(sortForm);
-			
-			System.out.println("name2 : " + name);
-			System.out.println("pageNumber2 : " + pageNumber);
-			
+			itemList = repository.findByName("",startNumber);
 		}
 		List<List<Item>> itemListList = devideItemsBy3(itemList);
 		return itemListList;
 	}
 
 	/**
-	 * 3つ区切りで商品を表示.
-	 * 
-	 * @param itemList アイテム商品一覧
-	 * @return 3つ区切りで商品表示
-	 */
-	private List<List<Item>> devideItemsBy3(List<Item> itemList) {
-		List<List<Item>> itemListList = new ArrayList<>();
-		ArrayList<Item> itemListBy3 = null;
-		for (int i = 0; i < itemList.size(); i++) {
-			if (i == 0 || i % 3 == 0) {
-				itemListBy3 = new ArrayList<Item>();
-				itemListList.add(itemListBy3);
-			}
-			itemListBy3.add(itemList.get(i));
-		}
-		return itemListList;
-	}
-	
-
-	/**
 	 * 値段が高い順、低い順で商品を検索する.
 	 * 
 	 * @return 値段が高い順、低い順の商品一覧
 	 */
-	public List<List<Item>> sortByMoneyItem(SortForm sortForm) {
-		String sort = totalMethod(sortForm);
-		
-		List<List<Item>> itemListList = null;
+	public List<List<Item>> sortItemByMoney(SortForm sortForm,Integer startNumber) {
+		String sort = sortForm.getSort();
+		startNumber = SearchStartNumber(sortForm);
 		List<Item> itemList = null;
-		
 		if (sort.equals("expensive")) {
-			itemList = repository.orderByExpensiveItem(sortForm);
-			
+			itemList = repository.orderByExpensiveItem(startNumber);
+		} else if(sort.equals("cheap")) {
+			itemList = repository.orderByCheapItem(startNumber);
 		} else {
-			itemList = repository.orderByCheapItem(sortForm);
+			itemList = repository.findAll(startNumber);
 		}
-		itemListList = devideItemsBy3(itemList);
+		List<List<Item>> itemListList = devideItemsBy3(itemList);
 		return itemListList;
 	}
 
@@ -133,6 +147,11 @@ public class ItemService {
 		return itemListForAutocomplete;
 	}
 
+	/**
+	 * オートコンプリートで使用.
+	 * 
+	 * @return 商品一覧
+	 */
 	public List<Item> itemList() {
 		return repository.findAll(0);
 
