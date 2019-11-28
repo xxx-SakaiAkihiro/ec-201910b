@@ -52,15 +52,14 @@ public class ShowOrderItemContoroller {
 		}
 		List<Order> orderList = showOrderItemService.findByUserIdAndStatus(userId);
 		//ショッピングカートの中身が0件か1件以上の場合
-		Order order = new Order();
-		order = orderList.get(0);
+		//Order order = orderList.get(0);
 		//ショッピングカートの中身が0件
-		if (CollectionUtils.isEmpty(order.getOrderItemList())) {
+		if (orderList.size() == 0 || CollectionUtils.isEmpty(orderList.get(0).getOrderItemList())) {
 			String str = "カートに商品がありません";
 			model.addAttribute("str", str);
 		//ショッピングカートの中身が1件以上
 		} else {
-			model.addAttribute("order", order);
+			model.addAttribute("order", orderList.get(0));
 		}
 		model.addAttribute("orderList", orderList);
 		// 現在のショッピングカート内の数量表示用

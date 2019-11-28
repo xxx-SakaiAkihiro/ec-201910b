@@ -152,11 +152,7 @@ $("#code").autocomplete({
 		<ul class="pagination">
 			<!-- 			<li><a href="#" aria-label="前のページへ">  -->
 			<!-- 			<span aria-hidden="true">前のページへ</span></a></li> -->
-
-			<li><span th:each="page : ${pageNumbers}"> <a
-					th:href="@{'/showItem?pageNumber='+${page}}" th:text="${page}"></a>
-			</span></li>
-
+			<li><span th:each="page : ${pageNumbers}"><a th:href="@{'/showItem?pageNumber='+${page}}" th:text="${page}"></a></span></li>
 			<!-- 			<li><a href="#" aria-label="次のページへ">  -->
 			<!-- 			<span aria-hidden="true">次のページへ</span></a></li> -->
 		</ul>

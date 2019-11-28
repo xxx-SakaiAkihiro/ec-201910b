@@ -59,6 +59,9 @@ public class UserIdUpdateController {
 				//①仮ユーザーのorder_idを取得
 				List<Order> orderList = orderRepository.findByUserIdAndStatus(sessionUserId,status);
 				System.out.println(10);
+				if(orderList.size() == 0 ) {
+					return "forward:/ShowOrderItem";
+				}
 				Order temporalOrder = orderList.get(0);
 				System.out.println(11);
 				Integer temporalOrderId = temporalOrder.getId();
