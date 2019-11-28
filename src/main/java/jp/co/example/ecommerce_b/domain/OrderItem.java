@@ -26,27 +26,25 @@ public class OrderItem {
 	}
 
 	/**
-	 * Mサイズを選んだ際の小計を表す.
+	 * （トッピング＋商品） ×数量の値段
 	 * 
-	 * MサイズとLサイズの小計を一緒にしたい
-	 * 
-	 * @return Mサイズを選んだ際の小計
+	 * @return
 	 */
 	public int getSubTotal() {
-
 		int subtotal = 0;
 		int totalTopping = 0;
-
+		// トッピング+商品 Mの価格×数量
 		if (size.equals('M')) {
 			for (OrderTopping topping : orderToppingList) {
 				totalTopping += topping.getTopping().getPriceM();
 			}
-			subtotal = (totalTopping+item.getPriceM())*quantity;
-		}else {
+			subtotal = (totalTopping + item.getPriceM()) * quantity;
+			// トッピング Lの価格×数量
+		} else {
 			for (OrderTopping topping : orderToppingList) {
 				totalTopping += topping.getTopping().getPriceL();
 			}
-			subtotal += (totalTopping+item.getPriceL())*quantity;
+			subtotal += (totalTopping + item.getPriceL()) * quantity;
 		}
 		return subtotal;
 
