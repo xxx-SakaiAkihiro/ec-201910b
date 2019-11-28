@@ -87,17 +87,20 @@
 							</td>
 							<td>
 									&nbsp;<span class="price" th:text="${orderItem.size}">サイズ</span>
-									&nbsp;&nbsp;<span th:text="${orderItem.size == 'M'} ? ${#numbers.formatInteger(orderItem.item.priceM,0,'COMMA')} : ${#numbers.formatInteger(orderItem.item.priceL,0,'COMMA')}+ '円'">サイズの値段</span>
+									&nbsp;&nbsp;<span th:if="${orderItem.size}=='M'">
+										<span th:text="${#numbers.formatInteger(orderItem.item.priceM,0,'COMMA')} + '円'">Mサイズの値段</span></span>
+									&nbsp;&nbsp;<span th:if="${orderItem.size}=='L'">
+										<span th:text="${#numbers.formatInteger(orderItem.item.priceL,0,'COMMA')} + '円'">Lサイズの値段</span></span>
 									&nbsp;&nbsp;<span th:text="${orderItem.quantity} + 個">数量</span>
 							</td>
 							<td>
 									<ul th:each="orderTopping : ${orderItem.orderToppingList}">
-										<li th:unless="${orderItem.size == 'M'}" th:text="${orderTopping.topping.name} + ${#numbers.formatInteger(orderTopping.topping.priceM,0,'COMMA')} + '円'">トッピングMの値段</li>
-										<li th:if="${orderItem.size == 'L'}" th:text="${orderTopping.topping.name} + ${#numbers.formatInteger(orderTopping.topping.priceL,0,'COMMA')} + '円'">トッピングLの値段</li>
+										<li th:if="${orderItem.size} == 'M'" th:text="${orderTopping.topping.name} + ${#numbers.formatInteger(orderTopping.topping.priceM,0,'COMMA')} + '円'">トッピングMの値段</li>
+										<li th:if="${orderItem.size} == 'L'" th:text="${orderTopping.topping.name} + ${#numbers.formatInteger(orderTopping.topping.priceL,0,'COMMA')} + '円'">トッピングLの値段</li>
 									</ul>
 							</td>
 							<td>
-								<div class="text-center" th:text="${#numbers.formatInteger(orderItem.getSubTotal(),0,'COMMA') + '円'}">1,790円</div>
+								<div class="text-center" th:text="${#numbers.formatInteger(orderItem.getSubTotal(),0,'COMMA') + '円'}">小計</div>
 							</td>
 							<td>
 								<div class="text-center">
