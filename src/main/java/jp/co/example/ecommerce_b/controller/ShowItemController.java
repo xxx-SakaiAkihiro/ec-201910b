@@ -62,6 +62,8 @@ public class ShowItemController {
 			// 商品が１つもなければ全件検索を行う
 			itemListList = service.showItemListFindByName("", 1);
 		}
+	
+		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("itemListList", itemListList);
 
 		// オートコンプリート用にJavaScriptの配列の中身を文字列で作ってスコープへ格納

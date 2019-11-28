@@ -1,7 +1,6 @@
 package jp.co.example.ecommerce_b.form;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 import jp.co.example.ecommerce_b.domain.OrderItem;
@@ -35,8 +34,22 @@ public class OrderForm {
 	private String destinationAddress;
 	/* 宛先TEL */
 	private String destinationTel;
+	/* 配達希望日 */
+	private String deliveryDate;
+	public String getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+	public void setDeliveryTime(String deliveryTime) {
+		this.deliveryTime = deliveryTime;
+	}
 	/* 配達時間 */
-	private Timestamp deliveryTime;
+	private String deliveryTime;
+	public String getDeliveryTime() {
+		return deliveryTime;
+	}
 	/* 支払方法 */
 	private String paymentMethod;
 	/* ユーザ */
@@ -172,18 +185,6 @@ public class OrderForm {
 	 */
 	public void setDestinationTel(String destinationTel) {
 		this.destinationTel = destinationTel;
-	}
-	/**
-	 * @return the deliveryTime
-	 */
-	public Timestamp getDeliveryTime() {
-		return deliveryTime;
-	}
-	/**
-	 * @param deliveryTime the deliveryTime to set
-	 */
-	public void setDeliveryTime(Timestamp deliveryTime) {
-		this.deliveryTime = deliveryTime;
 	}
 	/**
 	 * @return the paymentMethod
