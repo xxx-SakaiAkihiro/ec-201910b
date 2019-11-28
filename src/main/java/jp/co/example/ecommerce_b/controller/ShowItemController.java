@@ -69,10 +69,8 @@ public class ShowItemController {
 	 */
 //	@RequestMapping("/orderItems")
 //	public String orderByMoneyItem(String sort,Model model) {
-//		List<Item> orderByExpensiveItem = service.orderByExpensiveItem();
-//		List<Item> orderByCheapItem = service.orderByCheapItem(sort);
-//		model.addAttribute("orderByExpensiveItem", orderByExpensiveItem);
-//		model.addAttribute("orderByCheapItem", orderByCheapItem);
+//		List<Item> orderByMoneyItem = service.orderByMoneyItem();
+//		model.addAttribute("orderByMoneyItem", orderByMoneyItem);
 //		return "forward:/showItem";
 		
 		

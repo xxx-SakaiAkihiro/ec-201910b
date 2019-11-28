@@ -82,7 +82,7 @@ public class ItemRepository {
 //	 * @param priceM Mサイズの値段
 //	 * @return 値段が高い順の商品一覧
 //	 */
-//	public List<Item> orderByExpensiveItem(Integer priceM){
+//	public List<Item> orderByExpensiveItem(){
 //		String sql = "select price_m from items order by price_m desc";
 //		SqlParameterSource param = new MapSqlParameterSource();
 //		return template.query(sql, param, ITEM_ROW_MAPPER);
@@ -93,7 +93,7 @@ public class ItemRepository {
 //	 * @param priceM Mサイズの値段
 //	 * @return 値段が低い順の商品一覧
 //	 */
-//	public List<Item> orderByCheapItem(Integer priceL){
+//	public List<Item> orderByCheapItem(){
 //		String sql = "select price_m from items order by price_m";
 //		SqlParameterSource param = new MapSqlParameterSource();
 //		return template.query(sql, param, ITEM_ROW_MAPPER);

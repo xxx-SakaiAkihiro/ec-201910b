@@ -56,23 +56,14 @@ public class ItemService {
 	}
 
 //	/**
-//	 * 値段が高い順で商品を検索する.
+//	 * 値段が高い順、低い順で商品を検索する.
 //	 * 
-//	 * @param priceM Mサイズの値段
-//	 * @return 値段が高い順の商品一覧
+//	 * @return 値段が高い順、低い順の商品一覧
 //	 */
-//	public List<Item> orderByExpensiveItem(Integer priceL) {
-//		return repository.orderByExpensiveItem(priceL);
+//	public List<Item> orderByMoneyItem() {
+		
 //	}
-//	/**
-//	 * 値段が低い順で商品を検索する.
-//	 * 
-//	 * @param priceM Mサイズの値段
-//	 * @return 値段が高い順の商品一覧
-//	 */
-//	public List<Item> orderByCheapItem(Integer priceM) {
-//		return repository.orderByCheapItem(priceM);
-//	}
+
 
 	/**
 	 * 商品一覧の総件数を検索.
