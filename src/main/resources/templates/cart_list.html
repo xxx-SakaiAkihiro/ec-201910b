@@ -113,15 +113,21 @@
 				</table>
 			</div>
 		</div>
+		
 		<!-- ショッピングカートの中身が0件の場合 -->
-		<div class="text-center" th:text="${str}"></div>
+		<div class="text-center"  th:if="${str}">
+			<div th:text="${str}"></div>
+			<form th:action="@{/showItem}" method="post">
+				<button type="submit" class="btn btn-warning">商品一覧に戻る</button>
+			</form>
+		</div>
 		
 		<!-- ショッピングカートの中身が1件以上ある場合 -->
 		<div th:if="${order}">
 			<div class="col-xs-offset-2 col-xs-8">
 				<div class="form-group text-center">
-					<span id="total-price" th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),0,'COMMA')} + '円'">消費税：8,000円</span><br>
-					<span id="total-price" th:text="'ご注文金額合計：' + ${#numbers.formatInteger(order.getCalcTotalPrice(),0,'COMMA')} + '円'">ご注文金額合計：38,000円 (税込)</span>
+					<span id="total-price" th:text="'ご注文金額合計(税込)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">ご注文金額合計：38,000円 (税込)</span><br>
+					<span id="total-price" th:text="'(消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA')} + '円)'">消費税：8,000円</span><br>
 				</div>
 			</div>
 			<div class="row">

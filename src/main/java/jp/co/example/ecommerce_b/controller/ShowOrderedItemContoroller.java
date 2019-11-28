@@ -39,6 +39,7 @@ public class ShowOrderedItemContoroller {
     @RequestMapping("")
     public String showOrderedItem(Model model,@AuthenticationPrincipal LoginUser loginuser) {
 		List<Order> orderList = showOrderedItemService.showOrderedItem(loginuser.getUser().getId());
+		model.addAttribute("order", orderList.get(0));
 		model.addAttribute("orderList", orderList);
 		
 		Integer countInCart = countInCartService.countInCart(loginuser);

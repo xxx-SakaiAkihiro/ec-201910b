@@ -47,11 +47,12 @@ public class PurchaseService {
 	 * 
 	 * @param order 注文情報
 	 */
-	public void purchase(Order order) {
+	public void purchase(Order order,@Autowired LoginUser loginUser) {
 		orderRepository.update(order);
+		sendMail(loginUser,order);
 	} 
 	
-	public void sendMail(LoginUser loginUser) {
+	public void sendMail(LoginUser loginUser,Order order) {
 		SimpleMailMessage msg = new SimpleMailMessage();
 		String br = System.getProperty("line.separator");
         msg.setFrom("pepperoni.4.eg@gmail.com");
