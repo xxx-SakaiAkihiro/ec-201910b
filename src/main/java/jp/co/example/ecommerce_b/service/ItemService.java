@@ -29,10 +29,17 @@ public class ItemService {
 	 * @param name 名前
 	 * @return 曖昧検索結果
 	 */
-	public List<List<Item>> showItemListFindByName(String name,Integer pageNumber) {
+	public List<List<Item>> showItemListFindByName(String name, Integer pageNumber) {
+		System.out.println(pageNumber);
+		Integer pageCount = 0;
+		if (pageNumber == null || pageNumber == 1) {
+			pageCount = 0;
+		} else {
+			pageCount = (pageNumber - 1) * 6;
+		}
 		List<Item> itemList = null;
 		if (name == null || name.equals("")) {
-			itemList = repository.findAll(0);
+			itemList = repository.findAll(pageCount);
 		} else {
 			itemList = repository.findByName(name);
 		}
@@ -47,6 +54,26 @@ public class ItemService {
 		}
 		return itemListList;
 	}
+
+//	/**
+//	 * 値段が高い順で商品を検索する.
+//	 * 
+//	 * @param priceM Mサイズの値段
+//	 * @return 値段が高い順の商品一覧
+//	 */
+//	public List<Item> orderByExpensiveItem(Integer priceL) {
+//		return repository.orderByExpensiveItem(priceL);
+//	}
+//	/**
+//	 * 値段が低い順で商品を検索する.
+//	 * 
+//	 * @param priceM Mサイズの値段
+//	 * @return 値段が高い順の商品一覧
+//	 */
+//	public List<Item> orderByCheapItem(Integer priceM) {
+//		return repository.orderByCheapItem(priceM);
+//	}
+
 	/**
 	 * 商品一覧の総件数を検索.
 	 * 
@@ -55,11 +82,12 @@ public class ItemService {
 	public Integer count() {
 		return repository.count();
 	}
+
 	/**
 	 * オートコンプリート用にJavaScriptの配列の中身を文字列で作ります.
 	 * 
 	 * @param itemList 商品一覧
-	 * @return　オートコンプリート用JavaScriptの配列の文字列
+	 * @return オートコンプリート用JavaScriptの配列の文字列
 	 */
 	public StringBuilder getItemListForAutocomplete(List<Item> itemList) {
 		StringBuilder itemListForAutocomplete = new StringBuilder();
@@ -74,10 +102,10 @@ public class ItemService {
 		}
 		return itemListForAutocomplete;
 	}
-	
-	public List<Item> itemList () {
-		return repository.findAll(0);	
-		
+
+	public List<Item> itemList() {
+		return repository.findAll(0);
+
 	}
 
 }

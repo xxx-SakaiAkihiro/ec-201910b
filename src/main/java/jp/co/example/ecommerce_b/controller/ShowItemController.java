@@ -33,9 +33,7 @@ public class ShowItemController {
 	 */
 	@RequestMapping("")
 	public String showItemListFindByName(String name, Integer pageNumber, Model model) {
-		
 		Integer count = service.count();
-		System.out.println("count : " + count);
 		int maxPageNumber = 0;
 		List<Integer> pageNumbers = new ArrayList<Integer>();
 		if(count % 6 != 0) {
@@ -47,6 +45,7 @@ public class ShowItemController {
 			pageNumbers.add(i);
 		}
 		model.addAttribute("pageNumbers", pageNumbers);
+		model.addAttribute("name", name);
 
 		List<List<Item>> itemListList = service.showItemListFindByName(name, pageNumber);
 		if (itemListList.isEmpty()) {
@@ -62,5 +61,27 @@ public class ShowItemController {
 
 		return "item_list";
 	}
+	/**
+	 * 値段が高い順、低い順で商品を検索する.
+	 * 
+	 * @param model モデル
+	 * @return 値段が高い順、低い順の商品一覧
+	 */
+//	@RequestMapping("/orderItems")
+//	public String orderByMoneyItem(String sort,Model model) {
+//		List<Item> orderByExpensiveItem = service.orderByExpensiveItem();
+//		List<Item> orderByCheapItem = service.orderByCheapItem(sort);
+//		model.addAttribute("orderByExpensiveItem", orderByExpensiveItem);
+//		model.addAttribute("orderByCheapItem", orderByCheapItem);
+//		return "forward:/showItem";
+		
+		
+//		Map<Integer, String> orderMap = new LinkedHashMap<>();
+//		orderMap.put(0, "---");
+//		orderMap.put(1, "値段が安い");
+//		orderMap.put(2, "値段が高い");
+//		model.addAttribute("orderMap",orderMap);
+//		return "forward:/showItem";
+//	}
 	
 }

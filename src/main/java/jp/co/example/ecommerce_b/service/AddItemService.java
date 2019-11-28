@@ -53,6 +53,7 @@ public class AddItemService {
 		int status = 0;
 		Order order = null;
 		List<Order> searchOrderList = orderrepository.findByUserIdAndStatus(userId, status);
+		List<Integer> orderToppingList = orderItemForm.getOrderToppingList();
 		if (searchOrderList.isEmpty()) {
 			order = new Order();
 			order.setUserId(userId);
@@ -71,10 +72,12 @@ public class AddItemService {
 
 			OrderTopping orderTopping = new OrderTopping();
 			orderTopping.setOrderItemId(orderItem.getId());
-			for (Integer toppingId : orderItemForm.getOrderToppingList()) {
-				orderTopping.setToppingId(toppingId);
-				// orderToppingをインサート
-				orderToppingRepository.insert(orderTopping);
+			if(orderToppingList != null) {
+				for (Integer toppingId : orderToppingList) {
+					orderTopping.setToppingId(toppingId);
+					// orderToppingをインサート
+					orderToppingRepository.insert(orderTopping);
+				}
 			}
 		} else {
 			OrderItem orderItem = new OrderItem();
@@ -88,14 +91,14 @@ public class AddItemService {
 			orderItemRepository.insert(orderItem);
 
 			OrderTopping orderTopping = new OrderTopping();
-			for (Integer toppingId : orderItemForm.getOrderToppingList()) {
-				orderTopping.setOrderItemId(toppingId);
-				orderTopping.setToppingId(toppingId);
-				// orderToppingをインサート
-				orderToppingRepository.insert(orderTopping);
-				System.out.println(11);
+			if(orderToppingList != null) {
+				for (Integer toppingId : orderToppingList) {
+					orderTopping.setToppingId(toppingId);
+					// orderToppingをインサート
+					orderToppingRepository.insert(orderTopping);
+				}
 			}
+
 		}
-		System.out.println(10);
 	}
 }
