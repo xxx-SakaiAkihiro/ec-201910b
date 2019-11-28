@@ -8,7 +8,7 @@ package jp.co.example.ecommerce_b.domain;
  */
 public class CreditCard {
 	/* クレジットカード番号 */
-	private Integer card_number;
+	private long card_number;
 	/* カード有効期限（年） */
 	private Integer card_exp_year;
 	/* カード有効期限（月） */
@@ -20,13 +20,13 @@ public class CreditCard {
 	/**
 	 * @return the card_number
 	 */
-	public Integer getCard_number() {
+	public long getCard_number() {
 		return card_number;
 	}
 	/**
 	 * @param card_number the card_number to set
 	 */
-	public void setCard_number(Integer card_number) {
+	public void setCard_number(long card_number) {
 		this.card_number = card_number;
 	}
 	/**
