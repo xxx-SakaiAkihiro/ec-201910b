@@ -103,20 +103,24 @@ $("#code").autocomplete({
 		</div>
 
 
-<!-- 		<div class="order"> -->
-<!-- 			<div -->
-<!-- 				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12"> -->
-<!-- 				<div class="panel-title">商品を並び替える</div> -->
-<!-- 				<form th:action="@{/showItem/orderItems}" method="post"> -->
-<!-- 					<select name="sort"> -->
-<!-- 						<option value="">---</option> -->
-<!-- 						<option value="expensive">価格が安い順</option> -->
-<!-- 						<option value="cheap">価格が高い順</option> -->
-<!-- 					</select> -->
-<!-- 					<button>並び替え</button> -->
-<!-- 				</form> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
+		<div class="order">
+			<div
+				class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="panel-title">商品を並び替える</div>
+						<form th:action="@{/showItem/sortItems}" method="post">
+							<select name="sort">
+								<option value="">---</option>
+								<option value="cheap">価格が安い順</option>
+								<option value="expensive">価格が高い順</option>
+							</select>
+							<button>並び替え</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<!-- 	th:each="cheap : ${orderByCheapItem}" -->
 		<!-- 	th:each="expensive : ${orderByExpensiveItem}" -->

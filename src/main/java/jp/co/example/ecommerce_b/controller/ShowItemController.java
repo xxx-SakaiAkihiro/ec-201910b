@@ -26,9 +26,10 @@ public class ShowItemController {
 
 	@Autowired
 	private ItemService service;
-	
+
 	@Autowired
 	private CountInCartService countInCartService;
+
 	/**
 	 * 曖昧検索をする.
 	 * 
@@ -38,12 +39,13 @@ public class ShowItemController {
 	 */
 	@RequestMapping("")
 
-	public String showItemListFindByName(String name, Integer pageNumber, Model model,@AuthenticationPrincipal LoginUser loginUser) {
-		
+	public String showItemListFindByName(String name, Integer pageNumber, Model model,
+			@AuthenticationPrincipal LoginUser loginUser) {
+
 		Integer count = service.count();
 		int maxPageNumber = 0;
 		List<Integer> pageNumbers = new ArrayList<Integer>();
-		if(count % 6 != 0) {
+		if (count % 6 != 0) {
 			maxPageNumber = count / 6 + 1;
 		} else {
 			maxPageNumber = count / 6;
@@ -61,35 +63,34 @@ public class ShowItemController {
 			itemListList = service.showItemListFindByName("", 1);
 		}
 		model.addAttribute("itemListList", itemListList);
-		
+
 		// オートコンプリート用にJavaScriptの配列の中身を文字列で作ってスコープへ格納
 		StringBuilder ItemListForAutocomplete = service.getItemListForAutocomplete(service.itemList());
 		model.addAttribute("ItemListForAutocomplete", ItemListForAutocomplete);
-		//「ショッピングカート」リンクのアイコンバッジの件数を取得
+		// 「ショッピングカート」リンクのアイコンバッジの件数を取得
 		Integer countInCart = countInCartService.countInCart(loginUser);
-		model.addAttribute("countInCart",countInCart);
+		model.addAttribute("countInCart", countInCart);
 		System.out.println("アイコン" + countInCart);
 		return "item_list";
 	}
+
 	/**
 	 * 値段が高い順、低い順で商品を検索する.
 	 * 
 	 * @param model モデル
 	 * @return 値段が高い順、低い順の商品一覧
 	 */
-//	@RequestMapping("/orderItems")
-//	public String orderByMoneyItem(String sort,Model model) {
-//		List<Item> orderByMoneyItem = service.orderByMoneyItem();
-//		model.addAttribute("orderByMoneyItem", orderByMoneyItem);
-//		return "forward:/showItem";
+	@RequestMapping("/sortItems")
+	public String sortByMoneyItem(String sort, Model model) {
+		List<List<Item>> itemListList = service.sortByMoneyItem(sort);
 		
+//		for (List<Item> itemList2 : itemListList) {
+//			for (Item item : itemList2) {
+//				System.out.println(item.getName() + ":" + item.getPriceM());
+//			}
+//		}
 		
-//		Map<Integer, String> orderMap = new LinkedHashMap<>();
-//		orderMap.put(0, "---");
-//		orderMap.put(1, "値段が安い");
-//		orderMap.put(2, "値段が高い");
-//		model.addAttribute("orderMap",orderMap);
-//		return "forward:/showItem";
-//	}
-	
+		model.addAttribute("itemListList", itemListList);
+		return "item_list";
+	}
 }
