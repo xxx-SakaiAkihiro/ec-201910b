@@ -1,6 +1,5 @@
 package jp.co.example.ecommerce_b.service;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -37,32 +36,32 @@ public class AddItemService {
 
 	@Autowired
 	public OrderToppingRepository orderToppingRepository;
-	
+
 	@Autowired
 	public HttpSession session;
-
 
 	/**
 	 * 注文された商品を挿入する.
 	 * 
 	 * @param orderItem 注文した商品
 	 */
-	public void addItem(OrderItemForm orderItemForm,@AuthenticationPrincipal LoginUser loginUser) {
+	public void addItem(OrderItemForm orderItemForm, @AuthenticationPrincipal LoginUser loginUser) {
 		Integer userId;
-		if ( loginUser != null ) {
+		if (loginUser != null) {
 			userId = loginUser.getUser().getId();
-		} else if (session.getAttribute("userId") != null ) {
+		} else if (session.getAttribute("userId") != null) {
 			userId = (Integer) session.getAttribute("userId");
 		} else {
 			String source = session.getId();
 			userId = source.hashCode();
 			session.setAttribute("userId", userId);
 		}
-		
+
 		int status = 0;
 		Order order = null;
 
 		List<Order> searchOrderList = orderrepository.findByUserIdAndStatus(userId, status);
+		List<Integer> orderToppingList = orderItemForm.getOrderToppingList();
 		if (searchOrderList.isEmpty()) {
 			order = new Order();
 			order.setUserId(userId);
@@ -71,7 +70,7 @@ public class AddItemService {
 			// orderをインサート
 			System.out.println(userId);
 			orderrepository.insert(order);
-			
+
 			OrderItem orderItem = new OrderItem();
 			orderItem.setItemId(Integer.parseInt(orderItemForm.getItemId()));
 			orderItem.setOrderId(order.getId());
@@ -82,10 +81,12 @@ public class AddItemService {
 
 			OrderTopping orderTopping = new OrderTopping();
 			orderTopping.setOrderItemId(orderItem.getId());
-			for (Integer toppingId : orderItemForm.getOrderToppingList()) {
-				orderTopping.setToppingId(toppingId);
-				// orderToppingをインサート
-				orderToppingRepository.insert(orderTopping);
+			if (orderToppingList != null) {
+				for (Integer toppingId : orderToppingList) {
+					orderTopping.setToppingId(toppingId);
+					// orderToppingをインサート
+					orderToppingRepository.insert(orderTopping);
+				}
 			}
 		} else {
 			OrderItem orderItem = new OrderItem();
@@ -99,14 +100,14 @@ public class AddItemService {
 			orderItemRepository.insert(orderItem);
 
 			OrderTopping orderTopping = new OrderTopping();
-			for (Integer toppingId : orderItemForm.getOrderToppingList()) {
-				orderTopping.setOrderItemId(toppingId);
-				orderTopping.setToppingId(toppingId);
-				// orderToppingをインサート
-				orderToppingRepository.insert(orderTopping);
-				
+			if (orderToppingList != null) {
+				for (Integer toppingId : orderToppingList) {
+					orderTopping.setToppingId(toppingId);
+					// orderToppingをインサート
+					orderToppingRepository.insert(orderTopping);
+
+				}
 			}
 		}
-		
 	}
 }
