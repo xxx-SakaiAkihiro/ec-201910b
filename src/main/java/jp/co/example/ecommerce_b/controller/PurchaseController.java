@@ -62,7 +62,7 @@ public class PurchaseController {
 			
 			CreditCardData creditCardData=purchaseService.creditCardCall(creditCard);
 			
-			if (creditCardData.getMessage().equals("error")) {
+			if ("error".equals(creditCardData.getMessage())) {
 				result.rejectValue("card_number", null, "クレジットカード情報が不正です");
 				return "foward:/purchase";
 			}
