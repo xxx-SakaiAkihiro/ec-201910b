@@ -158,8 +158,7 @@ public class OrderRepository {
 				+ "destination_address=:destinationAddress,"
 				+ "destination_tel=:destinationTel,delivery_time=:deliveryTime,"
 				+ "payment_method=:paymentMethod,status=:status,order_date=:orderDate,total_price=:totalPrice "
-				+ " where user_id = :userId;";
-		
+				+ " where id = :Id;";
 		template.update(sql, param);
 	}
 	

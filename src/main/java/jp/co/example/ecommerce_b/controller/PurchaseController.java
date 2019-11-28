@@ -76,7 +76,7 @@ public class PurchaseController {
 		try {
 			parsedDate = format.parse(deliveryDateTime);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
@@ -102,15 +102,11 @@ public class PurchaseController {
 			}
 		}
 		System.out.println(order);
-		purchaseService.purchase(order);
+		purchaseService.purchase(order, loginUser);
 		return "order_finished";
 	}
 	
-	@RequestMapping("/mail")
-	public void sendMail(@AuthenticationPrincipal LoginUser loginUser) {
-		System.out.println(loginUser);
-		purchaseService.sendMail(loginUser);
-	}
+
 	
 	
 		
