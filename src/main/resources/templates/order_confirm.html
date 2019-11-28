@@ -76,7 +76,7 @@
 							</td>
 							<td>
 
-								&nbsp;<span class="price" th:text="${orderItem.size}">サイズ</span> &nbsp;&nbsp;<span th:text="${orderItem.size == 'm'} ? ${orderItem.item.priceM} : ${orderItem.item.priceL}+ '円'">サイズの値段</span>
+								&nbsp;<span class="badge badge-info"><span class="price" th:text="${orderItem.size}">サイズ</span></span> &nbsp;&nbsp;<span th:text="${orderItem.size == 'm'} ? ${orderItem.item.priceM} : ${orderItem.item.priceL}+ '円'">サイズの値段</span>
 								&nbsp;&nbsp;<span th:text="${orderItem.quantity} + 個">数量</span>
 							<td>
 								<ul th:each="orderTopping : ${orderItem.orderToppingList}">

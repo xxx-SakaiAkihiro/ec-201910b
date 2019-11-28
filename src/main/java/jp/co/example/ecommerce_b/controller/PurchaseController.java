@@ -67,6 +67,7 @@ public class PurchaseController {
 				return "foward:/purchase";
 			}
 		}
+		System.out.println(order);
 		purchaseService.purchase(order);
 		return "order_finished";
 	}
