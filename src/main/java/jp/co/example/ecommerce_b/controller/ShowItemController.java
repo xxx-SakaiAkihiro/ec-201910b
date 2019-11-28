@@ -54,9 +54,10 @@ public class ShowItemController {
 			pageNumbers.add(i);
 		}
 		model.addAttribute("pageNumbers", pageNumbers);
-		model.addAttribute("name", sortForm.getName());
-
+		model.addAttribute("name", sortForm.getSearchName());
+System.out.println(sortForm);
 		List<List<Item>> itemListList = service.showItemListFindByName(sortForm);
+		
 		if (itemListList.isEmpty()) {
 			model.addAttribute("message", "該当する商品はありません");
 			// 商品が１つもなければ全件検索を行う
@@ -95,6 +96,7 @@ public class ShowItemController {
 		model.addAttribute("pageNumbers", pageNumbers);
 		
 		List<List<Item>> itemListList = service.sortByMoneyItem(sortForm);
+		System.out.println(itemListList);
 		model.addAttribute("itemListList", itemListList);
 		return "item_list";
 	}

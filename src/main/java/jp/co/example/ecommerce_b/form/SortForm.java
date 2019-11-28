@@ -4,11 +4,11 @@ public class SortForm {
 
 	private Integer pageNumber;
 	private String sort;
-	private String name;
+	private String searchName;
 
 	@Override
 	public String toString() {
-		return "SortForm [pageNumber=" + pageNumber + ", sort=" + sort + ", name=" + name + "]";
+		return "SortForm [pageNumber=" + pageNumber + ", sort=" + sort + ", searchName=" + searchName + "]";
 	}
 
 	/**
@@ -40,17 +40,17 @@ public class SortForm {
 	}
 
 	/**
-	 * @return the name
+	 * @return the searchName
 	 */
-	public String getName() {
-		return name;
+	public String getSearchName() {
+		return searchName;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param searchName the searchName to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
 	}
 
 }

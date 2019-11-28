@@ -52,7 +52,7 @@ public class ItemRepository {
 	 * @return 曖昧検索の結果
 	 */
 	public List<Item> findByName(SortForm sortForm){
-		String name = sortForm.getName();
+		String name = sortForm.getSearchName();
 		Integer pageNumber = sortForm.getPageNumber();
 		String sql = "select id,name,description,price_m,price_l,image_path from items where name like :name limit 6 offset :pageNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", '%' + name + '%').addValue("pageNumber", pageNumber);
@@ -86,7 +86,8 @@ public class ItemRepository {
 	 * @return 値段が高い順の商品一覧
 	 */
 	public List<Item> orderByExpensiveItem(SortForm sortForm){
-		Integer pageNumber = sortForm.getPageNumber();
+		Integer pageNumber = 6 * sortForm.getPageNumber();
+		System.out.println(pageNumber);
 		String sql = "select * from items order by price_m desc limit 6 offset :pageNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("pageNumber", pageNumber);
 		return template.query(sql, param, ITEM_ROW_MAPPER);
@@ -98,7 +99,7 @@ public class ItemRepository {
 	 * @return 値段が低い順の商品一覧
 	 */
 	public List<Item> orderByCheapItem(SortForm sortForm){
-		Integer pageNumber = sortForm.getPageNumber();
+		Integer pageNumber = 6 * sortForm.getPageNumber();
 		String sql = "select * from items order by price_m limit 6 offset :pageNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("pageNumber", pageNumber);
 		return template.query(sql, param, ITEM_ROW_MAPPER);

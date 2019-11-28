@@ -23,6 +23,23 @@ public class ItemService {
 
 	@Autowired
 	private ItemRepository repository;
+	
+	/**
+	 * 曖昧検索、並び替えで使うメソッド.
+	 * 
+	 * @param sortForm ソートフォーム
+	 * @return
+	 */
+	public String totalMethod(SortForm sortForm) {
+		Integer pageNumber = sortForm.getPageNumber();
+		String sort = sortForm.getSort();
+		if (pageNumber == null || pageNumber == 1) {
+			pageNumber = 0;
+		} else {
+			pageNumber = (pageNumber - 1) * 6;
+		}
+		return sort;
+	}
 
 	/**
 	 * 曖昧検索をする.
@@ -31,17 +48,10 @@ public class ItemService {
 	 * @return 曖昧検索結果
 	 */
 	public List<List<Item>> showItemListFindByName(SortForm sortForm) {
-		Integer pageNumber = sortForm.getPageNumber();
-		String name = sortForm.getName();
-		Integer pageCount = 0;
-		if (pageNumber == null || pageNumber == 1 ) {
-			pageCount = 0;
-		} else {
-			pageCount = (pageNumber - 1) * 6;
-		}
+		String name = sortForm.getSearchName();
 		List<Item> itemList = null;
 		if (name == null || name.equals("")) {
-			itemList = repository.findAll(pageCount);
+			itemList = repository.findAll(sortForm);
 		} else {
 			itemList = repository.findByName(sortForm);
 			
@@ -71,6 +81,7 @@ public class ItemService {
 		}
 		return itemListList;
 	}
+	
 
 	/**
 	 * 値段が高い順、低い順で商品を検索する.
@@ -78,20 +89,14 @@ public class ItemService {
 	 * @return 値段が高い順、低い順の商品一覧
 	 */
 	public List<List<Item>> sortByMoneyItem(SortForm sortForm) {
-		Integer pageNumber = sortForm.getPageNumber();
-		String sort = sortForm.getSort();
-		Integer pageCount = 0;
-		if (pageNumber == null || pageNumber == 1) {
-			pageCount = 0;
-		} else {
-			pageCount = (pageNumber - 1) * 6;
-		}
+		String sort = totalMethod(sortForm);
 		
 		List<List<Item>> itemListList = null;
 		List<Item> itemList = null;
 		
 		if (sort.equals("expensive")) {
 			itemList = repository.orderByExpensiveItem(sortForm);
+			
 		} else {
 			itemList = repository.orderByCheapItem(sortForm);
 		}
