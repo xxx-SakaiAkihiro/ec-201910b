@@ -1,5 +1,8 @@
 package jp.co.example.ecommerce_b.controller;
 
+
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -10,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.example.ecommerce_b.domain.CreditCard;
 import jp.co.example.ecommerce_b.domain.CreditCardData;
 import jp.co.example.ecommerce_b.domain.LoginUser;
-//import jp.co.example.ecommerce_b.domain.CreditCard;
-//import jp.co.example.ecommerce_b.domain.CreditCardData;
 import jp.co.example.ecommerce_b.domain.Order;
 import jp.co.example.ecommerce_b.form.OrderForm;
 import jp.co.example.ecommerce_b.service.PurchaseService;
@@ -39,7 +40,15 @@ public class PurchaseController {
 	 */
 	@RequestMapping("")
 	public String purchase(@Validated OrderForm orderForm,BindingResult result) {
+		
+		
 		Order order = new Order();
+		
+		//注文するのボタンを押したときコントローラに飛んできた時刻を注文日にセットした.
+		Date date = new Date();
+		order.setOrderDate(date);
+		  
+		  
 		order.setDestinationName(orderForm.getDestinationName());
 		order.setDestinationEmail(orderForm.getDestinationEmail());
 		order.setDestinationZipcode(orderForm.getDestinationZipcode());

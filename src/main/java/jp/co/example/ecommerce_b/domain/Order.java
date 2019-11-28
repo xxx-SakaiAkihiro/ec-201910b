@@ -1,7 +1,7 @@
 package jp.co.example.ecommerce_b.domain;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public class Order {
@@ -127,10 +127,10 @@ public class Order {
 	}
 
 	/**
-	 * @param orderDate the orderDate to set
+	 * @param date the orderDate to set
 	 */
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
+	public void setOrderDate(java.util.Date date) {
+		this.orderDate = date;
 	}
 
 	/**
