@@ -19,11 +19,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" th:src="@{/js/item_list.js}"></script>
 
-
 <script type="text/javascript">
 $( function() {
   var data = [ [(${ItemListForAutocomplete})] ];
-
 
 $("#code").autocomplete({
     source: data,
@@ -32,6 +30,14 @@ $("#code").autocomplete({
     minLength: 1
   });
 });</script>
+
+<style>
+/* ../img.serchButton { */
+/* width: 96px; */
+/* height: 65px; */
+/* } */
+</style>
+
 </head>
 <body>
 	<div class="container">
@@ -110,12 +116,12 @@ $("#code").autocomplete({
 					<div class="panel-heading">
 						<div class="panel-title">商品を並び替える</div>
 						<form th:action="@{/showItem/sortItems}" method="post">
-							<select name="sort" class="btn-default">
+							<select id="button" name="sort" class="btn-default">
 								<option value="">-----</option>
 								<option value="cheap">価格が安い順</option>
 								<option value="expensive">価格が高い順</option>
 							</select>
-							<button><img src="/img/button.png"></button>
+							<button><img class="serchButton" src="/img/button.png"></button>
 						</form>
 					</div>
 				</div>
