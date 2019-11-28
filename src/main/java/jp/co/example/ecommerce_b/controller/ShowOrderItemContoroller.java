@@ -51,13 +51,11 @@ public class ShowOrderItemContoroller {
 			userId = loginUser.getUser().getId();
 		}
 		List<Order> orderList = showOrderItemService.findByUserIdAndStatus(userId);
-		//ショッピングカートの中身が0件か1件以上の場合
-		//Order order = orderList.get(0);
-		//ショッピングカートの中身が0件
+		//ショッピングカートの中身が0件の場合
 		if (orderList.size() == 0 || CollectionUtils.isEmpty(orderList.get(0).getOrderItemList())) {
 			String str = "カートに商品がありません";
 			model.addAttribute("str", str);
-		//ショッピングカートの中身が1件以上
+		//ショッピングカートの中身が1件以上の場合
 		} else {
 			model.addAttribute("order", orderList.get(0));
 		}

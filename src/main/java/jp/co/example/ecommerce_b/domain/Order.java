@@ -47,7 +47,6 @@ public class Order {
 	public int getTax() {
 		int tax = 0;
 		for (OrderItem orderItem : orderItemList) {
-
 			tax += (orderItem.getSubTotal() * 0.1);
 		}
 		return tax;
@@ -56,10 +55,8 @@ public class Order {
 	public int getCalcTotalPrice() {
 		int CalcTotalPrice = 0;
 		for (OrderItem orderItem : orderItemList) {
-
 			CalcTotalPrice += (orderItem.getSubTotal() + getTax());
 		}
-
 		return CalcTotalPrice;
 	}
 
