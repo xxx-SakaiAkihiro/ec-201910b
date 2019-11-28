@@ -3,6 +3,7 @@ package jp.co.example.ecommerce_b.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -47,8 +48,9 @@ public class PurchaseService {
 	 * 
 	 * @param order 注文情報
 	 */
-	public void purchase(Order order,@Autowired LoginUser loginUser) {
-		orderRepository.update(order);
+
+	public void purchase(Order order,@AuthenticationPrincipal LoginUser loginUser) {
+		orderRepository.orderUpdate(order);
 		sendMail(loginUser,order);
 	} 
 	

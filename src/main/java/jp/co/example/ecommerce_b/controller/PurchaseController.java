@@ -52,11 +52,13 @@ public class PurchaseController {
 		Order order = orderList.get(0);
 		System.out.println(orderForm.getOrderDate());
 		order.setTotalPrice(Integer.parseInt(orderForm.getTotalPrice()));
+
 		//注文するのボタンを押したときコントローラに飛んできた時刻を注文日にセットした.
 		Date date = new Date();
 		order.setOrderDate(date);
 		  
 		  
+
 		order.setDestinationName(orderForm.getDestinationName());
 		order.setDestinationEmail(orderForm.getDestinationEmail());
 		order.setDestinationZipcode(orderForm.getDestinationZipcode());
@@ -73,7 +75,7 @@ public class PurchaseController {
 		try {
 			parsedDate = format.parse(deliveryDateTime);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
@@ -99,6 +101,7 @@ public class PurchaseController {
 			}
 		}
 		System.out.println(order);
+
 		purchaseService.purchase(order,loginUser);
 		return "order_finished";
 	}

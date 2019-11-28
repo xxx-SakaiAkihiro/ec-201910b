@@ -114,6 +114,7 @@
 		<div th:if="${order}">
 			<div class="col-xs-offset-2 col-xs-8">
 				<div class="form-group text-center">
+
 					<span id="total-price" th:text="'ご注文金額合計(税込)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">ご注文金額合計：38,000円 (税込)</span><br>
 					<span id="total-price" th:text="'(消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA')} + '円)'">消費税：8,000円</span><br>
 
@@ -177,18 +178,18 @@
 													for="inputPeriod">配達日時を入力してください</label>
 											</div>
 											<div class="col-sm-5">
-<<<<<<< HEAD
+
+
 												<input type="date" name="deliveryDate" id="deliveryTime" class="form-control input-sm" />
-=======
-												<input type="date" name="deliveryTime" id="deliveryTime"
-													class="form-control input-sm" />
->>>>>>> d47e64167094bcbd7dd6262febf02eb11153ef6d
+
+
+					
 											</div>
 
 										</div>
 										<div class="row">
 											<div class="col-sm-12">
-<<<<<<< HEAD
+
 												<label class="radio-inline">
 													<input type="radio" name="deliveryTime" checked="checked" value=10>
 													10時
@@ -228,7 +229,7 @@
 													18時
 												</label>
 												<br>
-=======
+
 												<label class="radio-inline"> <input type="radio"
 													name="deliveryTime" checked="checked"> 10時
 												</label> <label class="radio-inline"> <input type="radio"
@@ -248,7 +249,7 @@
 												</label> <label class="radio-inline"> <input type="radio"
 													name="deliveryTime"> 18時
 												</label> <br>
->>>>>>> d47e64167094bcbd7dd6262febf02eb11153ef6d
+
 											</div>
 										</div>
 									</div>
