@@ -67,7 +67,6 @@ public class ShowItemController {
 		//「ショッピングカート」リンクのアイコンバッジの件数を取得
 		Integer countInCart = countInCartService.countInCart(loginUser);
 		model.addAttribute("countInCart",countInCart);
-		System.out.println("アイコン" + countInCart);
 		return "item_list";
 	}
 	
