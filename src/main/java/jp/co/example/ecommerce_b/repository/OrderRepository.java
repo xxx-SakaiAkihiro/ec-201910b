@@ -163,11 +163,9 @@ public class OrderRepository {
 	 * 
 	 * @param order 注文情報
 	 */
-	public void updateUserId(Order order,Integer sessionUserId) {
-		Integer userId = order.getUserId();
-		
-		String sql = "UPDATE orders set user_id = :userId where user_id = :sessionUserId";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("sessionUserId", sessionUserId).addValue("userId", userId);
+	public void updateUserId(Integer loginUserId,Integer sessionUserId) {
+		String sql = "UPDATE orders set user_id = :loginUserId WHERE user_id = :sessionUserId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("sessionUserId", sessionUserId).addValue("loginUserId", loginUserId);
 		template.update(sql, param);
 	}
 	
@@ -226,6 +224,12 @@ public class OrderRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId);
 		Integer count = template.queryForObject(sql, param, Integer.class);
 		return count;
+	}
+	
+	public void deleteById(Integer temporalOrderId) {
+		String sql = "DELETE FROM orders WHERE id = :temporalOrderId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("temporalOrderId", temporalOrderId);
+		template.update(sql, param);
 	}
 	
 }

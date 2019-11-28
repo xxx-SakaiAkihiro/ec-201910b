@@ -1,5 +1,7 @@
 package jp.co.example.ecommerce_b.repository;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,12 @@ public class OrderItemRepository {
 	public void deleteById(Integer id) {
 		String sql = "WITH deleted AS (DELETE FROM order_items WHERE id=:id RETURNING id) DELETE FROM order_toppings WHERE order_item_id IN (SELECT order_item_id FROM deleted);";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		template.update(sql, param);
+	}
+	
+	public void update(Integer temporalOrderId,Integer loginUserOrderId){
+		String sql = "UPDATE order_items SET order_id = :loginUserOrderId WHERE order_id = :temporalOrderId";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("temporalOrderId", temporalOrderId).addValue("loginUserOrderId", loginUserOrderId);
 		template.update(sql, param);
 	}
 	
