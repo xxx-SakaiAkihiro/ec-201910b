@@ -36,7 +36,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" th:href="@{/showItem}"> <!-- 企業ロゴ --> <img alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
+					<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ --> <img alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
 					</a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -171,6 +171,13 @@
 				</table>
 			</div>
 		</div>
+	</div>
+	
+	<!-- 注文履歴の中身が0件の場合 -->
+	<div class="text-center"  th:if="${str}">
+		<font size="6">
+			<span th:text="${str}"></span>
+		</font>
 	</div>
 	
 	<!-- end container -->
