@@ -49,6 +49,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 						,"/DeleteItem/**"
 						,"/ShowItemDetail/**"
 						,"/purchase/**"
+						,"/reset/**"
 						,"/ShowOrderItem/**").permitAll()//全てのユーザでアクセス化
 			.anyRequest().authenticated();//それ以外のパスは認証必須
 		

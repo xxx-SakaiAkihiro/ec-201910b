@@ -60,6 +60,12 @@ public class UserRepository {
 		}
 		return userList.get(0);
 	}
+	
+	public void updatePass(String email,String password) {
+		String sql = "UPDATE users SET password = :password WHERE email = :email";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("email", email).addValue("password", password);
+		template.update(sql, param);
+	}
 
 
 
