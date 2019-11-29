@@ -125,8 +125,7 @@
 						th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA')} + '円'">消費税</span><br>
 					</font>
 					<hr>
-					<span id="total-price"
-						th:text="'小計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">小計</span><br>
+					<span id="total-price" th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">合計</span><br>
 				</div>
 			</div>
 			<br>
