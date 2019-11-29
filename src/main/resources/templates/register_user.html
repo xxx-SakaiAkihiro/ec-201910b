@@ -70,7 +70,7 @@
 							<div class="form-group">
 								<label for="inputTel">電話番号:</label>
 								<label class="control-label" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" style="color: red" for="inputError">電話番号を入力してください</label>
-								<input type="tel" id="inputTel" class="form-control" th:field="*{telephone}" placeholder="Tel"  pattern="\d{2,4}-\d{3,4}-\d{3,4}" title="電話番号は「-」が必要です">
+								<input type="tel" id="inputTel" class="form-control" th:field="*{telephone}" placeholder="Tel"  pattern="\d{2,4}-\d{3,4}-\d{3,4}" title="電話番号には「-」が必要です">
 							</div>
 							<div class="form-group">
 								<label for="inputPassword">パスワード:</label>
