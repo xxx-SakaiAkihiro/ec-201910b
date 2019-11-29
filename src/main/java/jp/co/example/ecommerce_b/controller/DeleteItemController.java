@@ -27,7 +27,7 @@ public class DeleteItemController {
 	 */
 	@RequestMapping("")
 	public String deleteItem(Integer orderItemId) {
-		System.out.println(orderItemId);
+		System.out.println("どこだ"+orderItemId);
 		deleteItemService.deleteItem(orderItemId);
 		return "redirect:/ShowOrderItem";
 	}

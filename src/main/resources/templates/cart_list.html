@@ -81,7 +81,7 @@
 								<div class="center">
 									<img th:src="${'/img_toy/' + orderItem.item.imagePath}"
 										class="img-responsive img-rounded" width="100" height="300"><br>
-									<span th:text="${orderItem.item.name}"></span>
+									<span th:text="${orderItem.item.name}">商品名</span>
 								</div>
 							</td>
 							<td>
@@ -118,7 +118,10 @@
 		
 		<!-- ショッピングカートの中身が0件の場合 -->
 		<div class="text-center"  th:if="${str}">
-			<div th:text="${str}"></div>
+			<font size="6">
+				<span th:text="${str}"></span>
+			</font>
+			<br><br>
 			<form th:action="@{/showItem}" method="post">
 				<button type="submit" class="btn btn-warning">商品一覧に戻る</button>
 			</form>
@@ -128,12 +131,10 @@
 		<div th:if="${order}">
 			<div class="col-xs-offset-2 col-xs-8">
 				<div class="form-group text-right">
-					<font size="5">
 					<span id="total-price" th:text="'価格：' + ${#numbers.formatInteger((order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)))-order.getTax(),1,'COMMA')} + '円'">価格</span><br>
 					<span id="total-price" th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA')} + '円'">消費税</span><br>
-					</font>
 					<hr>
-					<span id="total-price" th:text="'小計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">小計</span><br>
+					<span id="total-price" th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">小計</span><br>
 				</div>
 			</div><br>
 			<div class="row">
