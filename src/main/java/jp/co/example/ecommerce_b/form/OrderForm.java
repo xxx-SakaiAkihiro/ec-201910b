@@ -1,7 +1,6 @@
 package jp.co.example.ecommerce_b.form;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 import jp.co.example.ecommerce_b.domain.OrderItem;
@@ -35,8 +34,22 @@ public class OrderForm {
 	private String destinationAddress;
 	/* 宛先TEL */
 	private String destinationTel;
+	/* 配達希望日 */
+	private String deliveryDate;
+	public String getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+	public void setDeliveryTime(String deliveryTime) {
+		this.deliveryTime = deliveryTime;
+	}
 	/* 配達時間 */
-	private Timestamp deliveryTime;
+	private String deliveryTime;
+	public String getDeliveryTime() {
+		return deliveryTime;
+	}
 	/* 支払方法 */
 	private String paymentMethod;
 	/* ユーザ */
@@ -44,7 +57,7 @@ public class OrderForm {
 	/* 注文したアイテム */
 	private List<OrderItem> orderItemList;
 	/* クレジットカード番号 */
-	private Integer card_number;
+	private String card_number;
 	/* カード有効期限（年） */
 	private Integer card_exp_year;
 	/* カード有効期限（月） */
@@ -174,18 +187,6 @@ public class OrderForm {
 		this.destinationTel = destinationTel;
 	}
 	/**
-	 * @return the deliveryTime
-	 */
-	public Timestamp getDeliveryTime() {
-		return deliveryTime;
-	}
-	/**
-	 * @param deliveryTime the deliveryTime to set
-	 */
-	public void setDeliveryTime(Timestamp deliveryTime) {
-		this.deliveryTime = deliveryTime;
-	}
-	/**
 	 * @return the paymentMethod
 	 */
 	public String getPaymentMethod() {
@@ -224,13 +225,13 @@ public class OrderForm {
 	/**
 	 * @return the card_number
 	 */
-	public Integer getCard_number() {
+	public String getCard_number() {
 		return card_number;
 	}
 	/**
 	 * @param card_number the card_number to set
 	 */
-	public void setCard_number(Integer card_number) {
+	public void setCard_number(String card_number) {
 		this.card_number = card_number;
 	}
 	/**

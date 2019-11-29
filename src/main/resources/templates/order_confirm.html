@@ -116,8 +116,8 @@
 			<div class="col-xs-offset-2 col-xs-8">
 				<div class="form-group text-center">
 					<span id="total-price" th:text="'消費税：' + ${order.getTax()} + '円'">消費税：8,000円</span><br>
-					<span id="total-price"
-						th:text="'ご注文金額合計：' + ${order.getCalcTotalPrice()} + '円'">ご注文金額合計：38,000円
+
+					 <span id="total-price" th:text="'ご注文金額合計：' + ${order.getCalcTotalPrice()} + '円'">ご注文金額合計：38,000円
 						(税込)</span>
 				</div>
 			</div>
@@ -125,6 +125,9 @@
 
 		<!-- table -->
 		<form th:action="@{/purchase}">
+		<div th:each="order : ${orderList}">
+			<input type="hidden" name="totalPrice" th:value="${order.getCalcTotalPrice()}">
+		</div>
 			<div class="row">
 				<div
 					class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
@@ -175,32 +178,54 @@
 													for="inputPeriod">配達日時を入力してください</label>
 											</div>
 											<div class="col-sm-5">
-												<input type="date" name="deliveryTime" id="deliveryTime"
-													class="form-control input-sm" />
+
+												<input type="date" name="deliveryDate" id="deliveryTime" class="form-control input-sm" />
 											</div>
 
 										</div>
 										<div class="row">
 											<div class="col-sm-12">
-												<label class="radio-inline"> <input type="radio"
-													name="deliveryTime" checked="checked"> 10時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime"> 11時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime"> 12時
-												</label> <br> <label class="radio-inline"> <input
-													type="radio" name="deliveryTime"> 13時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime"> 14時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime"> 15時
-												</label> <br> <label class="radio-inline"> <input
-													type="radio" name="deliveryTime"> 16時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime"> 17時
-												</label> <label class="radio-inline"> <input type="radio"
-													name="deliveryTime"> 18時
-												</label> <br>
+
+												<label class="radio-inline">
+													<input type="radio" name="deliveryTime" checked="checked" value=10>
+													10時
+												</label>
+												<label class="radio-inline">
+													<input type="radio" name="deliveryTime" value=11>
+													11時
+												</label>
+												<label class="radio-inline">
+													<input type="radio" name="deliveryTime" value=12>
+													12時
+												</label>
+												<br>
+												<label class="radio-inline">
+													<input type="radio" name="deliveryTime" value=13>
+													13時
+												</label>
+												<label class="radio-inline">
+													<input type="radio" name="deliveryTime" value=14>
+													14時
+												</label>
+												<label class="radio-inline">
+													<input type="radio" name="deliveryTime" value=15>
+													15時
+												</label>
+												<br>
+												<label class="radio-inline">
+													<input type="radio" name="deliveryTime" value=16>
+													16時
+												</label>
+												<label class="radio-inline">
+													<input type="radio" name="deliveryTime" value=17>
+													17時
+												</label>
+												<label class="radio-inline">
+													<input type="radio" name="deliveryTime" value=18>
+													18時
+												</label>
+												<br>
+>>>>>>> e366365df68da640c09f4cab70de878adb41480f
 											</div>
 										</div>
 									</div>
