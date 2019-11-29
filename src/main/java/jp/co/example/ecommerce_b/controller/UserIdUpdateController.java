@@ -75,6 +75,6 @@ public class UserIdUpdateController {
 			}
 			System.out.println(15);
 		} 
-			return "forward:/showItem";
+			return "forward:/";
 	}
 }

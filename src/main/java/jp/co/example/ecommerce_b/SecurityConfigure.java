@@ -63,7 +63,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 		
 		http.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
-			.logoutSuccessUrl("/showItem")//ログアウト後に遷移させるパス
+			.logoutSuccessUrl("/")//ログアウト後に遷移させるパス
 			.deleteCookies("JSESSIONID")//ログアウト後Cookieに保存されているセッションIDを削除
 			.invalidateHttpSession(true);//true:ログアウト後セッションを無効にする
 	}
