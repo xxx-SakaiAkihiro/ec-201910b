@@ -51,6 +51,7 @@ public class ItemRepository {
 	 * @return 曖昧検索の結果
 	 */
 	public List<Item> findByName(String searchName, Integer startNumber){
+		System.out.println("searchName : " + searchName);
 		String sql = "select id,name,description,price_m,price_l,image_path from items where name like :searchName limit 6 offset :startNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("searchName", '%' + searchName + '%').addValue("startNumber", startNumber);
 		return template.query(sql, param, ITEM_ROW_MAPPER);

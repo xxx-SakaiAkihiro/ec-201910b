@@ -66,9 +66,8 @@ public class ShowItemController {
 		// 曖昧検索,全件検索
 		NeedPage(model);
 		session.setAttribute("searchName", sortForm.getSearchName());
-		session.setAttribute("sort", sortForm.getSort());
-		
 		List<List<Item>> itemListList = service.showItemListFindByName(sortForm);
+		System.out.println("itemListList : " + itemListList);
 		if (itemListList.isEmpty()) {
 			// 商品が１つもなければ全件検索を行う
 			model.addAttribute("message", "該当する商品はありません");
@@ -76,6 +75,7 @@ public class ShowItemController {
 			itemListList = service.showItemListFindByName(sortForm);
 		} else {
 			// 値段が高い順、低い順で商品を検索
+			session.setAttribute("sort", sortForm.getSort());
 			NeedPage(model);
 			Integer startNumber = service.SearchStartNumber(sortForm);
 			itemListList = service.sortItemByMoney(sortForm, startNumber);

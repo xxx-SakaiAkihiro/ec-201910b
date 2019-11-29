@@ -59,7 +59,6 @@ public class ItemService {
 		} else {
 			startNumber = (pageNumber - 1) * 6;
 		}
-		System.out.println("ページ目" + startNumber);
 		return startNumber;
 	}
 
@@ -91,11 +90,13 @@ public class ItemService {
 		String searchName = sortForm.getSearchName();
 		Integer startNumber = SearchStartNumber(sortForm);
 		List<Item> itemList = null;
+		
 		if (searchName == null || searchName.equals("")) {
 			itemList = repository.findAll(startNumber);
 		} else if(searchName.equalsIgnoreCase(searchName)){
 			itemList = repository.findByName(searchName,startNumber);
 		}
+		
 		List<List<Item>> itemListList = devideItemsBy3(itemList);
 		return itemListList;
 	}
