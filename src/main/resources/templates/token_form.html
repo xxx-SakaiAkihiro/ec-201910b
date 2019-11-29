@@ -39,23 +39,19 @@
 		<div class="row">
 			<div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 				<div class="well">
-					<form method="post" th:action="@{/doLogin}">
+					<form method="post" th:action="@{/reset/updatePass}">
 						<fieldset>
-							<legend> ログイン </legend>
+							<legend> 6桁の英数字を入力してください </legend>
 							<label class="control-label" style="color: red" for="inputError"></label>
 							<div class="alert alert-danger" th:if="${errorMessage}">
-								<p th:text="${errorMessage}">メールアドレスまたはパスワードが間違っています</p>
+								<p th:text="${errorMessage}">お送りしたメールに記載の英数字と異なっています</p>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail">メールアドレス:</label>
-								<input type="text" id="inputEmail" class="form-control" placeholder="Email" name="mailAddress">
+								<label for="inputPassword">メールに記載の英数字６桁</label>
+								<input type="text" id="inputPassword" class="form-control" name="token">
 							</div>
 							<div class="form-group">
-								<label for="inputPassword">パスワード:</label>
-								<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password">
-							</div>
-							<div class="form-group">
-								<button type="submit" class="btn btn-primary">ログイン</button>
+								<button type="submit" class="btn btn-primary">パスワードを再設定する</button>
 							</div>
 						</fieldset>
 					</form>
@@ -63,14 +59,7 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="text-center">
-				<a href="register_user.html" th:href="@{/toInsert}">ユーザ登録はこちら</a>
-			</div>
-			<div class="text-center">
-				<a href="register_user.html" th:href="@{/reset}">パスワードを忘れてしまった場合</a>
-			</div>
-		</div>
+		
 
 	</div>
 	<!-- end container -->
