@@ -23,7 +23,7 @@
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="item_list.html"> <!-- 企業ロゴ --> <img alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
+					<a class="navbar-brand" href="item_list.html" th:href="@{/showItem}"> <!-- 企業ロゴ --> <img alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
 					</a>
 				</div>
 
@@ -70,7 +70,7 @@
 							<div class="form-group">
 								<label for="inputTel">電話番号:</label>
 								<label class="control-label" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" style="color: red" for="inputError">電話番号を入力してください</label>
-								<input type="text" id="inputTel" class="form-control" th:field="*{telephone}" placeholder="Tel">
+								<input type="tel" id="inputTel" class="form-control" th:field="*{telephone}" placeholder="Tel"  pattern="\d{2,4}-\d{3,4}-\d{3,4}" title="電話番号は「-」が必要です">
 							</div>
 							<div class="form-group">
 								<label for="inputPassword">パスワード:</label>

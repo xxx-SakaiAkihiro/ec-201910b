@@ -221,7 +221,7 @@ public class OrderRepository {
 				"ON oi.id=ot.order_item_id\r\n" + 
 				"LEFT JOIN toppings t\r\n" + 
 				"ON ot.topping_id=t.id\r\n" + 
-				"WHERE o.user_id =:userId AND o.status = :status";
+				"WHERE o.user_id =:userId AND o.status = :status ORDER BY oi_id DESC";
 		
 		SqlParameterSource param = new MapSqlParameterSource().addValue("userId",userId).addValue("status", status);
 		List<Order> orderList = template.query(sql, param,ORDER_RESULT_SET_EXTRACTOR);
