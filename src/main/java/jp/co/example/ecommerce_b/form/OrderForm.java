@@ -36,20 +36,9 @@ public class OrderForm {
 	private String destinationTel;
 	/* 配達希望日 */
 	private String deliveryDate;
-	public String getDeliveryDate() {
-		return deliveryDate;
-	}
-	public void setDeliveryDate(String deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
-	public void setDeliveryTime(String deliveryTime) {
-		this.deliveryTime = deliveryTime;
-	}
 	/* 配達時間 */
 	private String deliveryTime;
-	public String getDeliveryTime() {
-		return deliveryTime;
-	}
+	
 	/* 支払方法 */
 	private String paymentMethod;
 	/* ユーザ */
@@ -83,6 +72,18 @@ public class OrderForm {
 	 */
 	public String getUserId() {
 		return userId;
+	}
+	public String getDeliveryTime() {
+		return deliveryTime;
+	}
+	public String getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+	public void setDeliveryTime(String deliveryTime) {
+		this.deliveryTime = deliveryTime;
 	}
 	/**
 	 * @param userId the userId to set
