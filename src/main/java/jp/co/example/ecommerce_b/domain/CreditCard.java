@@ -8,49 +8,49 @@ package jp.co.example.ecommerce_b.domain;
  */
 public class CreditCard {
 	/* クレジットカード番号 */
-	private long card_number;
+	private String card_number;
 	/* カード有効期限（年） */
-	private Integer card_exp_year;
+	private String card_exp_year;
 	/* カード有効期限（月） */
-	private Integer card_exp_month;
+	private String card_exp_month;
 	/* カード名義 */
 	private String card_name;
 	/* セキュリティコード */
-	private Integer card_cvv;
+	private String card_cvv;
 	/**
 	 * @return the card_number
 	 */
-	public long getCard_number() {
+	public String getCard_number() {
 		return card_number;
 	}
 	/**
 	 * @param card_number the card_number to set
 	 */
-	public void setCard_number(long card_number) {
+	public void setCard_number(String card_number) {
 		this.card_number = card_number;
 	}
 	/**
 	 * @return the card_exp_year
 	 */
-	public Integer getCard_exp_year() {
+	public String getCard_exp_year() {
 		return card_exp_year;
 	}
 	/**
 	 * @param card_exp_year the card_exp_year to set
 	 */
-	public void setCard_exp_year(Integer card_exp_year) {
+	public void setCard_exp_year(String card_exp_year) {
 		this.card_exp_year = card_exp_year;
 	}
 	/**
 	 * @return the card_exp_month
 	 */
-	public Integer getCard_exp_month() {
+	public String getCard_exp_month() {
 		return card_exp_month;
 	}
 	/**
 	 * @param card_exp_month the card_exp_month to set
 	 */
-	public void setCard_exp_month(Integer card_exp_month) {
+	public void setCard_exp_month(String card_exp_month) {
 		this.card_exp_month = card_exp_month;
 	}
 	/**
@@ -68,13 +68,13 @@ public class CreditCard {
 	/**
 	 * @return the card_cvv
 	 */
-	public Integer getCard_cvv() {
+	public String getCard_cvv() {
 		return card_cvv;
 	}
 	/**
 	 * @param card_cvv the card_cvv to set
 	 */
-	public void setCard_cvv(Integer card_cvv) {
+	public void setCard_cvv(String card_cvv) {
 		this.card_cvv = card_cvv;
 	}
 	/* (non-Javadoc)

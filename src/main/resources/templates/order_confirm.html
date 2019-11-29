@@ -133,7 +133,7 @@
 	</div>
 
 	<!-- table -->
-	<form th:action="@{/purchase}">
+	<form th:action="@{/purchase}" method="post" th:object="${orderForm}">
 		<div th:each="order : ${orderList}">
 			<input type="hidden" name="totalPrice"
 				th:value="${order.getCalcTotalPrice()}">
@@ -203,7 +203,7 @@
 											</label> <label class="radio-inline"> <input type="radio"
 												name="deliveryTime" value="11"> 11時
 											</label> <label class="radio-inline"> <input type="radio"
-												name="deliveryTime" value="12">
+												name="deliveryTime" value="12">12時
 											</label> <br> <label class="radio-inline"> <input
 												type="radio" name="deliveryTime" value="13"> 13時
 											</label> <label class="radio-inline"> <input type="radio"
@@ -251,24 +251,29 @@
 						</tr>
 						<tr>
 							<td>
-								<div class="text-center">クレジットカード決済</div>
+								<div class="text-center" >クレジットカード決済</div>
+								
 							</td>
 							<td>
 								<div class="row">
-									<div class="col-sm-12">
-										<label class="radio-inline"> <input type="radio"
+									<div class="col-sm-12" >
+									<strong><span th:text="${card_numbermessage}"  style="color: red" ></span></strong>   <br>
+										<label class="radio-inline">
+										
+										 <input type="radio"
 											name="paymentMethod" value="2" class="paymentMethod">
 											クレジットカード
 										</label> <br> <br>
+										
 									</div>
 								</div>
 							</td>
 						</tr>
 						<tr id="card_number">
 							<td>
-								<div class="text-center">クレジットカード番号</div>
+								<div class="text-center"  >クレジットカード番号</div>
 							</td>
-							<td><input type="text" name="card_number"></td>
+							<td><input type="text" name="card_number" ></td>
 						</tr>
 						<tr id="card_exp">
 							<td>
@@ -288,7 +293,6 @@
 									<option value="11">11</option>
 									<option value="12">12</option>
 							</select> <select name="card_exp_year">
-									<option value="2019">2019</option>
 									<option value="2020">2020</option>
 									<option value="2021">2021</option>
 									<option value="2022">2022</option>
