@@ -14,6 +14,7 @@ import jp.co.example.ecommerce_b.domain.LoginUser;
 //import jp.co.example.ecommerce_b.domain.CreditCard;
 //import jp.co.example.ecommerce_b.domain.CreditCardData;
 import jp.co.example.ecommerce_b.domain.Order;
+import jp.co.example.ecommerce_b.domain.OrderItem;
 import jp.co.example.ecommerce_b.repository.OrderRepository;
 
 /**
@@ -60,28 +61,34 @@ public class PurchaseService {
         msg.setFrom("pepperoni.4.eg@gmail.com");
         msg.setTo("pepperoni.4.eg@gmail.com");
         msg.setSubject("【ラクラクトイ】ご注文内容の確認");//タイトルの設定
-        msg.setText("--------------------------------------------" + br
+        String toptext = "----------------------------------------------------------------------------------------" + br
         		+ loginUser.getUser().getName() + "様" + br
         		+ "ラクラクトイをご利用いただきまして、誠にありがとうございます。" + br
         		+ br
         		+ "ご注文内容を以下にご案内いたします。" + br
         		+ br
-        		+ "--------------------------------------------" + br
+        		+ "----------------------------------------------------------------------------------------" + br
         		+ "■ご注文内容" + br
-        		+ "--------------------------------------------" + br
+        		+ "----------------------------------------------------------------------------------------" + br
+        		+ br;
+        String itemText = "■商品名:";
+        for (OrderItem orderItem  : order.getOrderItemList()) {
+			itemText = orderItem.getItem().getName() + br;
+		}
+        itemText = "■金額:" + order.getTotalPrice()+ br;
+        itemText = "■支払い方法:" + order.getPaymentMethod() + br;
+        itemText = "----------------------------------------------------------------------------------------" + br;
+        String lastText = "代金引換をご利用のお客様は以下振込先へのお振込をよろしくお願いいたします。" + br
+        		+ "■振込先" + br
+        		+ "銀行名:三菱東京UFJ銀行" + br
+        		+ "支店名:新宿新都心支店" + br
+        		+ "口座番号: 普通 9999999 " + br
+        		+ "口座名義: カ）ラクラクトイ " + br
         		+ br
-        		+ "商品名:" + br
-        		+ "価格(税込み):" + br
-        		+ "数量:" + br
-        		+ "トッピング:" + br
-        		+ "お支払い方法:" + br
-        		+ "--------------------------------------------" + br
-        		+ br
-        		+ "今後ともラクラクトイをよろしくお願い申し上げます。"
-        		+ ""
-        		+ ""
-        		+ ""
-        		+ "");
+        		+ "今後ともラクラクトイをよろしくお願いいたします";
+        
+        msg.setText(toptext + itemText + lastText);
+        
 
         this.mailSender.send(msg);
     }
