@@ -44,6 +44,11 @@ public class ShowOrderedItemContoroller {
 		
 		Integer countInCart = countInCartService.countInCart(loginuser);
 		model.addAttribute("countInCart",countInCart);
+		model.addAttribute("name",loginuser.getUser().getName());
+		model.addAttribute("email",loginuser.getUser().getEmail());
+		model.addAttribute("userZipcode",loginuser.getUser().getZipcode());
+		model.addAttribute("userAddress",loginuser.getUser().getAddress());
+		model.addAttribute("tel",loginuser.getUser().getTelephone());
        return "order_confirm";
 
 	}

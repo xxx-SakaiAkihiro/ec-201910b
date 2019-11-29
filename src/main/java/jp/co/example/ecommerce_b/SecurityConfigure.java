@@ -45,7 +45,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 					    ,"/doLogin"
 					    ,"/add/**"
 						,"/toInsert/**"
-						,"/showItem/**"
+						,"/"
 						,"/DeleteItem/**"
 						,"/ShowItemDetail/**"
 						,"/purchase/**"

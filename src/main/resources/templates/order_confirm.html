@@ -40,12 +40,9 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-<<<<<<< HEAD
-					<a class="navbar-brand" th:href="@{/showItem}"> <!-- 企業ロゴ --> <img
-						alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
-=======
+
 					<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ --> <img alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
->>>>>>> future
+
 					</a>
 				</div>
 
@@ -161,33 +158,33 @@
 							<td>
 								<div class="text-center">お名前</div>
 							</td>
-							<td><input type="text" name="destinationName" sec:authentication="principal.user.name" ></td>
+							<td><input type="text" name="destinationName" th:value="${name}"></td>
 						</tr>
 						<tr>
 							<td>
 								<div class="text-center">メールアドレス</div>
 							</td>
-							<td><input type="text" name="destinationEmail"></td>
+							<td><input type="text" name="destinationEmail" th:value="${email}"></td>
 						</tr>
 						<tr>
 							<td>
 								<div class="text-center">郵便番号</div>
 							</td>
 							<td><input type="text" name="destinationZipcode"
-								maxlength="8"> &nbsp;&nbsp;
+								maxlength="8" th:value="${userZipcode}"> &nbsp;&nbsp;
 								<button type="button" id="destinationAddress">住所検索</button></td>
 						</tr>
 						<tr>
 							<td>
 								<div class="text-center">住所</div>
 							</td>
-							<td><input type="text" name="destinationAddress"></td>
+							<td><input type="text" name="destinationAddress" th:value="${userAddress}"></td>
 						</tr>
 						<tr>
 							<td>
 								<div class="text-center">電話番号</div>
 							</td>
-							<td><input type="text" name="destinationTel"></td>
+							<td><input type="text" name="destinationTel" th:value="${tel}"></td>
 						</tr>
 						<tr>
 							<td>
