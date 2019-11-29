@@ -45,7 +45,7 @@ $("#code").autocomplete({
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" th:href="@{/showItem}"> <!-- 企業ロゴ -->
+						<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ -->
 							<img alt="main log" th:src="@{/img_toy/header_logo.png}"
 							height="35">
 						</a>
@@ -87,7 +87,7 @@ $("#code").autocomplete({
 							<div class="form-group">
 								<label for="code" class="control-label col-sm-2">商品名</label>
 								<div class="col-sm-9">
-									<input type="text" name="searchName" id="searchName" th:value="${searchName}"
+									<input type="text" name="searchName" id="name" th:value="${searchName}"
 										class="form-control input-sm" /><span th:text="${message}"></span>
 								</div>
 							</div>
@@ -100,9 +100,8 @@ $("#code").autocomplete({
 				</div>
 				</form>
 
-
 				<!-- sort Items -->
-				<form th:action="@{/showItem/sortItems}" method="post" th:object="${sortForm}">
+				<form th:action="@{/}" method="post" th:object="${sortForm}">
 				<div class="order">
 					<div
 						class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
@@ -147,7 +146,7 @@ $("#code").autocomplete({
 					<ul class="pagination">
 						<li id="pageNation-btn">
 						<span th:each="page : ${pageNumbers}">
-						<a th:href="@{'/?pageNumber='+${page} + '&sort='+*{sort} + '&search='+*{searchName}}" th:text="${page}"></a>
+						<a th:href="@{'/?pageNumber='+${page} + '&sort='+*{session.sort} + '&search='+*{session.searchName}}" th:text="${page}"></a>
 						</span></li>
 					</ul>
 				</div>

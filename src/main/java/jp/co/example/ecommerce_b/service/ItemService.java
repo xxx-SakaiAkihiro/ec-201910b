@@ -59,7 +59,7 @@ public class ItemService {
 		} else {
 			startNumber = (pageNumber - 1) * 6;
 		}
-		
+		System.out.println("ページ目" + startNumber);
 		return startNumber;
 	}
 
@@ -92,7 +92,7 @@ public class ItemService {
 		Integer startNumber = SearchStartNumber(sortForm);
 		List<Item> itemList = null;
 		if (searchName == null || searchName.equals("")) {
-			itemList = repository.findAll(0);
+			itemList = repository.findAll(startNumber);
 		} else if(searchName.equalsIgnoreCase(searchName)){
 			itemList = repository.findByName(searchName,startNumber);
 		}
@@ -109,9 +109,9 @@ public class ItemService {
 		String sort = sortForm.getSort();
 		startNumber = SearchStartNumber(sortForm);
 		List<Item> itemList = null;
-		if (sort.equals("expensive")) {
+		if ("expensive".equals(sort)) {
 			itemList = repository.orderByExpensiveItem(startNumber);
-		} else if(sort.equals("cheap")) {
+		} else if("cheap".equals(sort)) {
 			itemList = repository.orderByCheapItem(startNumber);
 		} else {
 			itemList = repository.findAll(startNumber);
