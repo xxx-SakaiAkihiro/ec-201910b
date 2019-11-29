@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.example.ecommerce_b.domain.Item;
+import jp.co.example.ecommerce_b.form.SortForm;
 import jp.co.example.ecommerce_b.repository.ItemRepository;
 
 /**
@@ -22,51 +23,81 @@ public class ItemService {
 
 	@Autowired
 	private ItemRepository repository;
+	
+	/**
+	 * 商品数に対し必要なページ数のリストを検索.
+	 * 
+	 * @param sortForm ソートフォーム
+	 * @return　商品数に対し必要なページ数のリスト
+	 */
+	public List<Integer> NeedPage() {
+		Integer count = repository.count();
+		int maxPageNumber = 0;
+		List<Integer> pageNumbers = new ArrayList<Integer>();
+		if (count % 6 != 0) {
+			maxPageNumber = count / 6 + 1;
+		} else {
+			maxPageNumber = count / 6;
+		}
+		for (int i = 1; i <= maxPageNumber; i++) {
+			pageNumbers.add(i);
+		}
+		return pageNumbers;
+	}
+	
+		/**
+		 * 商品の表示開始番号を固定する.
+		 * 
+		 * @param sortForm ソートフォーム
+		 * @return 商品の表示開始番号
+		 */
+		public Integer SearchStartNumber(SortForm sortForm) {
+		Integer startNumber = null;
+		Integer pageNumber = sortForm.getPageNumber();
+		if (pageNumber == null || pageNumber == 1) {
+			startNumber = 0;
+		} else {
+			startNumber = (pageNumber - 1) * 6;
+		}
+		return startNumber;
+	}
 
+		/**
+		 * 3つ区切りで商品を表示.
+		 * 
+		 * @param itemList アイテム商品一覧
+		 * @return 3つ区切りで商品表示
+		 */
+		private List<List<Item>> devideItemsBy3(List<Item> itemList) {
+			List<List<Item>> itemListList = new ArrayList<>();
+			List<Item> itemListBy3 = null;
+			for (int i = 0; i < itemList.size(); i++) {
+				if (i == 0 || i % 3 == 0) {
+					itemListBy3 = new ArrayList<Item>();
+					itemListList.add(itemListBy3);
+				}
+				itemListBy3.add(itemList.get(i));
+			}
+			return itemListList;
+		}
 	/**
 	 * 曖昧検索をする.
 	 * 
 	 * @param name 名前
 	 * @return 曖昧検索結果
 	 */
-	public List<List<Item>> showItemListFindByName(String name, Integer pageNumber) {
-		
-		Integer pageCount = 0;
-		if (pageNumber == null || pageNumber == 1 ) {
-			pageCount = 0;
-		} else {
-			pageCount = (pageNumber - 1) * 6;
-		}
+	public List<List<Item>> showItemListFindByName(SortForm sortForm) {
+		String searchName = sortForm.getSearchName();
+		Integer startNumber = SearchStartNumber(sortForm);
 		List<Item> itemList = null;
-		if (name == null || name.equals("")) {
-			itemList = repository.findAll(pageCount);
-		} else {
-			itemList = repository.findByName(name, pageNumber);
-			
-			System.out.println("name2 : " + name);
-			System.out.println("pageNumber2 : " + pageNumber);
-			
+		
+		if (searchName == null || searchName.equals("")) {
+			itemList = repository.findAll(startNumber);
+		} else if(searchName.equalsIgnoreCase(searchName)){
+			itemList = repository.findByName(searchName,startNumber);
 		}
+		
 		List<List<Item>> itemListList = devideItemsBy3(itemList);
-		return itemListList;
-	}
-
-	/**
-	 * 3つ区切りで商品を表示.
-	 * 
-	 * @param itemList アイテム商品一覧
-	 * @return 3つ区切りで商品表示
-	 */
-	private List<List<Item>> devideItemsBy3(List<Item> itemList) {
-		List<List<Item>> itemListList = new ArrayList<>();
-		ArrayList<Item> itemListBy3 = null;
-		for (int i = 0; i < itemList.size(); i++) {
-			if (i == 0 || i % 3 == 0) {
-				itemListBy3 = new ArrayList<Item>();
-				itemListList.add(itemListBy3);
-			}
-			itemListBy3.add(itemList.get(i));
-		}
 		return itemListList;
 	}
 
@@ -75,23 +106,18 @@ public class ItemService {
 	 * 
 	 * @return 値段が高い順、低い順の商品一覧
 	 */
-	public List<List<Item>> sortByMoneyItem(String sort,Integer pageNumber) {
-		Integer pageCount = 0;
-		if (pageNumber == null || pageNumber == 1) {
-			pageCount = 0;
-		} else {
-			pageCount = (pageNumber - 1) * 6;
-		}
-		
-		List<List<Item>> itemListList = null;
+	public List<List<Item>> sortItemByMoney(SortForm sortForm,Integer startNumber) {
+		String sort = sortForm.getSort();
+		startNumber = SearchStartNumber(sortForm);
 		List<Item> itemList = null;
-		
-		if (sort.equals("expensive")) {
-			itemList = repository.orderByExpensiveItem(sort,pageCount);
+		if ("expensive".equals(sort)) {
+			itemList = repository.orderByExpensiveItem(startNumber);
+		} else if("cheap".equals(sort)) {
+			itemList = repository.orderByCheapItem(startNumber);
 		} else {
-			itemList = repository.orderByCheapItem(sort,pageCount);
+			itemList = repository.findAll(startNumber);
 		}
-		itemListList = devideItemsBy3(itemList);
+		List<List<Item>> itemListList = devideItemsBy3(itemList);
 		return itemListList;
 	}
 
@@ -124,6 +150,11 @@ public class ItemService {
 		return itemListForAutocomplete;
 	}
 
+	/**
+	 * オートコンプリートで使用.
+	 * 
+	 * @return 商品一覧
+	 */
 	public List<Item> itemList() {
 		return repository.findAll(0);
 
