@@ -52,12 +52,14 @@ public class ItemService {
 		 * @return 商品の表示開始番号
 		 */
 		public Integer SearchStartNumber(SortForm sortForm) {
-		Integer startNumber = sortForm.getPageNumber();
-		if (startNumber == null || startNumber == 1) {
+		Integer startNumber = null;
+		Integer pageNumber = sortForm.getPageNumber();
+		if (pageNumber == null || pageNumber == 1) {
 			startNumber = 0;
 		} else {
-			startNumber = (startNumber - 1) * 6;
+			startNumber = (pageNumber - 1) * 6;
 		}
+		
 		return startNumber;
 	}
 
@@ -90,9 +92,9 @@ public class ItemService {
 		Integer startNumber = SearchStartNumber(sortForm);
 		List<Item> itemList = null;
 		if (searchName == null || searchName.equals("")) {
-			itemList = repository.findAll(startNumber);
-		} else {
-			itemList = repository.findByName("",startNumber);
+			itemList = repository.findAll(0);
+		} else if(searchName.equalsIgnoreCase(searchName)){
+			itemList = repository.findByName(searchName,startNumber);
 		}
 		List<List<Item>> itemListList = devideItemsBy3(itemList);
 		return itemListList;

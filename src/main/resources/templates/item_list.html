@@ -33,8 +33,6 @@ $("#code").autocomplete({
 
 </head>
 <body>
-	<form th:action="@{/showItem/sortItems}" method="post"
-		th:object="${sortForm}">
 		<div class="container">
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -78,6 +76,7 @@ $("#code").autocomplete({
 
 			<!-- search form -->
 			<div class="row">
+			<form th:action="@{/}" method="post">
 				<div
 					class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 					<div class="panel panel-default">
@@ -88,7 +87,7 @@ $("#code").autocomplete({
 							<div class="form-group">
 								<label for="code" class="control-label col-sm-2">商品名</label>
 								<div class="col-sm-9">
-									<input type="text" name="name" id="name" th:value="${name}"
+									<input type="text" name="searchName" id="searchName" th:value="${searchName}"
 										class="form-control input-sm" /><span th:text="${message}"></span>
 								</div>
 							</div>
@@ -99,9 +98,11 @@ $("#code").autocomplete({
 						</div>
 					</div>
 				</div>
+				</form>
 
 
 				<!-- sort Items -->
+				<form th:action="@{/showItem/sortItems}" method="post" th:object="${sortForm}">
 				<div class="order">
 					<div
 						class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
@@ -119,7 +120,7 @@ $("#code").autocomplete({
 						</div>
 					</div>
 				</div>
-
+				</form>
 				<!-- table -->
 				<div class="row">
 					<div
@@ -133,9 +134,9 @@ $("#code").autocomplete({
 											class="img-responsive img-rounded" width="200" height="600"></a><br>
 										<a th:href="@{'/ShowItemDetail?id='+${item.id}}"> <span
 											th:text="${item.name}"></span></a><br> <span class="price">&nbsp;М&nbsp;</span>
-										<span th:text=${item.priceM}></span>&nbsp;&nbsp;円(税抜)<br>
+										<span th:text="${#numbers.formatInteger(item.priceM,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br>
 										<span class="price">&nbsp;Ｌ</span> <span
-										th:text="${item.priceL}"></span>&nbsp;&nbsp;円(税抜)<br></th>
+										th:text="${#numbers.formatInteger(item.priceL,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br></th>
 								</tr>
 							</tbody>
 						</table>
@@ -146,13 +147,12 @@ $("#code").autocomplete({
 					<ul class="pagination">
 						<li id="pageNation-btn">
 						<span th:each="page : ${pageNumbers}">
-						<a th:href="@{'/showItem?pageNumber='+${page} + '&sort='+*{sort} + '&search=' +*{searchName}}" th:text="${page}"></a>
+						<a th:href="@{'/?pageNumber='+${page} + '&sort='+*{sort} + '&search='+*{searchName}}" th:text="${page}"></a>
 						</span></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-	</form>
 	<!-- end container -->
 
 	<script src="js/bootstrap.min.js"></script>

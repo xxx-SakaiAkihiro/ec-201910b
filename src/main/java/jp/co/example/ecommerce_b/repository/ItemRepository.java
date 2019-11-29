@@ -39,7 +39,7 @@ public class ItemRepository {
 	 * @return 商品一覧
 	 */
 	public List<Item> findAll(Integer startNumber){
-		String sql = "select id,name,description,price_m,price_l,image_path from items order by id limit 6 offset :startNumber";
+		String sql = "select id,name,description,price_m,price_l,image_path from items order by price_m limit 6 offset :startNumber";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("startNumber", startNumber);
 		List<Item> ItemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return ItemList;

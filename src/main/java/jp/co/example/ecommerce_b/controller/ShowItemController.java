@@ -22,7 +22,7 @@ import jp.co.example.ecommerce_b.service.ItemService;
  *
  */
 @Controller
-@RequestMapping("/showItem")
+@RequestMapping("")
 public class ShowItemController {
 
 	@Autowired
@@ -50,7 +50,7 @@ public class ShowItemController {
 	}
 	
 	/**
-	 * 曖昧検索をする.
+	 * 曖昧検索、全件検索をする.
 	 * 
 	 * @param name  名前
 	 * @param model モデル
@@ -59,11 +59,12 @@ public class ShowItemController {
 	@RequestMapping("")
 	public String showItemListFindByName(SortForm sortForm, Model model,@AuthenticationPrincipal LoginUser loginUser) {
 		NeedPage(model);
-		model.addAttribute("name", sortForm.getSearchName());
+		model.addAttribute("searchName", sortForm.getSearchName());
 		List<List<Item>> itemListList = service.showItemListFindByName(sortForm);
 		if (itemListList.isEmpty()) {
-			model.addAttribute("message", "該当する商品はありません");
 			// 商品が１つもなければ全件検索を行う
+			model.addAttribute("message", "該当する商品はありません");
+			sortForm.setSearchName("");
 			itemListList = service.showItemListFindByName(sortForm);
 		}
 		model.addAttribute("itemListList", itemListList);
