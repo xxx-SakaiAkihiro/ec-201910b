@@ -36,9 +36,10 @@ public class OrderForm {
 	private String destinationTel;
 	/* 配達希望日 */
 	private String deliveryDate;
+
 	/* 配達時間 */
 	private String deliveryTime;
-	
+
 	/* 支払方法 */
 	private String paymentMethod;
 	/* ユーザ */
@@ -46,7 +47,7 @@ public class OrderForm {
 	/* 注文したアイテム */
 	private List<OrderItem> orderItemList;
 	/* クレジットカード番号 */
-	private Integer card_number;
+	private String card_number;
 	/* カード有効期限（年） */
 	private Integer card_exp_year;
 	/* カード有効期限（月） */
@@ -73,9 +74,7 @@ public class OrderForm {
 	public String getUserId() {
 		return userId;
 	}
-	public String getDeliveryTime() {
-		return deliveryTime;
-	}
+	
 	public String getDeliveryDate() {
 		return deliveryDate;
 	}
@@ -226,13 +225,13 @@ public class OrderForm {
 	/**
 	 * @return the card_number
 	 */
-	public Integer getCard_number() {
+	public String getCard_number() {
 		return card_number;
 	}
 	/**
 	 * @param card_number the card_number to set
 	 */
-	public void setCard_number(Integer card_number) {
+	public void setCard_number(String card_number) {
 		this.card_number = card_number;
 	}
 	/**
@@ -295,6 +294,9 @@ public class OrderForm {
 				+ ", paymentMethod=" + paymentMethod + ", user=" + user + ", orderItemList=" + orderItemList
 				+ ", card_number=" + card_number + ", card_exp_year=" + card_exp_year + ", card_exp_month="
 				+ card_exp_month + ", card_name=" + card_name + ", card_cvv=" + card_cvv + "]";
+	}
+	public String getDeliveryTime() {
+		return deliveryTime;
 	}
 	
 

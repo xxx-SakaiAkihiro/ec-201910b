@@ -39,7 +39,8 @@ public class PurchaseController {
 	private OrderRepository orderRepository;
 	
 	
-	
+
+
 	/**
 	 * 商品を購入する.
 	 * 
@@ -58,7 +59,6 @@ public class PurchaseController {
 		order.setOrderDate(date);
 		  
 		  
-
 		order.setDestinationName(orderForm.getDestinationName());
 		order.setDestinationEmail(orderForm.getDestinationEmail());
 		order.setDestinationZipcode(orderForm.getDestinationZipcode());
@@ -69,32 +69,34 @@ public class PurchaseController {
 		System.out.println(orderForm.getDeliveryTime());
 		
 		String deliveryDateTime = orderForm.getDeliveryDate() +  " " + orderForm.getDeliveryTime() + ":00:00";
+
 		System.out.println(deliveryDateTime);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		java.util.Date parsedDate = null;
 		try {
 			parsedDate = format.parse(deliveryDateTime);
 		} catch (ParseException e) {
-			
+
 			e.printStackTrace();
 		}
 		Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 		order.setDeliveryTime(timestamp);
 		if("1".equals(orderForm.getPaymentMethod())) {
+
 			order.setStatus(1);
 		}
-		if("2".equals(orderForm.getPaymentMethod())) {
+		if ("2".equals(orderForm.getPaymentMethod())) {
 			order.setStatus(2);
 			/** orderForm で受け取ったリクエストパラメータをcreditCardにセットする */
-			CreditCard creditCard = new CreditCard(); 
-			creditCard.setCard_number(orderForm.getCard_number());
+			CreditCard creditCard = new CreditCard();
+			creditCard.setCard_number(Long.parseLong(orderForm.getCard_number()));
 			creditCard.setCard_exp_month(orderForm.getCard_exp_month());
 			creditCard.setCard_exp_year(orderForm.getCard_exp_year());
 			creditCard.setCard_name(orderForm.getCard_name());
 			creditCard.setCard_cvv(orderForm.getCard_cvv());
-			
-			CreditCardData creditCardData=purchaseService.creditCardCall(creditCard);
-			
+
+			CreditCardData creditCardData = purchaseService.creditCardCall(creditCard);
+
 			if ("error".equals(creditCardData.getMessage())) {
 				result.rejectValue("card_number", null, "クレジットカード情報が不正です");
 				return "foward:/purchase";
@@ -105,11 +107,5 @@ public class PurchaseController {
 		purchaseService.purchase(order,loginUser);
 		return "order_finished";
 	}
-	
-	
-	
-		
-	
-	
-	
+
 }
