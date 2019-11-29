@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -48,7 +48,7 @@ public class PurchaseController {
 	 * @return 注文完了画面
 	 */
 	@RequestMapping("")
-	public String purchase(@Validated OrderForm orderForm,BindingResult result,@AuthenticationPrincipal LoginUser loginUser) {
+	public String purchase(@Validated OrderForm orderForm,@AuthenticationPrincipal LoginUser loginUser,Model model) {
 		List<Order> orderList = orderRepository.findByUserIdAndStatus(loginUser.getUser().getId(), 0);
 		Order order = orderList.get(0);
 		System.out.println(orderForm.getOrderDate());
@@ -89,17 +89,18 @@ public class PurchaseController {
 			order.setStatus(2);
 			/** orderForm で受け取ったリクエストパラメータをcreditCardにセットする */
 			CreditCard creditCard = new CreditCard();
-			creditCard.setCard_number(Long.parseLong(orderForm.getCard_number()));
+			creditCard.setCard_number(orderForm.getCard_number());
 			creditCard.setCard_exp_month(orderForm.getCard_exp_month());
 			creditCard.setCard_exp_year(orderForm.getCard_exp_year());
 			creditCard.setCard_name(orderForm.getCard_name());
 			creditCard.setCard_cvv(orderForm.getCard_cvv());
 
 			CreditCardData creditCardData = purchaseService.creditCardCall(creditCard);
-
-			if ("error".equals(creditCardData.getMessage())) {
-				result.rejectValue("card_number", null, "クレジットカード情報が不正です");
-				return "foward:/purchase";
+				System.out.println(creditCardData);
+			if ("error".equals(creditCardData.getStatus())) {
+				
+				model.addAttribute("card_numbermessage","クレジットカード情報が不正です");
+				return "forward:/ShowOrderedItem";
 			}
 		}
 		System.out.println(order);
