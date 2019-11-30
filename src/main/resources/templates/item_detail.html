@@ -34,7 +34,7 @@
 
 						<a href="cart_list.html" th:href="@{/ShowOrderItem}" class="navbar-link">ショッピングカート<span class="badge badge-notify"><span th:text="${countInCart}"></span></span></a>&nbsp;&nbsp;
 						<span sec:authorize="hasRole('ROLE_USER')">
-						 <a href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp; 
+						 <a th:href="@{/ShowHistoryItem}" class="navbar-link">注文履歴</a>&nbsp;&nbsp; 
 						</span>
 						<span sec:authorize="isAnonymous()">
 							<a th:href="@{/login/toLogin}" class="navbar-link">ログイン</a>&nbsp;&nbsp; 
