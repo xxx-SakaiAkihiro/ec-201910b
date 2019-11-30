@@ -33,6 +33,7 @@ $("#code").autocomplete({
 
 </head>
 <body>
+	<form th:action="@{/}" method="post">
 		<div class="container">
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -45,12 +46,10 @@ $("#code").autocomplete({
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ -->
-							<img alt="main log" th:src="@{/img_toy/header_logo.png}"
-							height="35">
+						<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ --> <img
+							alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
 						</a>
 					</div>
-
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1">
@@ -71,12 +70,11 @@ $("#code").autocomplete({
 					</div>
 					<!-- /.navbar-collapse -->
 				</div>
-				<!-- /.container-fluid -->
+				
+					<!-- /.container-fluid -->
 			</nav>
-
 			<!-- search form -->
 			<div class="row">
-			<form th:action="@{/}" method="post">
 				<div
 					class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 					<div class="panel panel-default">
@@ -87,7 +85,9 @@ $("#code").autocomplete({
 							<div class="form-group">
 								<label for="code" class="control-label col-sm-2">商品名</label>
 								<div class="col-sm-9">
-									<input type="text" name="searchName" id="name" class="form-control input-sm"><span th:text="${message}"></span>
+									<input type="text" name="searchName" id="name"
+										class="form-control input-sm"><span
+										th:text="${message}"></span>
 								</div>
 							</div>
 							<div class="text-center">
@@ -97,62 +97,67 @@ $("#code").autocomplete({
 						</div>
 					</div>
 				</div>
-				</form>
+			</div>
+			</div>
+	</form>
 
-				<!-- sort Items -->
-				<form th:action="@{/}" method="post" th:object="${sortForm}">
-				<div class="order">
-					<div
-						class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<div class="panel-title">商品を並び替える</div>
-								<select id="button" name="sort" class="btn-default"
-									th:field="*{sort}">
-									<option value="">-----</option>
-									<option value="cheap">価格が安い順</option>
-									<option value="expensive">価格が高い順</option>
-								</select>
-								<button class="btn btn-success">検索</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				</form>
-				<!-- table -->
-				<div class="row">
-					<div
-						class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-						<table class="table table-striped">
-							<tbody>
-								<tr th:each="itemList : ${itemListList}">
-									<th th:each="item : ${itemList}"><a
-										th:href="@{'/ShowItemDetail?id='+${item.id}}"> <img
-											th:src="${'/img_toy/' + item.imagePath}"
-											class="img-responsive img-rounded" width="200" height="600"></a><br>
-										<a th:href="@{'/ShowItemDetail?id='+${item.id}}"> <span
-											th:text="${item.name}"></span></a><br> <span class="price">&nbsp;М&nbsp;</span>
-										<span th:text="${#numbers.formatInteger(item.priceM,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br>
-										<span class="price">&nbsp;Ｌ</span> <span
-										th:text="${#numbers.formatInteger(item.priceL,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br></th>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<!-- pageNation -->
-				<div class="pagination">
-					<ul class="pagination">
-						<li id="pageNation-btn">
-						<span th:each="page : ${pageNumbers}">
-						<a th:href="@{'/?pageNumber='+${page} + '&sort='+*{session.sort} + '&search='+*{session.searchName}}" th:text="${page}"></a>
-						</span></li>
-					</ul>
+	<!-- sort Items -->
+	<div class="order">
+		<div
+			class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title">商品を並び替える</div>
+					<select id="button" name="sort" class="btn-default"
+						th:value="*{sort}">
+						<option value="">-----</option>
+						<option value="cheap">価格が安い順</option>
+						<option value="expensive">価格が高い順</option>
+					</select>
+					<button class="btn btn-success">検索</button>
 				</div>
 			</div>
 		</div>
-	<!-- end container -->
+	</div>
+	<!-- table -->
+	<div class="row">
+		<div>
+			<div
+				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+				<table class="table table-striped">
+					<tbody>
+						<tr th:each="item : ${itemList}" class="col-lg-4"
+							style="height: 320px;">
 
+							<th><a th:href="@{'/ShowItemDetail?id='+${item.id}}"> <img
+									th:src="${'/img_toy/' + item.imagePath}"
+									class="img-responsive img-rounded" width="200" height="600"></a><br>
+								<a th:href="@{'/ShowItemDetail?id='+${item.id}}"> <span
+									th:text="${item.name}"></span></a><br> <span class="price">&nbsp;М&nbsp;</span>
+								<span th:text="${#numbers.formatInteger(item.priceM,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br>
+								<span class="price">&nbsp;Ｌ</span> <span
+								th:text="${#numbers.formatInteger(item.priceL,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br>
+							</th>
+
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- pageNation -->
+	<div class="pagination">
+		<ul class="pagination">
+			<li id="pageNation-btn"><span th:each="page : ${pageNumbers}">
+					<a
+					th:href="@{'/?pageNumber='+${page} + '&sort='+*{session.sort} + '&search='+*{session.searchName}}"
+					th:text="${page}"></a>
+			</span></li>
+		</ul>
+	</div>
+
+	<!-- end container -->
 	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
