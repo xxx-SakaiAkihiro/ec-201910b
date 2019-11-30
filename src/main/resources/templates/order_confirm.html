@@ -28,7 +28,7 @@ hr {
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="container" >
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
@@ -71,7 +71,7 @@ hr {
 		<!-- table -->
 		<div class="row">
 			<div
-				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12" style="background-color: white;">
 				<h3 class="text-center">注文内容確認</h3>
 				<table class="table table-striped">
 					<tbody>
@@ -128,7 +128,7 @@ hr {
 		</div>
 
 		<div th:if="${order}">
-			<div class="col-xs-offset-2 col-xs-9">
+			<div class=" col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12" style="background-color: white;">
 				<div class="form-group text-right">
 					<font size="5"> <span
 						th:text="'小計：' + ${#numbers.formatInteger((order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)))-order.getTax(),1,'COMMA')} + '円'">価格</span><br>
@@ -142,7 +142,7 @@ hr {
 			</div>
 			<br>
 		</div>
-	</div>
+	<!-- </div> ------------------------>
 
 	<!-- table -->
 	<form th:action="@{/purchase}" method="post" th:object="${orderForm}">
@@ -152,7 +152,7 @@ hr {
 		</div>
 		<div class="row">
 			<div
-				class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12" style="background-color: white;">
 				<h3 class="text-center">お届け先情報</h3>
 				<table class="table table-striped">
 					<tbody sec:authorize="hasRole('ROLE_USER')">
@@ -242,7 +242,7 @@ hr {
 		<!-- table -->
 		<div class="row">
 			<div
-				class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12" style="background-color: white;">
 				<h3 class="text-center">お支払い方法</h3>
 				<table class="table table-striped">
 					<tbody>
@@ -343,7 +343,6 @@ hr {
 				</table>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col-xs-offset-4 col-xs-4">
 				<div class="form-group">
@@ -354,6 +353,7 @@ hr {
 			</div>
 		</div>
 	</form>
+</div>
 	<!-- end container -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

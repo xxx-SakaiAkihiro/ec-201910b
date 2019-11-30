@@ -124,14 +124,14 @@
 				</table>
 			</div>
 		</div>
-		<div class="row" style="background-color: white;">
+		<div class="row" style="background-color: white;margin-bottom: 50px;" >
 		<!-- ショッピングカートの中身が0件の場合 -->
 		<div class="text-center"  th:if="${str}">
 			<font size="6">
 				<span th:text="${str}"></span>
 			</font>
 			<br><br>
-			<form th:action="@{/showItem}" method="post">
+			<form th:action="@{/}" method="post">
 				<button type="submit" class="btn btn-warning">商品一覧に戻る</button>
 			</form>
 		</div>
