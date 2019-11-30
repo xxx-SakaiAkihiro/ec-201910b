@@ -1,5 +1,8 @@
 @CHARSET "UTF-8";
 
+body{
+	background-image: url("/img_toy/背景.jpg");
+}
 .badge-info{
   background-color: dodgerblue;
 }

@@ -62,10 +62,10 @@
 		</nav>
 
 		<!-- table -->
-		<div class="row">
+		<div class="row" >
 			<div
-				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-				<h3 class="text-center">ショッピングカート</h3>
+				class="col-lg-12" style="background-color:white;">
+				<h3 class="text-center" style="background-color:white;">ショッピングカート</h3>
 				<table class="table table-striped">
 					<tbody>
 						<tr>
@@ -124,7 +124,7 @@
 				</table>
 			</div>
 		</div>
-		
+		<div class="row" style="background-color: white;">
 		<!-- ショッピングカートの中身が0件の場合 -->
 		<div class="text-center"  th:if="${str}">
 			<font size="6">
@@ -138,8 +138,8 @@
 		
 		<!-- ショッピングカートの中身が1件以上ある場合 -->
 		<div th:if="${order}">
-			<div class="col-xs-offset-2 col-xs-9">
-				<div class="form-group text-right">
+			<div class="col-lg-12">
+				<div class="form-group text-right col-lg-12" style="background-color: white;">
 					<font size="5">
 					<span th:text="'小計：' + ${#numbers.formatInteger((order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)))-order.getTax(),1,'COMMA')} + '円'">価格</span><br>
 					<span th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA')} + '円'">消費税</span><br>
@@ -148,6 +148,7 @@
 					<span id="total-price" th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">小計</span><br>
 				</div>
 			</div><br>
+			</div>
 			<div class="row">
 				<div class="col-xs-offset-5 col-xs-3">
 					<div class="form-group">
