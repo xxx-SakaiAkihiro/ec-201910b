@@ -63,8 +63,8 @@ public class ShowItemController {
 	 */
 	@RequestMapping("")
 	public String showItemListFindByName(SortForm sortForm, Model model, @AuthenticationPrincipal LoginUser loginUser) {
+		// 曖昧検索,全件検索
 		List<Item> itemList = service.findByNameAndSort(sortForm);
-		session.setAttribute("searchName", sortForm.getSearchName());
 		model.addAttribute("itemList", itemList);
 		if (itemList.isEmpty()) {
 			// 商品が１つもなければ全件検索を行う
@@ -72,15 +72,8 @@ public class ShowItemController {
 			sortForm.setSearchName("");
 			itemList = service.findByNameAndSort(sortForm);
 			model.addAttribute("itemList", itemList);
-		} 
-		
-		
-		
-		
-		
-		
-		
-		
+		}
+
 //		// 曖昧検索,全件検索
 //		NeedPage(sortForm, model);
 //		//初期ページでは全件検索される
@@ -98,14 +91,13 @@ public class ShowItemController {
 //			itemListList = service.findByNameAndSort(sortForm);
 //			model.addAttribute("itemListList", itemListList);
 //		} 
-		
+
 //		
 //			// 値段が高い順、低い順で商品を検索
 //			session.setAttribute("sort", sortForm.getSort());
 //			NeedPage(model);
 //			itemListList = service.findByNameAndSort(sortForm);
 //			model.addAttribute("itemListList", itemListList);
-		
 
 		// オートコンプリート用にJavaScriptの配列の中身を文字列で作ってスコープへ格納
 		StringBuilder ItemListForAutocomplete = service.getItemListForAutocomplete(service.itemList());
