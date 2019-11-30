@@ -47,10 +47,13 @@ public class AddItemService {
 	 */
 	public void addItem(OrderItemForm orderItemForm, @AuthenticationPrincipal LoginUser loginUser) {
 		Integer userId;
+		//登録してあるID
 		if (loginUser != null) {
 			userId = loginUser.getUser().getId();
+			//セッションに入っているID
 		} else if (session.getAttribute("userId") != null) {
 			userId = (Integer) session.getAttribute("userId");
+			//自動採番のID
 		} else {
 			String source = session.getId();
 			userId = source.hashCode();
