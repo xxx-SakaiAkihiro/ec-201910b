@@ -61,13 +61,61 @@
 			<!-- /.container-fluid -->
 		</nav>
 
-		<!-- table -->
+		<!-- 履歴情報テーブル -->
 		<div class="row">
-			<div
-				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-				<h3 class="text-center">ショッピングカート</h3>
+			<div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+				<h3 class="text-center">注文履歴</h3>
 				<table class="table table-striped">
-					<tbody>
+					<tbody th:each="order : ${orderList}">
+						<tr>
+							<th>
+								<div>注文日：</div>
+							</th>
+							<td>
+								<div th:text="${#dates.format(order.orderDate,'yyyy/MM/dd')}">注文日</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<div>宛先氏名：</div>
+							</th>
+							<td>
+								<div th:text="${order.destinationName} + ' 様'">宛先氏名</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<div>宛先メールアドレス：</div>
+							</th>
+							<td>
+								<div th:text="${order.destinationEmail}">宛先Eメール</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<div>宛先郵便番号：</div>
+							</th>
+							<td>
+								<div th:text="${order.destinationZipcode}">宛先郵便番号</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<div>宛先住所：</div>
+							</th>
+							<td>
+								<div th:text="${order.destinationAddress}">宛先住所</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<div>お支払い方法</div>
+							</th>
+							<td>
+								<div th:if="${order.paymentMethod}==1" th:text="代金引換">代金引換</div>
+								<div th:if="${order.paymentMethod}==2" th:text="クレジットカード">クレジットカード</div>
+							</td>
+						</tr>
 						<tr>
 							<th>
 								<div class="text-center">商品名</div>
@@ -81,10 +129,7 @@
 							<th>
 								<div class="text-center">小計</div>
 							</th>
-							<th></th>
 						</tr>
-					</tbody>
-					<tbody th:each="order : ${orderList}">
 						<tr th:each="orderItem : ${order.orderItemList}">
 							<td>
 								<div class="center">
@@ -112,53 +157,29 @@
 							<td>
 								<div class="text-center" th:text="${#numbers.formatInteger(orderItem.getSubTotal(),0,'COMMA') + '円'}">小計</div>
 							</td>
-							<td>
-								<div class="text-center">
-								<form th:action="@{/DeleteItem}" method="post">
-									<button type="submit" class="btn btn-primary"  name="orderItemId" th:value="${orderItem.id}">削除</button>
-									</form>
-								</div>
-							</td>
 						</tr>
+						<tr>
+							<th class="col-xs-offset-2 col-xs-9" colspan="2">
+								<span th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：'">合計</span>
+							</th>
+							<th class="col-xs-offset-2 col-xs-9" colspan="3">
+								<span th:text="${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">合計</span>
+							</th>
+						</tr>
+						<tr><td></td></tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-		
-		<!-- ショッピングカートの中身が0件の場合 -->
-		<div class="text-center"  th:if="${str}">
-			<font size="6">
-				<span th:text="${str}"></span>
-			</font>
-			<br><br>
-			<form th:action="@{/showItem}" method="post">
-				<button type="submit" class="btn btn-warning">商品一覧に戻る</button>
-			</form>
-		</div>
-		
-		<!-- ショッピングカートの中身が1件以上ある場合 -->
-		<div th:if="${order}">
-			<div class="col-xs-offset-2 col-xs-9">
-				<div class="form-group text-right">
-					<font size="5">
-					<span th:text="'小計：' + ${#numbers.formatInteger((order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)))-order.getTax(),1,'COMMA')} + '円'">価格</span><br>
-					<span th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA')} + '円'">消費税</span><br>
-					</font>
-					<hr>
-					<span id="total-price" th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">小計</span><br>
-				</div>
-			</div><br>
-			<div class="row">
-				<div class="col-xs-offset-5 col-xs-3">
-					<div class="form-group">
-						<form th:action="@{/ShowOrderedItem}">
-							<input class="form-control btn btn-warning btn-block" type="submit" value="注文に進む">
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
+	
+	<!-- 注文履歴の中身が0件の場合 -->
+	<div class="text-center"  th:if="${str}">
+		<font size="6">
+			<span th:text="${str}"></span>
+		</font>
+	</div>
+	
 	<!-- end container -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -17,15 +17,15 @@
     <![endif]-->
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" th:src="@{/js/order_confirm.js}"></script>
-   <style>
-    	hr{
-    		border: none;
-    		height: 1px;
-    		width: 50%;
-    		margin: 0px 0px 0px auto;
-    		background-color: black;
-    	}
-    </style>
+<style>
+hr {
+	border: none;
+	height: 1px;
+	width: 50%;
+	margin: 0px 0px 0px auto;
+	background-color: black;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -40,7 +40,9 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
+
 					<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ --> <img alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
+
 					</a>
 				</div>
 
@@ -50,7 +52,8 @@
 					<p class="navbar-text navbar-right">
 						<a href="cart_list.html" th:href="@{/ShowOrderItem}"
 							class="navbar-link">ショッピングカート<span class="badge badge-notify"><span
-								th:text="${countInCart}"></span></span></a>&nbsp;&nbsp; <span
+								th:text="${countInCart}"></span></span></a>&nbsp;&nbsp;
+								 <span
 							sec:authorize="hasRole('ROLE_USER')"> <a
 							href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
 						</span> <span sec:authorize="isAnonymous()"> <a
@@ -127,12 +130,14 @@
 		<div th:if="${order}">
 			<div class="col-xs-offset-2 col-xs-9">
 				<div class="form-group text-right">
-					<font size="5">
-					<span th:text="'小計：' + ${#numbers.formatInteger((order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)))-order.getTax(),1,'COMMA')} + '円'">価格</span><br>
-					<span th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA')} + '円'">消費税</span><br>
+					<font size="5"> <span
+						th:text="'小計：' + ${#numbers.formatInteger((order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)))-order.getTax(),1,'COMMA')} + '円'">価格</span><br>
+						<span
+						th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA')} + '円'">消費税</span><br>
 					</font>
 					<hr>
-					<span id="total-price" th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">合計</span><br>
+					<span id="total-price"
+						th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">合計</span><br>
 				</div>
 			</div>
 			<br>
@@ -150,38 +155,38 @@
 				class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
 				<h3 class="text-center">お届け先情報</h3>
 				<table class="table table-striped">
-					<tbody>
+					<tbody sec:authorize="hasRole('ROLE_USER')">
 						<tr>
 							<td>
 								<div class="text-center">お名前</div>
 							</td>
-							<td><input type="text" name="destinationName"></td>
+							<td><input type="text" name="destinationName" th:value="${name}"></td>
 						</tr>
 						<tr>
 							<td>
 								<div class="text-center">メールアドレス</div>
 							</td>
-							<td><input type="text" name="destinationEmail"></td>
+							<td><input type="text" name="destinationEmail" th:value="${email}"></td>
 						</tr>
 						<tr>
 							<td>
 								<div class="text-center">郵便番号</div>
 							</td>
 							<td><input type="text" name="destinationZipcode"
-								maxlength="8"> &nbsp;&nbsp;
+								maxlength="8" th:value="${userZipcode}"> &nbsp;&nbsp;
 								<button type="button" id="destinationAddress">住所検索</button></td>
 						</tr>
 						<tr>
 							<td>
 								<div class="text-center">住所</div>
 							</td>
-							<td><input type="text" name="destinationAddress"></td>
+							<td><input type="text" name="destinationAddress" th:value="${userAddress}"></td>
 						</tr>
 						<tr>
 							<td>
 								<div class="text-center">電話番号</div>
 							</td>
-							<td><input type="text" name="destinationTel"></td>
+							<td><input type="text" name="destinationTel" th:value="${tel}"></td>
 						</tr>
 						<tr>
 							<td>
@@ -197,7 +202,7 @@
 										<div class="col-sm-5">
 
 											<input type="date" name="deliveryDate" id="deliveryTime"
-												class="form-control input-sm" />
+												class="form-control input-sm"  min="deliveryTime"  />
 										</div>
 
 									</div>
@@ -258,29 +263,28 @@
 						</tr>
 						<tr>
 							<td>
-								<div class="text-center" >クレジットカード決済</div>
-								
+								<div class="text-center">クレジットカード決済</div>
+
 							</td>
 							<td>
 								<div class="row">
-									<div class="col-sm-12" >
-									<strong><span th:text="${card_numbermessage}"  style="color: red" ></span></strong>   <br>
-										<label class="radio-inline">
-										
-										 <input type="radio"
+									<div class="col-sm-12">
+										<strong><span th:text="${card_numbermessage}"
+											style="color: red"></span></strong> <br> <label
+											class="radio-inline"> <input type="radio"
 											name="paymentMethod" value="2" class="paymentMethod">
 											クレジットカード
 										</label> <br> <br>
-										
+
 									</div>
 								</div>
 							</td>
 						</tr>
 						<tr id="card_number">
 							<td>
-								<div class="text-center"  >クレジットカード番号</div>
+								<div class="text-center">クレジットカード番号</div>
 							</td>
-							<td><input type="text" name="card_number" ></td>
+							<td><input type="text" name="card_number"></td>
 						</tr>
 						<tr id="card_exp">
 							<td>

@@ -45,10 +45,11 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 					    ,"/doLogin"
 					    ,"/add/**"
 						,"/toInsert/**"
-						,"/showItem/**"
+						,"/"
 						,"/DeleteItem/**"
 						,"/ShowItemDetail/**"
 						,"/purchase/**"
+						,"/reset/**"
 						,"/ShowOrderItem/**").permitAll()//全てのユーザでアクセス化
 			.anyRequest().authenticated();//それ以外のパスは認証必須
 		
@@ -63,7 +64,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter{
 		
 		http.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout**"))
-			.logoutSuccessUrl("/showItem")//ログアウト後に遷移させるパス
+			.logoutSuccessUrl("/")//ログアウト後に遷移させるパス
 			.deleteCookies("JSESSIONID")//ログアウト後Cookieに保存されているセッションIDを削除
 			.invalidateHttpSession(true);//true:ログアウト後セッションを無効にする
 	}
