@@ -29,11 +29,16 @@ $("#name").autocomplete({
     delay: 500,
     minLength: 1
   });
-});</script>
+	$("#changeSortButton").on("change",function(){
+		$("#changeSortForm").submit();
+	});
+});
+
+
+</script>
 
 </head>
 <body>
-	<form th:action="@{/}" method="post">
 		<div class="container">
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -74,6 +79,7 @@ $("#name").autocomplete({
 			</nav>
 			<!-- search form -->
 			<div class="row">
+			<form th:action="@{/}" method="post">
 				<div
 					class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 					<div class="panel panel-default">
@@ -96,28 +102,28 @@ $("#name").autocomplete({
 						</div>
 					</div>
 				</div>
+			</form>
 			</div>
 		</div>
-	</form>
 
 	<!-- sort Items -->
 	<div class="order">
+	<form th:action="@{/sort}" method="post" id="changeSortForm">
 		<div
 			class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="panel-title">商品を並び替える</div>
-					<select id="button" name="sort" class="btn-default"
-						th:value="*{sort}">
-						<option value="">-----</option>
+					<select id="changeSortButton" name="sort" class="btn-default"
+						th:value="${sort}">
+						<option value="0">-----</option>
 						<option value="cheap">価格が安い順</option>
 						<option value="expensive">価格が高い順</option>
 					</select>
-					<button class="btn btn-success">検索</button>
 				</div>
-
 			</div>
 		</div>
+</form>
 	</div>
 	<!-- table -->
 	<div class="row">
@@ -146,16 +152,18 @@ $("#name").autocomplete({
 		</div>
 	</div>
 	<!-- ページング機能 -->
-	<div id="pageNation-btn">
-	<div th:if="${itemPage.totalPages > 0}" class="pagination"
+	<ul class="pager">
+	<li class="pageNation">
+	<li th:if="${itemPage.totalPages &gt 0}" class="pagination"
 		th:each="pageNumber : ${pageNumbers}">
 		<a
-			th:href="@{/(size=${itemPage.size}, page=${pageNumber}, sort=${session.sort}, searchName=${session.searchName})}"
+			th:href="@{/sort(size=${itemPage.size}, page=${pageNumber}, sort=${session.sort}, searchName=${session.searchName})}"
 			th:text="${pageNumber}"
 			th:class="${pageNumber==itemPage.number + 1} ? active"></a>
-	</div>
-	</div>
+	</li>
+	</ul>
 	<!-- end container -->
+	
 	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -111,4 +111,27 @@ public class ItemRepository {
 		return template.queryForObject(sql, param,Integer.class);
 	}
 	
+	/**
+	 * 値段が高い商品順で検索する.
+	 * 
+	 * @return 値段が高い商品順
+	 */
+	public List<Item> findByExpensive(){
+		String sql = "select id,name,description,price_m,price_l,image_path from items order by price_m desc";
+		SqlParameterSource param = new MapSqlParameterSource();
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		return itemList;
+	}
+	/**
+	 * 値段が安い商品順で検索する.
+	 * 
+	 * @return 値段が安い商品順
+	 */
+	public List<Item> findByCheap(){
+		String sql = "select id,name,description,price_m,price_l,image_path from items order by price_m";
+		SqlParameterSource param = new MapSqlParameterSource();
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		return itemList;
+	}
+	
 }
