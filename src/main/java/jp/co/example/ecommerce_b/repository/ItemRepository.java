@@ -41,8 +41,8 @@ public class ItemRepository {
 	public List<Item> findAll(){
 		String sql = "select id,name,description,price_m,price_l,image_path from items order by price_m";
 		SqlParameterSource param = new MapSqlParameterSource();
-		List<Item> ItemList = template.query(sql, param, ITEM_ROW_MAPPER);
-		return ItemList;
+		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
+		return itemList;
 	}
 	/**
 	 * 商品を曖昧検索、値段順で並び替える.
