@@ -38,24 +38,40 @@ public class ItemRepository {
 	 * 
 	 * @return 商品一覧
 	 */
-	public List<Item> findAll(Integer startNumber){
-		String sql = "select id,name,description,price_m,price_l,image_path from items order by price_m limit 6 offset :startNumber";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("startNumber", startNumber);
+	public List<Item> findAll(){
+		String sql = "select id,name,description,price_m,price_l,image_path from items order by price_m";
+		SqlParameterSource param = new MapSqlParameterSource();
 		List<Item> ItemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return ItemList;
 	}
 	/**
-	 * 商品を曖昧検索する.
+	 * 商品を曖昧検索、値段順で並び替える.
 	 * 
 	 * @param name 商品の名前
-	 * @return 曖昧検索の結果
+	 * @return 曖昧検索と値段順の結果
 	 */
-	public List<Item> findByName(String searchName, Integer startNumber){
-		System.out.println("searchName : " + searchName);
-		String sql = "select id,name,description,price_m,price_l,image_path from items where name like :searchName limit 6 offset :startNumber";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("searchName", '%' + searchName + '%').addValue("startNumber", startNumber);
+	public List<Item> findByNameAndSort(String searchName, String sort){
+		
+		//条件式を指定するsql文
+		String whereSql = "";
+		if(!searchName.equals("")) {
+			whereSql = " where name Ilike :searchName ";
+		} else {
+			whereSql = "";
+		}
+		//並び替えを指定するsql文
+		String orderSql = " order by price_m ";
+		if("expensive".equals(sort)) {
+			orderSql += "desc ";
+		} else {
+			orderSql += "asc ";
+		}
+		//sqlを発行
+		String sql = "select id,name,description,price_m,price_l,image_path from items" + whereSql + orderSql;
+		SqlParameterSource param = new MapSqlParameterSource().addValue("searchName", '%' + searchName + '%');
 		return template.query(sql, param, ITEM_ROW_MAPPER);
 	}
+
 	/**
 	 * 商品詳細検索する.
 	 * 
@@ -78,26 +94,21 @@ public class ItemRepository {
 		return template.queryForObject(sql, param,Integer.class);
 	}
 	/**
-	 * 値段が高い順で商品を検索する.
+	 * 検索された商品一覧の件数を取得.
 	 * 
-	 * @param priceM Mサイズの値段
-	 * @return 値段が高い順の商品一覧
+	 * @return 検索された商品一覧の件数、検索されなければ全件件数
 	 */
-	public List<Item> orderByExpensiveItem(Integer startNumber){
-		String sql = "select * from items order by price_m desc limit 6 offset :startNumber";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("startNumber", startNumber);
-		return template.query(sql, param, ITEM_ROW_MAPPER);
-	}
-	/**
-	 * 値段が低い順で商品を検索する.
-	 * 
-	 * @param priceM Mサイズの値段
-	 * @return 値段が低い順の商品一覧
-	 */
-	public List<Item> orderByCheapItem(Integer startNumber){
-		String sql = "select * from items order by price_m limit 6 offset :startNumber";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("startNumber", startNumber);
-		return template.query(sql, param, ITEM_ROW_MAPPER);
+	public Integer orderedItemcount(String searchName) {
+		//条件式
+		String whereSql = "";
+		if(searchName != null) {
+			whereSql = " where name Ilike :searchName";
+		} else {
+			whereSql = "";
+		}
+		String sql = "select count(*) from items" + whereSql;
+		SqlParameterSource param = new MapSqlParameterSource().addValue("searchName", searchName);
+		return template.queryForObject(sql, param,Integer.class);
 	}
 	
 }

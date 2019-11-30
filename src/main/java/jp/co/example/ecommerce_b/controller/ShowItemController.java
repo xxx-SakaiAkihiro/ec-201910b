@@ -48,11 +48,11 @@ public class ShowItemController {
 	 * 
 	 * @param model モデル
 	 */
-	public String NeedPage(Model model) {
-		List<Integer> pageNumbers = service.NeedPage();
-		model.addAttribute("pageNumbers", pageNumbers);
-		return "item_list";
-	}
+//	public String NeedPage(SortForm sortForm,Model model) {
+//		List<Integer> pageNumbers = service.NeedPage(sortForm);
+//		model.addAttribute("pageNumbers", pageNumbers);
+//		return "item_list";
+//	}
 
 	/**
 	 * 曖昧検索、全件検索、値段が高い順、低い順で商品を検索する.
@@ -63,24 +63,49 @@ public class ShowItemController {
 	 */
 	@RequestMapping("")
 	public String showItemListFindByName(SortForm sortForm, Model model, @AuthenticationPrincipal LoginUser loginUser) {
-		// 曖昧検索,全件検索
-		NeedPage(model);
+		List<Item> itemList = service.findByNameAndSort(sortForm);
 		session.setAttribute("searchName", sortForm.getSearchName());
-		List<List<Item>> itemListList = service.showItemListFindByName(sortForm);
-		System.out.println("itemListList : " + itemListList);
-		if (itemListList.isEmpty()) {
+		model.addAttribute("itemList", itemList);
+		if (itemList.isEmpty()) {
 			// 商品が１つもなければ全件検索を行う
 			model.addAttribute("message", "該当する商品はありません");
 			sortForm.setSearchName("");
-			itemListList = service.showItemListFindByName(sortForm);
-		} else {
-			// 値段が高い順、低い順で商品を検索
-			session.setAttribute("sort", sortForm.getSort());
-			NeedPage(model);
-			Integer startNumber = service.SearchStartNumber(sortForm);
-			itemListList = service.sortItemByMoney(sortForm, startNumber);
-			model.addAttribute("itemListList", itemListList);
-		}
+			itemList = service.findByNameAndSort(sortForm);
+			model.addAttribute("itemList", itemList);
+		} 
+		
+		
+		
+		
+		
+		
+		
+		
+//		// 曖昧検索,全件検索
+//		NeedPage(sortForm, model);
+//		//初期ページでは全件検索される
+//		List<List<Item>> itemListList = service.findByNameAndSort(sortForm);
+//		System.out.println("全件検索Con : " + itemListList);
+//
+//		session.setAttribute("searchName", sortForm.getSearchName());
+//		model.addAttribute("itemListList", itemListList);
+//		
+//		if (itemListList.isEmpty()) {
+//			// 商品が１つもなければ全件検索を行う
+//			model.addAttribute("message", "該当する商品はありません");
+//			sortForm.setSearchName("");
+//			NeedPage(sortForm, model);
+//			itemListList = service.findByNameAndSort(sortForm);
+//			model.addAttribute("itemListList", itemListList);
+//		} 
+		
+//		
+//			// 値段が高い順、低い順で商品を検索
+//			session.setAttribute("sort", sortForm.getSort());
+//			NeedPage(model);
+//			itemListList = service.findByNameAndSort(sortForm);
+//			model.addAttribute("itemListList", itemListList);
+		
 
 		// オートコンプリート用にJavaScriptの配列の中身を文字列で作ってスコープへ格納
 		StringBuilder ItemListForAutocomplete = service.getItemListForAutocomplete(service.itemList());
