@@ -48,6 +48,7 @@
 
 						<a href="order_history.html" th:href="@{/ShowHistoryItem}" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
 						</span>
+					    <span sec:authorize="hasRole('ROLE_USER')"> <a th:href="@{/wants/showWantList}" class="navbar-link">欲しいものリスト</a></span>
 						<span sec:authorize="isAnonymous()">
 							<a th:href="@{/login/toLogin}" class="navbar-link">ログイン</a>&nbsp;&nbsp; 
 						</span>

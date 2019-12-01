@@ -16,6 +16,8 @@ $(function() {
 		calc_price();
 	});
 	
+
+	
 	function calc_price() {
 		var size = $(".size:checked").val();
 		console.log("サイズMorL"+size);
@@ -38,6 +40,6 @@ $(function() {
 		console.log(price);
 		console.log(size_price);
 		$("#totalprice").text(price.toLocaleString());
-	}
-	;
+	};
+	
 });

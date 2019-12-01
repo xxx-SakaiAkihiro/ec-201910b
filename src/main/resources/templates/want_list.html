@@ -47,8 +47,8 @@ $("#name").autocomplete({
 					<p class="navbar-text navbar-right">
 						<span sec:authorize="hasRole('ROLE_USER')"><span sec:authentication="principal.user.name"></span>さんこんにちは！</span> <a href="cart_list.html" th:href="@{/ShowOrderItem}" class="navbar-link">ショッピングカート
 							<span class="badge badge-notify"><span th:text="${countInCart}"></span></span>
-						</a>&nbsp;&nbsp; <span sec:authorize="hasRole('ROLE_USER')"> <a th:href="@{/ShowHistoryItem}" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
-						</span> <span sec:authorize="hasRole('ROLE_USER')"> <a th:href="@{/wants/showWantList}" class="navbar-link">欲しいものリスト</a>
+						</a>&nbsp;&nbsp; <span sec:authorize="hasRole('ROLE_USER')"> <a th:href="@{/ShowHistoryItem}" class="navbar-link">注文履歴</a>&nbsp;&nbsp; <span sec:authorize="hasRole('ROLE_USER')"> <a
+								th:href="@{/wants/showWantList}" class="navbar-link">欲しいものリスト</a></span>
 						</span> <span sec:authorize="isAnonymous()"> <a th:href="@{/login/toLogin}" class="navbar-link">ログイン</a>&nbsp;&nbsp;
 						</span> <span sec:authorize="hasRole('ROLE_USER')"> <a th:href="@{/logout}" class="navbar-link">ログアウト</a>
 						</span>
@@ -59,63 +59,29 @@ $("#name").autocomplete({
 			<!-- /.container-fluid -->
 		</nav>
 		<!-- search form -->
-		<div class="row" style="background-color: white;margin-bottom: 30px">
-			<form th:action="@{/}" method="post">
-				<div class="col-lg-6">
-					<div class="panel panel-default" style="margin-top:20px;">
-						<div class="panel-heading">
-							<div class="panel-title">商品を検索する</div>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<label for="code" class="control-label col-sm-2">商品名</label>
-								<div class="col-sm-9">
-									<input type="text" name="searchName" id="name" class="form-control input-sm">
-									<span th:text="${message}"></span> 
-								</div>
-							</div>
-							<div class="text-center">
-								<button type="submit" value="検索" class="btn btn-primary">検索</button>
-								<button type="reset" value="クリア" class="btn btn-default">クリア</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-			<!-- sort Items -->
-			<form th:action="@{/}" method="post" th:object="${sortForm}">
-				<div class="order">
-					<div class="col-lg-6">
-						<div class="panel panel-default" style="margin-top:20px;">
-							<div class="panel-heading">
-								<div class="panel-title">商品を並び替える</div>
-								<select id="button" name="sort" class="btn-default" th:field="*{sort}">
-									<option value="">-----</option>
-									<option value="cheap">価格が安い順</option>
-									<option value="expensive">価格が高い順</option>
-								</select>
-								<button class="btn btn-success">検索</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
+		<div class="row" style="background-color: white; margin-bottom: 30px">
+
 			<!-- table -->
 			<div class="row">
 				<div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+					<h3 class="text-center" style="background-color: white; padding-top: 10px; padding-bottom: 10px;">欲しいものリスト</h3>
+					
+					<div class="text-center" th:if="${str}">
+						<font size="4"> <span th:text="${str}"></span>
+						</font> <br>
+						<br>
+						<form th:action="@{/}" method="post">
+							<button type="submit" class="btn btn-warning">商品一覧に戻る</button>
+						</form>
+					</div>
+					
 					<table class="table table-striped">
 						<tbody>
 							<tr th:each="item : ${itemList}" class="col-lg-4" style="height: 320px;">
-							<th>
-								<a th:href="@{'/ShowItemDetail?id='+${item.id}}">
-								<img th:src="${'/img_toy/' + item.imagePath}" class="img-responsive img-rounded" width="200" height="600"></a><br>
-								<a th:href="@{'/ShowItemDetail?id='+${item.id}}">
-								<span th:text="${item.name}"></span></a><br>
-								<span class="price">&nbsp;М&nbsp;</span>
-								<span th:text="${#numbers.formatInteger(item.priceM,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br>
-								<span class="price">&nbsp;Ｌ</span> 
-								<span th:text="${#numbers.formatInteger(item.priceL,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br>
-							</th>
+								<th><a th:href="@{'/ShowItemDetail?id='+${item.id}}"> <img th:src="${'/img_toy/' + item.imagePath}" class="img-responsive img-rounded" width="200" height="600"></a><br> <a
+									th:href="@{'/ShowItemDetail?id='+${item.id}}"> <span th:text="${item.name}"></span></a><br> <span class="price">&nbsp;М&nbsp;</span> <span
+									th:text="${#numbers.formatInteger(item.priceM,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br> <span class="price">&nbsp;Ｌ</span> <span
+									th:text="${#numbers.formatInteger(item.priceL,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br></th>
 							</tr>
 						</tbody>
 					</table>
