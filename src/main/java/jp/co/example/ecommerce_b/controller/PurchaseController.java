@@ -108,5 +108,9 @@ public class PurchaseController {
 		purchaseService.purchase(order,loginUser);
 		return "order_finished";
 	}
+	@RequestMapping("/shuhei")
+	public String thanks() {
+		return "order_finished";
+	}
 
 }
