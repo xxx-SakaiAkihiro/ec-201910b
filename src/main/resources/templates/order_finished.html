@@ -31,7 +31,9 @@
 						<span sec:authorize="hasRole('ROLE_USER')"><span sec:authentication="principal.user.name"></span>さんこんにちは！</span> 
 						
 						
-						<a href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp; <span sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/logout}" class="navbar-link">ログアウト</a></span>
+						<a th:href="@{/ShowHistoryItem}" class="navbar-link">注文履歴</a>&nbsp;&nbsp; 
+						<span sec:authorize="hasRole('ROLE_USER')"> <a th:href="@{/wants/showWantList}" class="navbar-link">欲しいものリスト</a></span>
+						<span sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/logout}" class="navbar-link">ログアウト</a></span>
 					</p>
 				</div>
 				<!-- /.navbar-collapse -->
