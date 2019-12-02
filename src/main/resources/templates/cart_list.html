@@ -16,7 +16,7 @@
     	hr{
     		border: none;
     		height: 1px;
-    		width: 50%;
+    		width: 35%;
     		margin: 0px 0px 0px auto;
     		background-color: black;
     	}
@@ -135,6 +135,7 @@
 			<form th:action="@{/}" method="post">
 				<button type="submit" class="btn btn-warning">商品一覧に戻る</button>
 			</form>
+			<br>
 		</div>
 		
 		<!-- ショッピングカートの中身が1件以上ある場合 -->
@@ -149,7 +150,6 @@
 					<span id="total-price" th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">小計</span><br>
 				</div>
 			</div><br>
-			</div>
 			<div class="row">
 				<div class="col-xs-offset-5 col-xs-3">
 					<div class="form-group">
@@ -165,5 +165,6 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	</div>
 </body>
 </html>
