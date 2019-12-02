@@ -125,7 +125,7 @@
 				</table>
 			</div>
 		</div>
-		<div class="row" style="background-color: white;margin-bottom: 50px;" >
+		<div class="row" style="background-color: white;margin-bottom: 50px;">
 		<!-- ショッピングカートの中身が0件の場合 -->
 		<div class="text-center"  th:if="${str}">
 			<font size="6">
@@ -147,7 +147,7 @@
 					<span th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA')} + '円'">消費税</span><br>
 					</font>
 					<hr>
-					<span id="total-price" th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">小計</span><br>
+					<span id="total-price" th:text="'合計 (' + ${order.getTotalItems()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">小計</span><br>
 				</div>
 			</div><br>
 			<div class="row">

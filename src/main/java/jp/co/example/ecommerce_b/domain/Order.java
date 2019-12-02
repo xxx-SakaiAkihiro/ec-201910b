@@ -59,6 +59,14 @@ public class Order {
 		}
 		return CalcTotalPrice;
 	}
+	
+	public int getTotalItems() {
+		int TotalItems = 0;
+		for (OrderItem orderItem : orderItemList) {
+			TotalItems += (orderItem.getQuantity());
+		}
+		return TotalItems;
+	}
 
 	/**
 	 * @return the id
