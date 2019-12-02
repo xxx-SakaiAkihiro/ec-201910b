@@ -82,7 +82,8 @@ hr {
 						<tr th:each="orderItem : ${order.orderItemList}">
 							<td>
 								<div class="center">
-									<img th:src="${'/img_toy/' + orderItem.item.imagePath}" class="img-responsive img-rounded" width="100" height="300"><br> <span th:text="${orderItem.item.name}"></span>
+									<img th:src="${'/img_toy/' + orderItem.item.imagePath}" class="img-responsive img-rounded" width="100" height="300"><br> 
+									<span th:text="${orderItem.item.name}"></span>
 								</div>
 							</td>
 							<td>
@@ -105,20 +106,21 @@ hr {
 			</div>
 		</div>
 
+		<div class="row">
 		<div th:if="${order}">
-			<div class=" col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12" style="background-color: white;">
+			<div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12" style="background-color: white;">
 				<div class="form-group text-right">
-					<font size="5"> <span th:text="'小計：' + ${#numbers.formatInteger((order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)))-order.getTax(),1,'COMMA')} + '円'">価格</span><br>
+					<font size="5"> 
+						<span th:text="'小計：' + ${#numbers.formatInteger((order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)))-order.getTax(),1,'COMMA')} + '円'">価格</span><br>
 						<span th:text="'消費税：' + ${#numbers.formatInteger(order.getTax(),1,'COMMA')} + '円'">消費税</span><br>
 					</font>
 					<hr>
 					<span id="total-price"
-						th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">合計</span><br>
+						th:text="'合計 (' + ${order.getTotalItems()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">合計</span><br>
 				</div>
 			</div>
-			<br>
 		</div>
-		<!-- </div> ------------------------>
+		</div>
 
 		<!-- table -->
 		<form th:action="@{/purchase}" method="post" th:object="${orderForm}">
@@ -131,7 +133,7 @@ hr {
 					<table class="table table-striped">
 						<tbody sec:authorize="hasRole('ROLE_USER')">
 							<tr>
-								<td>
+								<td style="width: 50%">
 									<div class="text-center">お名前</div>
 								</td>
 								<td>
@@ -150,9 +152,8 @@ hr {
 								<td>
 									<div class="text-center">郵便番号</div>
 								</td>
-								<td>
+								<td colspan="2">
 									<input type="text" name="destinationZipcode" maxlength="8" th:value="${userZipcode}" pattern="\d{3}\d{4}" title="郵便番号は「-」が不要の7桁です">
-									&nbsp;&nbsp;
 									<button type="button" id="destinationAddress">住所検索</button>
 								</td>
 							</tr>
@@ -183,14 +184,12 @@ hr {
 												<label class="control-label" style="color: red" for="inputPeriod">配達日時を入力してください</label>
 											</div>
 											<div class="col-sm-5">
-
 												<input type="date" name="deliveryDate" id="deliveryTime" class="form-control input-sm" min="deliveryTime" />
 											</div>
 
 										</div>
 										<div class="row">
 											<div class="col-sm-12">
-
 												<label class="radio-inline">
 													<input type="radio" name="deliveryTime" checked="checked" value="10">
 													10時
@@ -240,6 +239,7 @@ hr {
 				</div>
 			</div>
 
+
 			<!-- table -->
 			<div class="row">
 				<div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12" style="background-color: white;">
@@ -247,12 +247,12 @@ hr {
 					<table class="table table-striped">
 						<tbody>
 							<tr>
-								<td>
+								<td width="50%">
 									<div class="text-center">代金引換</div>
 								</td>
-								<td>
-									<div class="row">
-										<div class="col-sm-12">
+								<td width="50%">
+									<div>
+										<div>
 											<label class="radio-inline">
 												<input type="radio" name="paymentMethod" checked="checked" value="1" class="paymentMethod">
 												代金引換
@@ -264,18 +264,16 @@ hr {
 							<tr>
 								<td>
 									<div class="text-center">クレジットカード決済</div>
-
 								</td>
 								<td>
-									<div class="row">
-										<div class="col-sm-12">
+									<div>
+										<div>
 											<strong><span th:text="${card_numbermessage}" style="color: red"></span></strong> <br>
 											<label class="radio-inline">
 												<input type="radio" name="paymentMethod" value="2" class="paymentMethod">
 												クレジットカード
 											</label>
 											<br> <br>
-
 										</div>
 									</div>
 								</td>
@@ -346,15 +344,16 @@ hr {
 									<input type="text" name="card_cvv">
 								</td>
 							</tr>
-
 						</tbody>
 					</table>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-offset-4 col-xs-4">
+				<div class="table-responsive col-md-offset-1  col-sm-10 col-xs-12"  style="background-color: white">
+					<div class="col-xs-offset-5 col-xs-3">
 					<div class="form-group">
-						<input id="purchase-btn" class="form-control btn btn-warning btn-block" type="submit" value="この内容で注文する">
+						<input id="purchase-btn"  class="form-control btn btn-warning btn-block" type="submit" value="この内容で注文する">
+					</div>
 					</div>
 				</div>
 			</div>
