@@ -124,6 +124,9 @@ hr {
 
 		<!-- table -->
 		<form th:action="@{/purchase}" method="post" th:object="${orderForm}">
+			<!-- table -->
+			
+			
 			<div th:each="order : ${orderList}">
 				<input type="hidden" name="totalPrice" th:value="${order.getCalcTotalPrice()}">
 			</div>
@@ -134,6 +137,7 @@ hr {
 						<tbody sec:authorize="hasRole('ROLE_USER')">
 							<tr>
 								<td style="width: 50%">
+					
 									<div class="text-center">お名前</div>
 								</td>
 								<td>
