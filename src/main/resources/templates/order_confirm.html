@@ -151,7 +151,7 @@ hr {
 									<div class="text-center">郵便番号</div>
 								</td>
 								<td>
-									<input type="text" name="destinationZipcode" maxlength="8" th:value="${userZipcode}">
+									<input type="text" name="destinationZipcode" maxlength="8" th:value="${userZipcode}" pattern="\d{3}\d{4}" title="郵便番号は「-」が不要の7桁です">
 									&nbsp;&nbsp;
 									<button type="button" id="destinationAddress">住所検索</button>
 								</td>
@@ -169,7 +169,7 @@ hr {
 									<div class="text-center">電話番号</div>
 								</td>
 								<td>
-									<input type="text" name="destinationTel" th:value="${tel}">
+									<input type="tel" name="destinationTel" th:value="${tel}" pattern="\d{2,4}-\d{3,4}-\d{3,4}" title="電話番号には「-」が必要です">
 								</td>
 							</tr>
 							<tr>
