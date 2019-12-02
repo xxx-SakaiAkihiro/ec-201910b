@@ -36,7 +36,7 @@ public class ShowItemController {
 	private CountInCartService countInCartService;
 
 	// 1ページに表示する商品数は6品
-	private static final int VIEW_SIZE = 6;
+	private static final int VIEW_SIZE = 9;
 
 	@Autowired
 	private HttpSession session;
@@ -58,6 +58,9 @@ public class ShowItemController {
 	@RequestMapping("/")
 	public String showItemListFindByName(SortForm sortForm, Integer page, Model model,
 			@AuthenticationPrincipal LoginUser loginUser) {
+		
+		session.setAttribute("sort", "");
+		
 		String searchName = sortForm.getSearchName();
 
 		// ページング機能追加

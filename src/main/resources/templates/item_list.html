@@ -90,8 +90,9 @@ $("#name").autocomplete({
 					</form>
 					<!-- sort Items -->
 					<div align="center">
-						<form th:action="@{/sort}" method="post" id="changeSortForm" style="margin-bottom: 20px;">
-							<span class="tape-box">商品を並び替える</span> <select id="changeSortButton" name="sort" class="btn-default" th:value="${sort}">
+						<form th:action="@{/sort}" method="post" id="changeSortForm" style="margin-bottom: 20px;" th:object="${sortForm}">
+							<span class="tape-box">商品を並び替える</span> 
+							<select id="changeSortButton" name="sort" class="btn-default" th:field="*{sort}">
 								<option value="0">-----</option>
 								<option value="cheap">価格が安い順</option>
 								<option value="expensive">価格が高い順</option>
