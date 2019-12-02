@@ -103,13 +103,8 @@ public class PurchaseController {
 				return "forward:/ShowOrderedItem";
 			}
 		}
-		System.out.println(order);
 
 		purchaseService.purchase(order,loginUser);
-		return "order_finished";
-	}
-	@RequestMapping("/shuhei")
-	public String thanks() {
 		return "order_finished";
 	}
 

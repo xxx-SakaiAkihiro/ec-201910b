@@ -53,10 +53,10 @@ public class ItemService {
 	public List<Item> sortItemByMoney(SortForm sortForm) {
 		String sort = sortForm.getSort();
 		List<Item> itemList = null;
-		if ("expensive".equals(sort)) {
-			itemList = repository.findByExpensive();
-		} else if("cheap".equals(sort)){
+		if ("cheap".equals(sort)) {
 			itemList = repository.findByCheap();
+		} else if("expensive".equals(sort)){
+			itemList = repository.findByExpensive();
 		} else {
 			itemList = repository.findAll();
 		}
@@ -90,7 +90,6 @@ public class ItemService {
 
 		// 上記で作成した該当ページに表示させる従業員一覧をページングできる形に変換して返す
 		Page<Item> itemPage = new PageImpl<Item>(list, PageRequest.of(page, size), itemList.size());
-		System.out.println("itemPage : " + itemPage);
 		return itemPage;
 	}
 

@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+/* body { */
+/* 	background-image: url("/img_toy/Fusen.jpeg"); */
+  
+
+/* } */
+
+/* ----- 背景用の動画ファイル ----- */
+#bg-video{
+ position: fixed;
+ right: 0;
+ bottom: 0;
+ min-width: 100%;
+ min-height: 100%;
+ width: auto;
+ height: auto;
+ z-index: -100;
+ background: url('Fusen.jpeg') no-repeat;
+ background-size: cover;
+}
+/* ----- 背景の上に表示させたいコンテンツ ----- */
+.header-title{
+ position: relative; /*必ず必要*/
+ z-index: 2; /*必ず必要*/
+/*  display: flex; */
+/*  width: 50%; */
+/*  justify-content: center; */
+/*  align-items: center; */
+/*  text-align:center; */
+/*  margin: auto; */
+}

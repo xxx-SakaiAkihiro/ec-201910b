@@ -132,8 +132,6 @@ public class ShowItemController {
 		session.setAttribute("sort", sortForm.getSort());
 		model.addAttribute("itemList", itemList);
 		
-		System.out.println("sessionSort : " + session.getAttribute("sort"));
-		
 		return "item_list";
 	}
 
