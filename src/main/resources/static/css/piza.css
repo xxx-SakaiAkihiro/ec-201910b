@@ -4,7 +4,7 @@ body{
 	background-image: url("/img_toy/背景.jpg");
 }
 .badge-info{
-  background-color: white;
+  background-color: blue;
 }
 /* 合計金額の文字の大きさを変える */
 span#total-price {

@@ -42,7 +42,6 @@ public class ItemRepository {
 		String sql = "select id,name,description,price_m,price_l,image_path from items order by price_m asc";
 		SqlParameterSource param = new MapSqlParameterSource();
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
-		System.out.println("全件検索Rep : " + itemList);
 		return itemList;
 	}
 	/**
@@ -121,7 +120,6 @@ public class ItemRepository {
 		String sql = "select id,name,description,price_m,price_l,image_path from items order by price_m desc";
 		SqlParameterSource param = new MapSqlParameterSource();
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
-		System.out.println("高い検索Rep : " + itemList);
 		return itemList;
 	}
 	/**
@@ -133,7 +131,6 @@ public class ItemRepository {
 		String sql = "select id,name,description,price_m,price_l,image_path from items order by price_m";
 		SqlParameterSource param = new MapSqlParameterSource();
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
-		System.out.println("安い検索Rep : " + itemList);
 		return itemList;
 	}
 	
