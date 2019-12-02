@@ -115,9 +115,9 @@ $(function(){
 									</label>
 								</div>
 								<div class="row"></div>
-								<div class="col-sm-12" id="topping">
-									<label th:each="topping:${item.toppingList}" class="checkbox-inline">
-										<input type="checkbox" name="orderToppingList" th:value="${topping.id}" th:text="${topping.name}" class="checkbox">
+								 <div class="col-sm-12" id="topping">
+									   <label th:each="topping:${item.toppingList}" class="checkbox-inline">
+									<input type="checkbox" name="orderToppingList" th:value="${topping.id}" th:text="${topping.name}" class="checkbox">
 									</label>
 								</div>
 							</div>
