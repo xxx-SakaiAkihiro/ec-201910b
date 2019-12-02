@@ -95,7 +95,7 @@ public class PurchaseService {
 	
 
     /** クレジットカードAPI リクエストURL */
-    private static final String URL = "http://192.168.56.101:8080/sample-credit-card-web-api/credit-card/payment";
+    private static final String URL = "http://192.168.56.107:8080/sample-credit-card-web-api/credit-card/payment";
 
     public CreditCardData creditCardCall(CreditCard creditCard  ) {
         return restTemplate.postForObject(URL, creditCard, CreditCardData.class);
