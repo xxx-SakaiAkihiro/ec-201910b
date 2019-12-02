@@ -68,53 +68,54 @@ hr {
 				</div>
 				
 				<table class="table table-striped" th:each="order : ${orderList}" style="background-color: white">
-					<tbody>
-						<tr>
-							<th colspan="4">
+					<tbody style="border-bottom: thin;">
+						<tr style="background-color: #e0ffff">
+							<th>
 								<div th:text="'注文日：' + ${#dates.format(order.orderDate,'yyyy/MM/dd')}">注文日</div>
 							</th>
-						</tr>
-						<tr>
-							<th colspan="4">
-								<div th:text="'宛先氏名：' + ${order.destinationName} + ' 様'">宛先氏名</div>
-							</th>
-						</tr>
-						<tr>
-							<th colspan="4">
-								<div th:text="'宛先メールアドレス：' + ${order.destinationEmail}">宛先Eメール</div>
-							</th>
-						</tr>
-						<tr>
-							<th colspan="4">
-								<div th:text="'宛先郵便番号：' + ${order.destinationZipcode}">宛先郵便番号</div>
-							</th>
-						</tr>
-						<tr>
-							<th colspan="4">
-								<div th:text="'宛先住所：' + ${order.destinationAddress}">宛先住所</div>
-							</th>
-						</tr>
-						<tr>
-							<th colspan="4">
-								<div th:if="'お支払い方法' + ${order.paymentMethod}==1" th:text="代金引換">代金引換</div>
-								<div th:if="'お支払い方法' + ${order.paymentMethod}==2" th:text="クレジットカード">クレジットカード</div>
-							</th>
-						</tr>
-						<tr>
 							<th>
+								<span th:text="'合計 (' + ${order.getTotalItems()} + ' 点)：' + ${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">合計</span>
+							</th>
+							<th colspan="2">
+								<div th:if="${order.paymentMethod}==1" th:text=お支払い方法：代金引換></div>
+								<div th:if="${order.paymentMethod}==2" th:text=お支払い方法：クレジットカード></div>
+							</th>
+						</tr>
+						<tr style="background-color: #e0ffff">
+							<th rowspan="4">
+								<div>宛先</div>
+							</th>
+						</tr>
+						<tr style="background-color: #e0ffff">
+							<th colspan="3">
+								<div th:text="'氏名：' + ${order.destinationName} + ' 様'">宛先氏名</div>
+							</th>
+						</tr>
+						<tr style="background-color: #e0ffff">
+							<th colspan="3">
+								<div th:text="'メールアドレス：' + ${order.destinationEmail}">宛先Eメール</div>
+							</th>
+						</tr>
+						<tr style="background-color: #e0ffff">
+							<th colspan="3">
+								<div th:text="'住所　〒' + ${order.destinationZipcode} + '　' + ${order.destinationAddress}"></div>
+							</th>
+						</tr>
+						<tr style="background-color: white;">
+							<th style="width: 30%">
 								<div class="text-center">商品名</div>
 							</th>
-							<th>
+							<th style="width: 20%">
 								<div class="text-center">サイズ 価格(税抜) 数量</div>
 							</th>
-							<th>
+							<th style="width: 20%">
 								<div class="text-center">トッピング 価格(税抜)</div>
 							</th>
-							<th>
+							<th style="width: 30%">
 								<div class="text-center">小計</div>
 							</th>
 						</tr>
-						<tr th:each="orderItem : ${order.orderItemList}">
+						<tr th:each="orderItem : ${order.orderItemList}" style="background-color: white;">
 							<td>
 								<div class="center">
 									<img th:src="${'/img_toy/' + orderItem.item.imagePath}" class="img-responsive img-rounded" width="100" height="300"><br> <span th:text="${orderItem.item.name}">商品名</span>
@@ -135,14 +136,7 @@ hr {
 								<div class="text-center" th:text="${#numbers.formatInteger(orderItem.getSubTotal(),0,'COMMA') + '円'}">小計</div>
 							</td>
 						</tr>
-						<tr>
-							<th class="col-xs-offset-2 col-xs-9" colspan="2"><span th:text="'合計 (' + ${order.getOrderItemList().size()} + ' 点)：'">合計</span></th>
-							<th class="col-xs-offset-2 col-xs-9" colspan="3"><span th:text="${#numbers.formatInteger(order.getCalcTotalPrice()-(order.getTax()*(order.getOrderItemList().size()-1)),1,'COMMA')} + '円'">合計</span>
-							</th>
-						</tr>
-						<tr>
-							<td></td>
-						</tr>
+						<tr><td colspan="4"></td></tr>
 					</tbody>
 				</table>
 			</div>
