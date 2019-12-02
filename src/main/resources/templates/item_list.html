@@ -43,32 +43,22 @@ $("#name").autocomplete({
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed"
-						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-						aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span> <span
-							class="icon-bar"></span> <span class="icon-bar"></span> <span
-							class="icon-bar"></span>
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ --> <img
-						alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
+					<a class="navbar-brand" th:href="@{/}"> <!-- 企業ロゴ --> <img alt="main log" th:src="@{/img_toy/header_logo.png}" height="35">
 					</a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse"
-					id="bs-example-navbar-collapse-1">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<p class="navbar-text navbar-right">
-						<span sec:authorize="hasRole('ROLE_USER')"><span
-							sec:authentication="principal.user.name"></span>さんこんにちは！</span> <a
-							href="cart_list.html" th:href="@{/ShowOrderItem}"
-							class="navbar-link">ショッピングカート<span class="badge badge-notify"><span
-								th:text="${countInCart}"></span></span></a>&nbsp;&nbsp; <span
-							sec:authorize="hasRole('ROLE_USER')"> <a
-							th:href="@{/history}" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
-						</span> <span sec:authorize="isAnonymous()"> <a
-							th:href="@{/login/toLogin}" class="navbar-link">ログイン</a>&nbsp;&nbsp;
-						</span> <span sec:authorize="hasRole('ROLE_USER')"> <a
-							th:href="@{/logout}" class="navbar-link">ログアウト</a>
+
+						<span sec:authorize="hasRole('ROLE_USER')"><span sec:authentication="principal.user.name"></span>さんこんにちは！</span> <a href="cart_list.html" th:href="@{/ShowOrderItem}" class="navbar-link">ショッピングカート<span
+							class="badge badge-notify"> <span th:text="${countInCart}"></span></span></a>&nbsp;&nbsp; <span sec:authorize="hasRole('ROLE_USER')"> <a th:href="@{/ShowHistoryItem}" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
+						</span> <span sec:authorize="hasRole('ROLE_USER')"> <a th:href="@{/wants/showWantList}" class="navbar-link">欲しいものリスト</a>
+						</span> <span sec:authorize="isAnonymous()"> <a th:href="@{/login/toLogin}" class="navbar-link">ログイン</a>&nbsp;&nbsp;
+						</span> <span sec:authorize="hasRole('ROLE_USER')"> <a th:href="@{/logout}" class="navbar-link">ログアウト</a>
+
 						</span>
 					</p>
 				</div>
@@ -78,10 +68,9 @@ $("#name").autocomplete({
 		</nav>
 		<!-- search form -->
 		<div class="row">
-			<form th:action="@{/}" method="post">
-				<div
-					class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
-					<div class="panel panel-default">
+			<div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
+				<div class="panel panel-default">
+					<form th:action="@{/}" method="post">
 						<div class="panel-heading">
 							<div class="panel-title">商品を検索する</div>
 						</div>
@@ -90,7 +79,7 @@ $("#name").autocomplete({
 								<label for="code" class="control-label col-sm-2">商品名</label>
 								<div class="col-sm-9">
 									<input type="text" name="searchName" id="name" class="form-control input-sm">
-									<span th:text="${message}"></span> 
+									<span th:text="${message}"></span>
 								</div>
 							</div>
 							<div class="text-center">
@@ -98,55 +87,45 @@ $("#name").autocomplete({
 								<button type="reset" value="クリア" class="btn btn-default">クリア</button>
 							</div>
 						</div>
+					</form>
+					<!-- sort Items -->
+					<div align="center">
+						<form th:action="@{/sort}" method="post" id="changeSortForm" style="margin-bottom: 20px;">
+							<span class="tape-box">商品を並び替える</span> <select id="changeSortButton" name="sort" class="btn-default" th:value="${sort}">
+								<option value="0">-----</option>
+								<option value="cheap">価格が安い順</option>
+								<option value="expensive">価格が高い順</option>
+							</select>
+						</form>
 					</div>
 				</div>
-			</form>
+
+			</div>
 		</div>
 	</div>
 
-	<!-- sort Items -->
-	<div align="center">
-		<form th:action="@{/sort}" method="post" id="changeSortForm">
-			<span class="tape-box">商品を並び替える</span>
-			<select id="changeSortButton" name="sort" class="btn-default" th:value="${sort}">
-				<option value="" selected>-----</option>
-				<option value="cheap">価格が安い順</option>
-				<option value="expensive">価格が高い順</option>
-			</select>
-		</form>
-		</div>
 	<!-- table -->
 	<div class="row">
 		<div>
-			<div
-				class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+			<div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12" style="background-color: white;">
 				<table class="table table-striped">
 					<tbody>
-						<tr th:each="item, status : ${itemPage.content}" class="col-lg-4"
-							style="height: 320px;">
-							<th><a th:href="@{'/ShowItemDetail?id='+${item.id}}"> <img
-									th:src="${'/img_toy/' + item.imagePath}"
-									class="img-responsive img-rounded" width="200" height="600"></a><br>
-								<a th:href="@{'/ShowItemDetail?id='+${item.id}}"> <span
-									th:text="${item.name}"></span></a><br> <span class="price">&nbsp;М&nbsp;</span>
-								<span th:text="${#numbers.formatInteger(item.priceM,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br>
-								<span class="price">&nbsp;Ｌ</span> 
-								<span th:text="${#numbers.formatInteger(item.priceL,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br>
+						<tr th:each="item, status : ${itemPage.content}" class="col-lg-4" style="height: 320px;">
+							<th><a th:href="@{'/ShowItemDetail?id='+${item.id}}"> <img th:src="${'/img_toy/' + item.imagePath}" class="img-responsive img-rounded" width="200" height="600"></a><br> <a
+								th:href="@{'/ShowItemDetail?id='+${item.id}}"> <span th:text="${item.name}"></span></a><br> <span class="price">&nbsp;М&nbsp;</span> <span
+								th:text="${#numbers.formatInteger(item.priceM,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br> <span class="price">&nbsp;Ｌ</span> <span th:text="${#numbers.formatInteger(item.priceL,0,'COMMA')}"></span>&nbsp;&nbsp;円(税抜)<br>
 							</th>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			</div>
+		</div>
+	</div>
 	<!-- ページング機能 -->
 	<ul class="pager">
 		<li class="pageNation">
-		<li th:if="${itemPage.totalPages &gt 0}" class="pagination"
-			th:each="pageNumber : ${pageNumbers}"><a
-			th:href="@{/sort(size=${itemPage.size}, page=${pageNumber}, sort=${session.sort}, searchName=${session.searchName})}"
-			th:text="${pageNumber}"
-			th:class="${pageNumber==itemPage.number + 1} ? active"></a></li>
+		<li th:if="${itemPage.totalPages &gt 0}" class="pagination" th:each="pageNumber : ${pageNumbers}"><a
+			th:href="@{/sort(size=${itemPage.size}, page=${pageNumber}, sort=${session.sort}, searchName=${session.searchName})}" th:text="${pageNumber}" th:class="${pageNumber==itemPage.number + 1} ? active"></a></li>
 	</ul>
 	<!-- end container -->
 	

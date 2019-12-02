@@ -60,9 +60,11 @@ public class ShowOrderItemContoroller {
 			model.addAttribute("order", orderList.get(0));
 		}
 		model.addAttribute("orderList", orderList);
+		
 		// 現在のショッピングカート内の数量表示用
 		Integer countInCart = countInCartService.countInCart(loginUser);
 		model.addAttribute("countInCart", countInCart);
+		
 		return "cart_list";
 	}
 

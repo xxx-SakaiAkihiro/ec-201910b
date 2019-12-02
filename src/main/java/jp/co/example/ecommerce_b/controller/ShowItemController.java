@@ -111,7 +111,7 @@ public class ShowItemController {
 	}
 
 	@RequestMapping("/sort")
-	public String changeSort(SortForm sortForm, Integer page, Model model) {
+	public String changeSort(SortForm sortForm, Integer page, Model model,@AuthenticationPrincipal LoginUser loginUser) {
 		// 値段が高い順、低い順で商品を検索
 		List<Item> itemList = service.sortItemByMoney(sortForm);
 
@@ -131,6 +131,10 @@ public class ShowItemController {
 
 		session.setAttribute("sort", sortForm.getSort());
 		model.addAttribute("itemList", itemList);
+		
+		// 現在のショッピングカート内の数量表示用
+		Integer countInCart = countInCartService.countInCart(loginUser);
+		model.addAttribute("countInCart", countInCart);
 		
 		return "item_list";
 	}
