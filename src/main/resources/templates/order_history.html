@@ -70,7 +70,7 @@ hr {
 				<table class="table table-striped" th:each="order : ${orderList}" style="background-color: white">
 					<tbody style="border-bottom: thin;">
 						<tr style="background-color: #e0ffff">
-							<th>
+							<th class="text-center">
 								<div th:text="'注文日：' + ${#dates.format(order.orderDate,'yyyy/MM/dd')}">注文日</div>
 							</th>
 							<th>
@@ -83,7 +83,7 @@ hr {
 						</tr>
 						<tr style="background-color: #e0ffff">
 							<th rowspan="4">
-								<div>宛先</div>
+								<div class="text-center">宛先</div>
 							</th>
 						</tr>
 						<tr style="background-color: #e0ffff">
@@ -111,14 +111,14 @@ hr {
 							<th style="width: 20%">
 								<div class="text-center">トッピング 価格(税抜)</div>
 							</th>
-							<th style="width: 30%">
+							<th style="width: 20%">
 								<div class="text-center">小計</div>
 							</th>
 						</tr>
 						<tr th:each="orderItem : ${order.orderItemList}" style="background-color: white;">
 							<td>
-								<div class="center">
-									<img th:src="${'/img_toy/' + orderItem.item.imagePath}" class="img-responsive img-rounded" width="100" height="300"><br> <span th:text="${orderItem.item.name}">商品名</span>
+								<div class="center" style="text-align:center">
+									<img th:src="${'/img_toy/' + orderItem.item.imagePath}" class="img-responsive img-rounded" style="margin: 0 auto;" width="100" height="300"><br> <span th:text="${orderItem.item.name}">商品名</span>
 								</div>
 							</td>
 							<td>
