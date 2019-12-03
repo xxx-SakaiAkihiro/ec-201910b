@@ -47,9 +47,8 @@ public class OrderItem {
 			subtotal += (totalTopping + item.getPriceL()) * quantity;
 		}
 		return subtotal;
-
 	}
-
+	
 	/**
 	 * @return the id
 	 */
