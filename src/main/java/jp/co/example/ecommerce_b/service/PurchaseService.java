@@ -59,7 +59,7 @@ public class PurchaseService {
 		SimpleMailMessage msg = new SimpleMailMessage();
 		String br = System.getProperty("line.separator");
         msg.setFrom("pepperoni.4.eg@gmail.com");
-        msg.setTo("pepperoni.4.eg@gmail.com");
+        msg.setTo("tennis.yahoo@gmail.com");
         msg.setSubject("【ラクラクトイ】ご注文内容の確認");//タイトルの設定
         String toptext = "----------------------------------------------------------------------------------------" + br
         		+ loginUser.getUser().getName() + "様" + br
@@ -95,7 +95,7 @@ public class PurchaseService {
 	
 
     /** クレジットカードAPI リクエストURL */
-    private static final String URL = "http://192.168.56.101:8080/sample-credit-card-web-api/credit-card/payment";
+    private static final String URL = "http://192.168.56.107:8080/sample-credit-card-web-api/credit-card/payment";
 
     public CreditCardData creditCardCall(CreditCard creditCard  ) {
         return restTemplate.postForObject(URL, creditCard, CreditCardData.class);
